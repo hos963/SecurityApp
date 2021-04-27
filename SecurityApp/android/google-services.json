@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "190530414377",
+    "project_id": "metropolitan-3d0c1",
+    "storage_bucket": "metropolitan-3d0c1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:190530414377:android:7c352cd375feab5f1af938",
+        "android_client_info": {
+          "package_name": "com.andrinoapp.metropolitane"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "190530414377-bm07g2qt8dbggqbebb6kbeeimr9epgtd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFenqYo8rWYp1gnbgu_W9Xfe9Ni_KqGHs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "190530414377-bm07g2qt8dbggqbebb6kbeeimr9epgtd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

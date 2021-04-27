@@ -1,0 +1,30 @@
+{
+  "hosting": {
+    "headers": [  {
+      "source": "**/*.@(jpg|jpeg|gif|png)",
+      "headers": [ {
+        "key": "Access-Control-Allow-Origin",
+        "value": "*"
+      } ]
+    }, {
+      "source": "404.html",
+      "headers": [ {
+        "key": "Cache-Control",
+        "value": "max-age=300"
+      } ]
+    } ],
+
+    "public": "build/web",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
