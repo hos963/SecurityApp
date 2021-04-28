@@ -283,6 +283,7 @@ class _AddAlarmPageState extends State<AddAlarmPage> {
         alrmTitle: title,
         alrmDesc : detail,
         alrmLocation : addressselected ,
+        type : "Alarm",
         firebaseUserData: firebaseUserData,
         isactive : true);
 

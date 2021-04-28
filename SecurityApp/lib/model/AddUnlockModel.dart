@@ -2,11 +2,11 @@ import 'package:Metropolitane/model/FirebaseUserData.dart';
 import 'package:Metropolitane/model/QuestionareModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class AddAlarmModel {
-  String alarmId;
-  String alrmTitle;
-  String alrmDesc;
-  String alrmLocation;
+class AddUnlockModel {
+  String unlockId;
+  String unlockTitle;
+  String unlockDesc;
+  String unlockLocation;
   String type;
   bool isactive;
   int state = 1;
@@ -14,21 +14,21 @@ class AddAlarmModel {
 
   FirebaseUserData firebaseUserData;
 
-  AddAlarmModel(
-      {this.alarmId,
-      this.alrmTitle,
-      this.alrmDesc,
-      this.alrmLocation,
-      this.type,
-      this.isactive,
-      this.questionareModel,this.firebaseUserData,this.state});
+  AddUnlockModel(
+      {this.unlockId,
+        this.unlockTitle,
+        this.unlockDesc,
+        this.unlockLocation,
+        this.type,
+        this.isactive,
+        this.questionareModel,this.firebaseUserData,this.state});
 
-  factory AddAlarmModel.fromJson(Map<String, dynamic> parsedJson) {
-    return AddAlarmModel(
-      alarmId: parsedJson['alarmId'],
-      alrmTitle: parsedJson['alrmTitle'],
-      alrmDesc: parsedJson['alrmDesc'],
-      alrmLocation: parsedJson['alrmLocation'],
+  factory AddUnlockModel.fromJson(Map<String, dynamic> parsedJson) {
+    return AddUnlockModel(
+      unlockId: parsedJson['unlockId'],
+      unlockTitle: parsedJson['unlockTitle'],
+      unlockDesc: parsedJson['unlockDesc'],
+      unlockLocation: parsedJson['unlockLocation'],
       type: parsedJson['type'],
       questionareModel: parsedJson.containsKey("QuestionareModel")
           ? QuestionareModel.fromJson(parsedJson['QuestionareModel'])
@@ -37,12 +37,12 @@ class AddAlarmModel {
     );
   }
 
-  factory AddAlarmModel.fromDoc(DocumentSnapshot doc) {
-    return AddAlarmModel(
-      alarmId: doc.data()['alarmId'],
-      alrmTitle: doc.data()['alrmTitle'],
-      alrmDesc: doc.data()['alrmDesc'],
-      alrmLocation: doc.data()['alrmLocation'],
+  factory AddUnlockModel.fromDoc(DocumentSnapshot doc) {
+    return AddUnlockModel(
+      unlockId: doc.data()['unlockId'],
+      unlockTitle: doc.data()['unlockTitle'],
+      unlockDesc: doc.data()['lunockDesc'],
+      unlockLocation: doc.data()['unlockLocation'],
       type: doc.data()['type'],
       state: doc.data()['state'],
       questionareModel: doc.data().containsKey("QuestionareModel")
@@ -58,13 +58,13 @@ class AddAlarmModel {
   }
 
 
-  Map<String ,dynamic>  AddAlrmToMap({bool isupdate = false}){
+  Map<String ,dynamic>  AddUnLockTopMap({bool isupdate = false}){
     Map<String,dynamic> map = new Map();
 
-    map['alarmId'] = this.alarmId;
-    map['alrmTitle'] = this.alrmTitle;
-    map['alrmDesc'] = this.alrmDesc;
-    map['alrmLocation'] = this.alrmLocation;
+    map['unlockId'] = this.unlockId;
+    map['unlockTitle'] = this.unlockTitle;
+    map['unlockDesc'] = this.unlockDesc;
+    map['unlockLocation'] = this.unlockLocation;
     map['type'] = this.type;
     map['isactive'] = true;
     map['firebaseUserData'] = this.firebaseUserData.FirebaseUSertoMap(this.firebaseUserData);

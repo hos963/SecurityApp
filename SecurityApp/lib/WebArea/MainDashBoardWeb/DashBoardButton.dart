@@ -6,18 +6,26 @@ class DashBoardButtonsContent extends StatelessWidget {
   final List<DashBoardModel> elements = [
     DashBoardModel(
         namebutton: "Register User", icon: "UserRegistration.png", iconhex: ""),
+
     DashBoardModel(namebutton: "View User", icon: "contacts.png", iconhex: ""),
+
     DashBoardModel(
         namebutton: "Create Address", icon: "AddressPicker.png", iconhex: ""),
+
     DashBoardModel(namebutton: "Add Alarm", icon: "AddAlarm.png", iconhex: ""),
+
     DashBoardModel(
         namebutton: "Reports", icon: "ReportsHistory.png", iconhex: ""),
+
     DashBoardModel(
         namebutton: "Add Petroleum", icon: "shield.png", iconhex: ""),
+
     DashBoardModel(
         namebutton: "Add Lock", icon: "lock.png", iconhex: ""),
+
     DashBoardModel(
         namebutton: "Add UnLock", icon: "unlock.png", iconhex: ""),
+
     DashBoardModel(
         namebutton: "Add Property inspection", icon: "building.png", iconhex: ""),
   ];
@@ -65,9 +73,29 @@ class DashBoardButtonsContent extends StatelessWidget {
                             case 5:
                               Navigator.pushNamed(
                                   context, Router.AddPatrolPageRoute);
+                              break;
+
+                              case 6:
+                              Navigator.pushNamed(
+                                  context, Router.AddLockPageRoute);
 
                               // do something else
                               break;
+                            case 7:
+                              Navigator.pushNamed(
+                                  context, Router.AddUnLockPageRoute);
+
+                              // do something else
+                              break;
+
+                            case 8:
+                              Navigator.pushNamed(
+                                  context, Router.AddPropertyInspectionPageRoute);
+
+                              // do something else
+                              break;
+
+
                           }
                         },
                         child: Card(

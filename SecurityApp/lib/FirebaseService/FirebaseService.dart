@@ -5,7 +5,10 @@ import 'dart:collection';
 import 'dart:io';
 
 import 'package:Metropolitane/model/AddAlarmModel.dart';
+import 'package:Metropolitane/model/AddLockModel.dart';
 import 'package:Metropolitane/model/AddPatrolModel.dart';
+import 'package:Metropolitane/model/AddPropertyInspectionModel.dart';
+import 'package:Metropolitane/model/AddUnlockModel.dart';
 import 'package:Metropolitane/model/AddressAlarmModel.dart';
 import 'package:Metropolitane/model/QuestionareModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -105,6 +108,42 @@ class FirebaseService {
         .collection("PatrolAlert")
         .doc(id)
         .set(patrolModel.AddPatrolTopMap());
+
+    return resp;
+  }
+
+  Future<void> addInspection(AddPropertyInspectionModel propertyInspectionModel) async {
+    String id = _fireStoreDataBase.collection("PropertyInspectionAlert").doc().id;
+    propertyInspectionModel.inspectionId = id;
+
+    var resp = await _fireStoreDataBase
+        .collection("PropertyInspectionAlert")
+        .doc(id)
+        .set(propertyInspectionModel.AddPropertyInspectionAlertTopMap());
+
+    return resp;
+  }
+
+  Future<void> addLock(AddLockModel addLockModel) async {
+    String id = _fireStoreDataBase.collection("LockAlert").doc().id;
+    addLockModel.lockId = id;
+
+    var resp = await _fireStoreDataBase
+        .collection("LockAlert")
+        .doc(id)
+        .set(addLockModel.AddLockTopMap());
+
+    return resp;
+  }
+
+  Future<void> addUnLock(AddUnlockModel addUnlockModel) async {
+    String id = _fireStoreDataBase.collection("UnLockAlert").doc().id;
+    addUnlockModel.unlockId = id;
+
+    var resp = await _fireStoreDataBase
+        .collection("UnLockAlert")
+        .doc(id)
+        .set(addUnlockModel.AddUnLockTopMap());
 
     return resp;
   }

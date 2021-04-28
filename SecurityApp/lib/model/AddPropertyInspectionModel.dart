@@ -2,11 +2,11 @@ import 'package:Metropolitane/model/FirebaseUserData.dart';
 import 'package:Metropolitane/model/QuestionareModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class AddPatrolModel {
-  String patrolId;
-  String patrolTitle;
-  String patrolDesc;
-  String patrolLocation;
+class AddPropertyInspectionModel {
+  String inspectionId;
+  String inspectionTitle;
+  String inspectionDesc;
+  String inspectionLocation;
   String type;
   bool isactive;
   int state = 1;
@@ -14,21 +14,21 @@ class AddPatrolModel {
 
   FirebaseUserData firebaseUserData;
 
-  AddPatrolModel(
-      {this.patrolId,
-        this.patrolTitle,
-        this.patrolDesc,
-        this.patrolLocation,
+  AddPropertyInspectionModel(
+      {this.inspectionId,
+        this.inspectionTitle,
+        this.inspectionDesc,
+        this.inspectionLocation,
         this.type,
         this.isactive,
         this.questionareModel,this.firebaseUserData,this.state});
 
-  factory AddPatrolModel.fromJson(Map<String, dynamic> parsedJson) {
-    return AddPatrolModel(
-      patrolId: parsedJson['patrolId'],
-      patrolTitle: parsedJson['patrolTitle'],
-      patrolDesc: parsedJson['patrolDesc'],
-      patrolLocation: parsedJson['patrolLocation'],
+  factory AddPropertyInspectionModel.fromJson(Map<String, dynamic> parsedJson) {
+    return AddPropertyInspectionModel(
+      inspectionId: parsedJson['inspectionId'],
+      inspectionTitle: parsedJson['inspectionTitle'],
+      inspectionDesc: parsedJson['inspectionDesc'],
+      inspectionLocation: parsedJson['inspectionLocation'],
       type: parsedJson['type'],
       questionareModel: parsedJson.containsKey("QuestionareModel")
           ? QuestionareModel.fromJson(parsedJson['QuestionareModel'])
@@ -37,12 +37,12 @@ class AddPatrolModel {
     );
   }
 
-  factory AddPatrolModel.fromDoc(DocumentSnapshot doc) {
-    return AddPatrolModel(
-      patrolId: doc.data()['patrolId'],
-      patrolTitle: doc.data()['patrolTitle'],
-      patrolDesc: doc.data()['patrolDesc'],
-      patrolLocation: doc.data()['patrolLocation'],
+  factory AddPropertyInspectionModel.fromDoc(DocumentSnapshot doc) {
+    return AddPropertyInspectionModel(
+      inspectionId: doc.data()['inspectionId'],
+      inspectionTitle: doc.data()['inspectionTitle'],
+      inspectionDesc: doc.data()['inspectionDesc'],
+      inspectionLocation: doc.data()['inspectionLocation'],
       type: doc.data()['type'],
       state: doc.data()['state'],
       questionareModel: doc.data().containsKey("QuestionareModel")
@@ -58,13 +58,13 @@ class AddPatrolModel {
   }
 
 
-  Map<String ,dynamic>  AddPatrolTopMap({bool isupdate = false}){
+  Map<String ,dynamic>  AddPropertyInspectionAlertTopMap({bool isupdate = false}){
     Map<String,dynamic> map = new Map();
 
-    map['patrolId'] = this.patrolId;
-    map['patrolTitle'] = this.patrolTitle;
-    map['patrolDesc'] = this.patrolDesc;
-    map['patrolLocation'] = this.patrolLocation;
+    map['inspectionId'] = this.inspectionId;
+    map['inspectionTitle'] = this.inspectionTitle;
+    map['inspectionDesc'] = this.inspectionDesc;
+    map['inspectionLocation'] = this.inspectionLocation;
     map['type'] = this.type;
     map['isactive'] = true;
     map['firebaseUserData'] = this.firebaseUserData.FirebaseUSertoMap(this.firebaseUserData);

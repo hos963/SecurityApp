@@ -1,25 +1,27 @@
 import 'package:Metropolitane/CustomColors/CustomColors.dart';
 import 'package:Metropolitane/CustomWidget/CustomDialog.dart';
 import 'package:Metropolitane/WebArea/MainWeb/AddAlarm/Widgets/InputField.dart';
-import 'package:Metropolitane/WebArea/MainWeb/AddPatrol/Bloc/add_patrol_bloc.dart';
+import 'package:Metropolitane/WebArea/MainWeb/AddPropertyInspection/Bloc/add_inspection_bloc.dart';
 import 'package:Metropolitane/WebArea/MainWeb/commons/theme.dart';
-import 'package:Metropolitane/model/AddPatrolModel.dart';
+import 'package:Metropolitane/model/AddPropertyInspectionModel.dart';
 import 'package:Metropolitane/model/FirebaseUserData.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 
+
 import 'package:Metropolitane/Router/router.dart' as Router;
 
-class AddPatrolPage extends StatefulWidget {
+
+class AddPropertyInspectionPage extends StatefulWidget {
   @override
-  _AddPatrolPageState createState() => _AddPatrolPageState();
+  _AddPropertyInspectionPageState createState() => _AddPropertyInspectionPageState();
 }
 
-class _AddPatrolPageState extends State<AddPatrolPage> {
+class _AddPropertyInspectionPageState extends State<AddPropertyInspectionPage> {
   String addressselected;
-  AddPatrolBloc addPatrolBloc;
+  AddPropertyInspectionBloc addPropertyInspectionBloc;
 
   final TextEditingController _TittleController = TextEditingController();
   final TextEditingController _detailController = TextEditingController();
@@ -28,7 +30,7 @@ class _AddPatrolPageState extends State<AddPatrolPage> {
   @override
   void initState() {
     super.initState();
-    addPatrolBloc = BlocProvider.of<AddPatrolBloc>(context);
+    addPropertyInspectionBloc = BlocProvider.of<AddPropertyInspectionBloc>(context);
   }
 
   @override
@@ -40,15 +42,15 @@ class _AddPatrolPageState extends State<AddPatrolPage> {
 
   Widget completeBodyWidget() {
     return ProgressHUD(child: Builder(builder: (context) {
-      return BlocListener<AddPatrolBloc, AddPatrolState>(
+      return BlocListener<AddPropertyInspectionBloc, AddPropertyInspectionState>(
         listener: (context, state) {
-          if (state is AddPatrolLoading) {
+          if (state is AddPropertyInspectionLoading) {
             progress = ProgressHUD.of(context);
             progress.showWithText('Loading...');
             progress.show();
           }
 
-          if (state is AddPatrolFailedToAddDataState) {
+          if (state is AddPropertyInspectionFailedToAddDataState) {
             if (progress != null) {
               progress.dismiss();
             }
@@ -63,7 +65,7 @@ class _AddPatrolPageState extends State<AddPatrolPage> {
                 ));
           }
 
-          if (state is AddPatrolSuccessfullyPutdatastate) {
+          if (state is AddPropertyInspectionSuccessfullyPutdatastate) {
             if (progress != null) {
               progress.dismiss();
             }
@@ -93,7 +95,7 @@ class _AddPatrolPageState extends State<AddPatrolPage> {
         elevation: 4,
         centerTitle: true,
         title: Text(
-          'Add Patrol',
+          'Add Property Inspection',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: drawerBgColor,
@@ -240,7 +242,7 @@ class _AddPatrolPageState extends State<AddPatrolPage> {
                                     SubmittedAddPatrol(context);
                                   },
                                   child: Text(
-                                    'Add Patrol',
+                                    'Add Property Inspection',
                                     style: TextStyle(
                                         color: CustomColors.orangecolor,
                                         fontWeight: FontWeight.bold),
@@ -273,15 +275,15 @@ class _AddPatrolPageState extends State<AddPatrolPage> {
 
 
 
-      AddPatrolModel addPatrolModel = new AddPatrolModel(
-          patrolTitle: title,
-          patrolDesc : detail,
-          patrolLocation : addressselected ,
-          type : "Patrol" ,
+      AddPropertyInspectionModel addPropertyInspectionModel = new AddPropertyInspectionModel(
+          inspectionTitle: title,
+          inspectionDesc : detail,
+          inspectionLocation : addressselected ,
+          type : "PropertyInspection",
           firebaseUserData: firebaseUserData,
           isactive : true);
 
-      addPatrolBloc.add(SavingPatrolDataToFirebaseEvent(addPatrolModel));
+      addPropertyInspectionBloc.add(SavingInspectionDataToFirebaseEvent(addPropertyInspectionModel));
 
       //firebaseService.addAlarm(addressselected, title, detail);
 
@@ -366,4 +368,5 @@ class ListOfAddresses extends StatelessWidget {
     );
   }
 }
+
 

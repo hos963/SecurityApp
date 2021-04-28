@@ -2,11 +2,11 @@ import 'package:Metropolitane/model/FirebaseUserData.dart';
 import 'package:Metropolitane/model/QuestionareModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class AddAlarmModel {
-  String alarmId;
-  String alrmTitle;
-  String alrmDesc;
-  String alrmLocation;
+class AddLockModel {
+  String lockId;
+  String lockTitle;
+  String lockDesc;
+  String lockLocation;
   String type;
   bool isactive;
   int state = 1;
@@ -14,21 +14,21 @@ class AddAlarmModel {
 
   FirebaseUserData firebaseUserData;
 
-  AddAlarmModel(
-      {this.alarmId,
-      this.alrmTitle,
-      this.alrmDesc,
-      this.alrmLocation,
-      this.type,
-      this.isactive,
-      this.questionareModel,this.firebaseUserData,this.state});
+  AddLockModel(
+      {this.lockId,
+        this.lockTitle,
+        this.lockDesc,
+        this.lockLocation,
+        this.type,
+        this.isactive,
+        this.questionareModel,this.firebaseUserData,this.state});
 
-  factory AddAlarmModel.fromJson(Map<String, dynamic> parsedJson) {
-    return AddAlarmModel(
-      alarmId: parsedJson['alarmId'],
-      alrmTitle: parsedJson['alrmTitle'],
-      alrmDesc: parsedJson['alrmDesc'],
-      alrmLocation: parsedJson['alrmLocation'],
+  factory AddLockModel.fromJson(Map<String, dynamic> parsedJson) {
+    return AddLockModel(
+      lockId: parsedJson['lockId'],
+      lockTitle: parsedJson['lockTitle'],
+      lockDesc: parsedJson['lockDesc'],
+      lockLocation: parsedJson['lockLocation'],
       type: parsedJson['type'],
       questionareModel: parsedJson.containsKey("QuestionareModel")
           ? QuestionareModel.fromJson(parsedJson['QuestionareModel'])
@@ -37,12 +37,12 @@ class AddAlarmModel {
     );
   }
 
-  factory AddAlarmModel.fromDoc(DocumentSnapshot doc) {
-    return AddAlarmModel(
-      alarmId: doc.data()['alarmId'],
-      alrmTitle: doc.data()['alrmTitle'],
-      alrmDesc: doc.data()['alrmDesc'],
-      alrmLocation: doc.data()['alrmLocation'],
+  factory AddLockModel.fromDoc(DocumentSnapshot doc) {
+    return AddLockModel(
+      lockId: doc.data()['lockId'],
+      lockTitle: doc.data()['lockTitle'],
+      lockDesc: doc.data()['lockDesc'],
+      lockLocation: doc.data()['lockLocation'],
       type: doc.data()['type'],
       state: doc.data()['state'],
       questionareModel: doc.data().containsKey("QuestionareModel")
@@ -58,13 +58,13 @@ class AddAlarmModel {
   }
 
 
-  Map<String ,dynamic>  AddAlrmToMap({bool isupdate = false}){
+  Map<String ,dynamic>  AddLockTopMap({bool isupdate = false}){
     Map<String,dynamic> map = new Map();
 
-    map['alarmId'] = this.alarmId;
-    map['alrmTitle'] = this.alrmTitle;
-    map['alrmDesc'] = this.alrmDesc;
-    map['alrmLocation'] = this.alrmLocation;
+    map['lockId'] = this.lockId;
+    map['lockTitle'] = this.lockTitle;
+    map['lockDesc'] = this.lockDesc;
+    map['lockLocation'] = this.lockLocation;
     map['type'] = this.type;
     map['isactive'] = true;
     map['firebaseUserData'] = this.firebaseUserData.FirebaseUSertoMap(this.firebaseUserData);

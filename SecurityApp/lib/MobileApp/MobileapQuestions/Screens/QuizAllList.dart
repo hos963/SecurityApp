@@ -1,4 +1,3 @@
-
 import 'package:Metropolitane/MobileApp/MobileapQuestions/Screens/QuizDetails.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/model/QuizModels.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizColors.dart';

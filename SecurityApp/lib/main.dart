@@ -1,5 +1,8 @@
 import 'package:Metropolitane/WebArea/Createaddress/createAddresswebbloc/web_create_address_boc_bloc.dart';
+import 'package:Metropolitane/WebArea/MainWeb/AddLock/Bloc/add_lock_bloc.dart';
 import 'package:Metropolitane/WebArea/MainWeb/AddPatrol/Bloc/add_patrol_bloc.dart';
+import 'package:Metropolitane/WebArea/MainWeb/AddPropertyInspection/Bloc/add_inspection_bloc.dart';
+import 'package:Metropolitane/WebArea/MainWeb/AddUnLock/Bloc/add_unlock_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -68,6 +71,16 @@ class MyApp extends StatelessWidget {
 
         BlocProvider(
           create: (_) => AddPatrolBloc(),
+        ),
+        BlocProvider(
+          create: (_) => AddLockBloc(),
+        ),
+
+        BlocProvider(
+          create: (_) => AddUnLockBloc(),
+        ),
+        BlocProvider(
+          create: (_) => AddPropertyInspectionBloc(),
         ),
 
       ],

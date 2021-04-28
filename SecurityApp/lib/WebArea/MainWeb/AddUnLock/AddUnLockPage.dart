@@ -1,9 +1,9 @@
 import 'package:Metropolitane/CustomColors/CustomColors.dart';
 import 'package:Metropolitane/CustomWidget/CustomDialog.dart';
 import 'package:Metropolitane/WebArea/MainWeb/AddAlarm/Widgets/InputField.dart';
-import 'package:Metropolitane/WebArea/MainWeb/AddPatrol/Bloc/add_patrol_bloc.dart';
+import 'package:Metropolitane/WebArea/MainWeb/AddUnLock/Bloc/add_unlock_bloc.dart';
 import 'package:Metropolitane/WebArea/MainWeb/commons/theme.dart';
-import 'package:Metropolitane/model/AddPatrolModel.dart';
+import 'package:Metropolitane/model/AddUnlockModel.dart';
 import 'package:Metropolitane/model/FirebaseUserData.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -12,14 +12,14 @@ import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 
 import 'package:Metropolitane/Router/router.dart' as Router;
 
-class AddPatrolPage extends StatefulWidget {
+class AddUnLockPage extends StatefulWidget {
   @override
-  _AddPatrolPageState createState() => _AddPatrolPageState();
+  _AddUnLockPageState createState() => _AddUnLockPageState();
 }
 
-class _AddPatrolPageState extends State<AddPatrolPage> {
+class _AddUnLockPageState extends State<AddUnLockPage> {
   String addressselected;
-  AddPatrolBloc addPatrolBloc;
+  AddUnLockBloc addUnLockBloc;
 
   final TextEditingController _TittleController = TextEditingController();
   final TextEditingController _detailController = TextEditingController();
@@ -28,7 +28,7 @@ class _AddPatrolPageState extends State<AddPatrolPage> {
   @override
   void initState() {
     super.initState();
-    addPatrolBloc = BlocProvider.of<AddPatrolBloc>(context);
+    addUnLockBloc = BlocProvider.of<AddUnLockBloc>(context);
   }
 
   @override
@@ -40,15 +40,15 @@ class _AddPatrolPageState extends State<AddPatrolPage> {
 
   Widget completeBodyWidget() {
     return ProgressHUD(child: Builder(builder: (context) {
-      return BlocListener<AddPatrolBloc, AddPatrolState>(
+      return BlocListener<AddUnLockBloc, AddUnLockState>(
         listener: (context, state) {
-          if (state is AddPatrolLoading) {
+          if (state is AddUnLockLoading) {
             progress = ProgressHUD.of(context);
             progress.showWithText('Loading...');
             progress.show();
           }
 
-          if (state is AddPatrolFailedToAddDataState) {
+          if (state is AddUnLockFailedToAddDataState) {
             if (progress != null) {
               progress.dismiss();
             }
@@ -63,7 +63,7 @@ class _AddPatrolPageState extends State<AddPatrolPage> {
                 ));
           }
 
-          if (state is AddPatrolSuccessfullyPutdatastate) {
+          if (state is AddUnLockSuccessfullyPutdatastate) {
             if (progress != null) {
               progress.dismiss();
             }
@@ -89,11 +89,12 @@ class _AddPatrolPageState extends State<AddPatrolPage> {
 
   Widget AddPatrolBody(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
         elevation: 4,
         centerTitle: true,
         title: Text(
-          'Add Patrol',
+          'Add UnLock',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: drawerBgColor,
@@ -136,8 +137,6 @@ class _AddPatrolPageState extends State<AddPatrolPage> {
 
                           SizedBox(height: 20.0),
 
-
-
                           SizedBox(height: 20.0),
 
                           Row(children: <Widget>[
@@ -152,23 +151,23 @@ class _AddPatrolPageState extends State<AddPatrolPage> {
                               width: 40.0,
                             ),
                             TextButton(
-                              onPressed: (){
-
-                                Navigator.pushNamed(context, Router.ListUsersSelectionRoutePage).then((value) {
+                              onPressed: () {
+                                Navigator.pushNamed(context,
+                                    Router.ListUsersSelectionRoutePage)
+                                    .then((value) {
                                   setState(() {
-
                                     firebaseUserData = value;
                                   });
-
-
-
                                 });
                               },
                               child: Container(
                                 height: 50,
                                 width: MediaQuery.of(context).size.width / 3.7,
                                 color: Colors.blue[50],
-                                child: Center(child: Text(this.firebaseUserData != null ? this.firebaseUserData.name : "Select User")),
+                                child: Center(
+                                    child: Text(this.firebaseUserData != null
+                                        ? this.firebaseUserData.name
+                                        : "Select User")),
                               ),
                             ),
                           ]),
@@ -214,9 +213,6 @@ class _AddPatrolPageState extends State<AddPatrolPage> {
                             ),
                           ),
 
-
-
-
                           SizedBox(
                             height: 40.0,
                           ),
@@ -235,12 +231,10 @@ class _AddPatrolPageState extends State<AddPatrolPage> {
                                     color: CustomColors.orangecolor,
                                   ),
                                   onPressed: () {
-
-
-                                    SubmittedAddPatrol(context);
+                                    SubmittedAddUnLock(context);
                                   },
                                   child: Text(
-                                    'Add Patrol',
+                                    'Add UnLock',
                                     style: TextStyle(
                                         color: CustomColors.orangecolor,
                                         fontWeight: FontWeight.bold),
@@ -262,39 +256,36 @@ class _AddPatrolPageState extends State<AddPatrolPage> {
     );
   }
 
-  void SubmittedAddPatrol(BuildContext context) {
-
+  void SubmittedAddUnLock(BuildContext context) {
     //
     String title = _TittleController.text;
     String detail = _detailController.text;
 
-    if(firebaseUserData != null && addressselected != null  && addressselected.isNotEmpty && title != null  && title.isNotEmpty && detail != null &&detail.isNotEmpty){
-
-
-
-
-      AddPatrolModel addPatrolModel = new AddPatrolModel(
-          patrolTitle: title,
-          patrolDesc : detail,
-          patrolLocation : addressselected ,
-          type : "Patrol" ,
+    if (firebaseUserData != null &&
+        addressselected != null &&
+        addressselected.isNotEmpty &&
+        title != null &&
+        title.isNotEmpty &&
+        detail != null &&
+        detail.isNotEmpty) {
+      AddUnlockModel addUnlockModel = new AddUnlockModel(
+          unlockTitle: title,
+          unlockDesc: detail,
+          unlockLocation: addressselected,
+          type: "UnLock",
           firebaseUserData: firebaseUserData,
-          isactive : true);
+          isactive: true);
 
-      addPatrolBloc.add(SavingPatrolDataToFirebaseEvent(addPatrolModel));
+      addUnLockBloc.add(SavingUnLockDataToFirebaseEvent(addUnlockModel));
 
       //firebaseService.addAlarm(addressselected, title, detail);
 
-    }else{
-
+    } else {
       showAlertDialog(context);
     }
-
   }
 
-
   showAlertDialog(BuildContext context) {
-
     // set up the button
     Widget okButton = TextButton(
       child: Text("OK"),
@@ -366,4 +357,3 @@ class ListOfAddresses extends StatelessWidget {
     );
   }
 }
-

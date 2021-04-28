@@ -6,7 +6,10 @@ import 'package:Metropolitane/WebArea/Createaddress/CreateAddress.dart';
 import 'package:Metropolitane/WebArea/MainDashBoardWeb/MainDashBoardWeb.dart';
 import 'package:Metropolitane/WebArea/MainWeb/AddAlarm/AddAlarmPage.dart';
 import 'package:Metropolitane/WebArea/MainWeb/AddAlarm/ListUsersSelection.dart';
+import 'package:Metropolitane/WebArea/MainWeb/AddLock/AddLockPage.dart';
 import 'package:Metropolitane/WebArea/MainWeb/AddPatrol/AddPatrolPage.dart';
+import 'package:Metropolitane/WebArea/MainWeb/AddPropertyInspection/AddPropertyInspectionPage.dart';
+import 'package:Metropolitane/WebArea/MainWeb/AddUnLock/AddUnLockPage.dart';
 import 'package:Metropolitane/WebArea/MainWeb/ReportPage/ReportPage.dart';
 import 'package:Metropolitane/WebArea/MainWeb/ReportPage/ReportdetailPage.dart';
 import 'package:Metropolitane/model/AddAlarmModel.dart';
@@ -45,6 +48,12 @@ const String AddAlarmPageRoute = 'AddAlarmPageroute';
 
 const String AddPatrolPageRoute = 'AddPatrolPageroute';
 
+const String AddLockPageRoute = 'AddLockPageroute';
+
+const String AddUnLockPageRoute = 'AddUnLockPageroute';
+
+const String AddPropertyInspectionPageRoute = 'AddPropertyInspectionPageroute';
+
 const String ReportAlarmPageRoute = 'addReportRoutePage';
 const String ReporDetailtAlarmPageRoute = 'addReportDetailRoutePage';
 
@@ -65,7 +74,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       }
       break;
 
-      case LoginPageRoute:
+    case LoginPageRoute:
       if (kIsWeb) {
         return MaterialPageRoute(builder: (context) => LoginWebPage());
       } else {
@@ -98,6 +107,16 @@ Route<dynamic> generateRoute(RouteSettings settings) {
 
     case AddPatrolPageRoute:
       return MaterialPageRoute(builder: (context) => AddPatrolPage());
+
+    case AddLockPageRoute:
+      return MaterialPageRoute(builder: (context) => AddLockPage());
+
+    case AddUnLockPageRoute:
+      return MaterialPageRoute(builder: (context) => AddUnLockPage());
+
+    case AddPropertyInspectionPageRoute:
+      return MaterialPageRoute(
+          builder: (context) => AddPropertyInspectionPage());
 
     case ReportAlarmPageRoute:
       return MaterialPageRoute(builder: (context) => ReportAlarmPage());
