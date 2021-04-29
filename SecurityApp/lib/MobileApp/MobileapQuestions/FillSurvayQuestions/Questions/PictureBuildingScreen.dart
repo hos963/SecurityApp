@@ -21,11 +21,16 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:progress_indicator_button/progress_button.dart';
 import 'dart:io' as io;
 import '../FilledQuestionsSurvey.dart';
+
 class PictureBuildingScreen extends StatefulWidget {
-  bool isinternal ;
+  bool isinternal;
+
   final MyCallbackToback callback;
   AddAlarmModel addAlarmModel;
-  PictureBuildingScreen(this.addAlarmModel,this.callback,{this.isinternal = false});
+
+  PictureBuildingScreen(this.addAlarmModel, this.callback,
+      {this.isinternal = false});
+
   @override
   _PictureBuildingScreenState createState() => _PictureBuildingScreenState();
 }
@@ -49,37 +54,31 @@ class _PictureBuildingScreenState extends State<PictureBuildingScreen> {
   @override
   Widget build(BuildContext context) {
     //return Container(child: Text(widget.isinternal == true ? "Internal building pictuure": "External Building picture"),);
-    var width = MediaQuery
-        .of(context)
-        .size
-        .width;
+    var width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Container(
-        height: MediaQuery
-            .of(context)
-            .size
-            .height,
+        height: MediaQuery.of(context).size.height,
         color: quiz_app_background,
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
               SizedBox(height: 20),
-              text(widget.isinternal == true
-                  ? "Internal building pictuure"
-                  : "External Building picture",
-                  textColor: quiz_textColorPrimary,
-                  isLongText: true,
-                  isCentered: true,
-                  fontSize: 22.0).center(),
+              text(
+                      widget.isinternal == true
+                          ? "Internal building pictuure"
+                          : "External Building picture",
+                      textColor: quiz_textColorPrimary,
+                      isLongText: true,
+                      isCentered: true,
+                      fontSize: 22.0)
+                  .center(),
 
               SizedBox(height: 30),
               Container(
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
                   children: <Widget>[
-
                     Stack(
                       alignment: Alignment.bottomRight,
                       children: <Widget>[
@@ -101,15 +100,12 @@ class _PictureBuildingScreenState extends State<PictureBuildingScreen> {
                               shape: BoxShape.rectangle,
                               border: Border.all(color: quiz_white, width: 4),
                               color: quiz_white),
-                          child: Icon(Icons.edit, size: 20).onTap(() {
-
-                          }),
+                          child: Icon(Icons.edit, size: 20).onTap(() {}),
                         ).paddingOnly(top: 16).onTap(() {
                           print("Edit profile");
                         })
                       ],
                     ),
-
                   ],
                 ),
               ).onTap(() {
@@ -128,7 +124,6 @@ class _PictureBuildingScreenState extends State<PictureBuildingScreen> {
               // )
 
               Container(
-
                 width: 200,
                 height: 50,
                 child: ProgressButton(
@@ -159,7 +154,6 @@ class _PictureBuildingScreenState extends State<PictureBuildingScreen> {
     );
   }
 
-
   Future<firebase_storage.UploadTask> uploadFile(File file) async {
     if (file == null) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -174,7 +168,7 @@ class _PictureBuildingScreenState extends State<PictureBuildingScreen> {
     firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
         .ref()
         .child('buuilding')
-        .child('/'+file.name);
+        .child('/' + file.name);
 
     final metadata = firebase_storage.SettableMetadata(
         contentType: 'image/jpeg',
@@ -200,29 +194,29 @@ class _PictureBuildingScreenState extends State<PictureBuildingScreen> {
   //
   // }
 
-
   Future<void> Updatinngdata(String ImgLinnk) async {
     FirebaseService firebaseService = new FirebaseService();
-    if( widget.addAlarmModel.questionareModel == null){
+    if (widget.addAlarmModel.questionareModel == null) {
       widget.addAlarmModel.questionareModel = new QuestionareModel();
     }
-    if(widget.isinternal == true){
-      InternalPictureOfBuildingModel internalPictureOfBuildingModel = new InternalPictureOfBuildingModel();
+    if (widget.isinternal == true) {
+      InternalPictureOfBuildingModel internalPictureOfBuildingModel =
+          new InternalPictureOfBuildingModel();
       internalPictureOfBuildingModel.internalbuildingpic = ImgLinnk;
-      widget.addAlarmModel.questionareModel.internalPictureOfBuildingModel = internalPictureOfBuildingModel;
-
-    }else {
-
-      widget.addAlarmModel.questionareModel.externalPictureOfBuildingModel = new ExternalPictureOfBuildingModel();
-      widget.addAlarmModel.questionareModel.externalPictureOfBuildingModel.externalbuildingpic = ImgLinnk;
-
+      widget.addAlarmModel.questionareModel.internalPictureOfBuildingModel =
+          internalPictureOfBuildingModel;
+    } else {
+      widget.addAlarmModel.questionareModel.externalPictureOfBuildingModel =
+          new ExternalPictureOfBuildingModel();
+      widget.addAlarmModel.questionareModel.externalPictureOfBuildingModel
+          .externalbuildingpic = ImgLinnk;
     }
 
-   // widget.addAlarmModel.questionareModel.onwayModel = onwayModel;
+    // widget.addAlarmModel.questionareModel.onwayModel = onwayModel;
 
+    await firebaseService.InternalOrExternalUpdate(widget.addAlarmModel.alarmId,
+        widget.addAlarmModel.questionareModel, widget.isinternal);
 
-    await firebaseService.InternalOrExternalUpdate( widget.addAlarmModel.alarmId,widget.addAlarmModel.questionareModel,widget.isinternal);
-
-    widget. callback(1);
+    widget.callback(1);
   }
 }

@@ -1,29 +1,24 @@
-import 'package:Metropolitane/FirebaseService/FirebaseService.dart';
-import 'package:Metropolitane/model/AddAlarmModel.dart';
-import 'package:Metropolitane/model/QuestionareModel.dart';
-import 'package:flutter/material.dart';
-import 'package:nb_utils/nb_utils.dart';
-import 'package:Metropolitane/MobileApp/MobileapQuestions/Screens/QuizCreatePassword.dart';
+import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/AppWidget.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizColors.dart';
-import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizConstant.dart';
-import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizExtension.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizStrings.dart';
-import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizWidget.dart';
+import 'package:flutter/material.dart';
 import 'package:progress_indicator_button/progress_button.dart';
 
-import '../FilledQuestionsSurvey.dart';
-class FinishScreen extends StatefulWidget {
-  AddAlarmModel addAlarmModel;
-  final MyCallbackToback callback;
-  FinishScreen(this.addAlarmModel,this.callback);
+import 'package:nb_utils/nb_utils.dart';
+class JobCompleted extends StatefulWidget {
   @override
-  _FinishScreenState createState() => _FinishScreenState();
+  _JobCompletedState createState() => _JobCompletedState();
 }
 
-class _FinishScreenState extends State<FinishScreen> {
+class _JobCompletedState extends State<JobCompleted> {
   @override
   Widget build(BuildContext context) {
-      return SafeArea(
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Text('Survey'),
+      ),
+      body: SafeArea(
         child: Container(
           height: MediaQuery.of(context).size.height,
           color: quiz_app_background,
@@ -32,7 +27,7 @@ class _FinishScreenState extends State<FinishScreen> {
               children: <Widget>[
                 SizedBox(height: 20),
 
-                text("Finish Survay", textColor: quiz_textColorPrimary, isLongText: true, isCentered: true,fontSize: 22.0).center(),
+                text("Job Completed", textColor: quiz_textColorPrimary, isLongText: true, isCentered: true,fontSize: 22.0).center(),
 
                 SizedBox(height: 40),
                 // Container(
@@ -64,7 +59,7 @@ class _FinishScreenState extends State<FinishScreen> {
                         //   controller.reverse();
                       } else {
                         controller.forward();
-                        Updatinngdata();
+                        // Updatinngdata();
                       }
                     },
                   ),
@@ -73,22 +68,7 @@ class _FinishScreenState extends State<FinishScreen> {
             ),
           ),
         ),
-      );
-  }
-
-
-  Future<void> Updatinngdata() async {
-
-    FirebaseService firebaseService = new FirebaseService();
-    if (widget.addAlarmModel.questionareModel == null) {
-      widget.addAlarmModel.questionareModel = new QuestionareModel();
-    }
-    widget.addAlarmModel.state = 3;
-
-    await firebaseService.UpdatingStatus(
-        widget.addAlarmModel.alarmId,widget.addAlarmModel);
-
-    widget.callback(1);
-
+      ),
+    );
   }
 }

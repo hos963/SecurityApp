@@ -32,7 +32,7 @@ Text subHeadingText(var text) {
   );
 }
 
-Widget text(var text, {var fontSize = textSizeLargeMedium, textColor = appTextColorSecondary, var fontFamily = fontRegular, var isCentered = false, var maxLine = 1, var latterSpacing = 0.5}) {
+Widget text(var text, {var fontSize = textSizeLargeMedium, textColor = appTextColorSecondary, var fontFamily = fontRegular, var isCentered = false, var maxLine = 1, var latterSpacing = 0.5, bool isLongText}) {
   return Text(text,
       textAlign: isCentered ? TextAlign.center : TextAlign.start,
       maxLines: maxLine,

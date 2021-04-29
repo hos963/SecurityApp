@@ -1,5 +1,6 @@
 import 'package:Metropolitane/MobileApp/MobileapQuestions/FillSurvayQuestions/FilledQuestionsSurvey.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/Screens/QuizDashboard.dart';
+import 'package:Metropolitane/MobileApp/MobileapQuestions/Screens/QuizHomeDashboard.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/Screens/QuizNewList.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/Screens/QuizSearch.dart';
 import 'package:Metropolitane/WebArea/Createaddress/CreateAddress.dart';
@@ -130,7 +131,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => ListUsersSelection());
 
     case QuizDashboardRoute:
-      return MaterialPageRoute(builder: (context) => QuizDashboard());
+      return MaterialPageRoute(builder: (context) => QuizHomeDashboard());
 
     case QuizListingroute:
       return MaterialPageRoute(builder: (context) => QuizListing());

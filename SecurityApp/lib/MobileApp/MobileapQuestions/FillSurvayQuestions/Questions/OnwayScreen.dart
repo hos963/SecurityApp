@@ -15,6 +15,7 @@ import 'package:progress_indicator_button/progress_button.dart';
 import '../FilledQuestionsSurvey.dart';
 
 class OnWayScreen extends StatefulWidget {
+  
   final MyCallbackToback callback;
 
   AddAlarmModel addAlarmModel;

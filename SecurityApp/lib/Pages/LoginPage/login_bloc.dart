@@ -91,9 +91,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
               PreferenceUtils.setString(PrefKey.UserPic, null);
             }
 
-         String userdatacomplete =  jsonEncode(firebaseuser.FirebaseUSertoMap(firebaseuser));
+            String userdatacomplete =
+                jsonEncode(firebaseuser.FirebaseUSertoMap(firebaseuser));
 
-            PreferenceUtils.setString(PrefKey.UserCompleteData, userdatacomplete);
+            PreferenceUtils.setString(
+                PrefKey.UserCompleteData, userdatacomplete);
             yield UserDataLoaded(JsonAuthStr.jsonauth);
           } else {
             yield FailedAuthError("You have been blocked from server");

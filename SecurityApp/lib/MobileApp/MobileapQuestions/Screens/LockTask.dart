@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:Metropolitane/CustomColors/CustomColors.dart';
 import 'package:Metropolitane/FirebaseService/FirebaseService.dart';
+import 'package:Metropolitane/MobileApp/MobileapQuestions/LockSurveyQuestion/Questions/OnWayScreen.dart';
 import 'package:Metropolitane/Utilities/PreferenceUtils.dart';
 import 'package:Metropolitane/model/AddAlarmModel.dart';
 import 'package:Metropolitane/model/FirebaseUserData.dart';
@@ -13,6 +14,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/Screens/QuizDetails.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/Screens/QuizNewList.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/Screens/QuizSearch.dart';
+import 'package:Metropolitane/MobileApp/MobileapQuestions/LockSurveyQuestion/LockQuestionsSurvey.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/model/QuizModels.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizColors.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizConstant.dart';
@@ -23,15 +25,15 @@ import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizWidget.dart'
 import 'package:Metropolitane/Router/router.dart' as Router;
 import 'package:intl/intl.dart';
 
-class QuizHome extends StatefulWidget {
+class LockTask extends StatefulWidget {
   static String tag = '/QuizHome';
 
   @override
-  _QuizHomeState createState() => _QuizHomeState();
+  _QuizLockState createState() => _QuizLockState();
 
 }
 
-class _QuizHomeState extends State<QuizHome> {
+class _QuizLockState extends State<LockTask> {
   List<NewQuizModel> mListings;
 
   // FirebaseUserData firebaseUserData;
@@ -56,7 +58,7 @@ class _QuizHomeState extends State<QuizHome> {
 
   Future<FirebaseUserData> gettingData() async {
     String usercompletedata =
-        await PreferenceUtils.getString(PrefKey.UserCompleteData, null);
+    await PreferenceUtils.getString(PrefKey.UserCompleteData, null);
 
     Map<String, dynamic> user = jsonDecode(usercompletedata);
 
@@ -207,7 +209,7 @@ class _QuizHomeState extends State<QuizHome> {
       physics: ScrollPhysics(),
       itemBuilder: (BuildContext context, int index) => GestureDetector(
         onTap: () {
-         // launchScreen(context, QuizDetails.tag);
+          // launchScreen(context, QuizDetails.tag);
         },
         child: AlarmCard(listofalrm[index], index),
       ),
@@ -218,7 +220,7 @@ class _QuizHomeState extends State<QuizHome> {
     var nextdate = new DateTime(
         selectedDate.year, selectedDate.month, selectedDate.day + 1);
     var currentdate =
-        new DateTime(selectedDate.year, selectedDate.month, selectedDate.day);
+    new DateTime(selectedDate.year, selectedDate.month, selectedDate.day);
     return StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
             .collection('AlarmAlert')
@@ -238,7 +240,7 @@ class _QuizHomeState extends State<QuizHome> {
               int index = 0;
 
               List<AddAlarmModel> listofalrm =
-                  List<AddAlarmModel>.empty(growable: true);
+              List<AddAlarmModel>.empty(growable: true);
               snapshot.data.docChanges.forEach((element) {
                 //UsersPost.fromDoc(element.doc);
 
@@ -403,7 +405,9 @@ class AlarmCard extends StatelessWidget {
                   padding: EdgeInsets.only(bottom: 10.0),
                   child: TextButton(
                     onPressed: () {
-                      AddingdataToStartquestionare(model, context);
+                      //AddingdataToStartquestionare(model, context);
+                     // Navigator.push(context,  MaterialPageRoute(builder: (context) => LockQuestionSurvey()));
+                      Navigator.push(context,  MaterialPageRoute(builder: (context) => OnWayScreen()));
                     },
                     child: Text(
                       'Select Task',

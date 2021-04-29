@@ -11,8 +11,10 @@ import 'package:Metropolitane/MobileApp/MobileapQuestions/FillSurvayQuestions/Qu
 import 'package:Metropolitane/MobileApp/MobileapQuestions/FillSurvayQuestions/Questions/SetAlarmScreen.dart';
 import 'package:Metropolitane/model/AddAlarmModel.dart';
 import 'package:flutter/material.dart';
+
 typedef void MyCallbackToback(int foo);
 class FilledQuestionsSurvey extends StatefulWidget {
+
   AddAlarmModel addAlarmModel;
 
   FilledQuestionsSurvey(this.addAlarmModel);

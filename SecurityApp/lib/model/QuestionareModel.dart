@@ -2,6 +2,7 @@ import 'package:Metropolitane/MobileApp/MobileapQuestions/FillSurvayQuestions/Qu
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class QuestionareModel {
+
   OnwayModel onwayModel;
   ReachedonSiteModel reachedonSiteModel;
   bool havekeys;
