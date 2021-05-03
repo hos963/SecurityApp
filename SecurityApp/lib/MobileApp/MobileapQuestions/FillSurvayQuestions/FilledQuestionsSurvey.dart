@@ -49,6 +49,7 @@ class _FilledQuestionsSurveyState extends State<FilledQuestionsSurvey> {
 
   @override
   void initState() {
+
     list.add(OnWayScreen(widget.addAlarmModel,MoveNext));
     list.add(ReachedOnSiteScreen(widget.addAlarmModel,MoveNext));
     list.add(HaveKeyScreen(widget.addAlarmModel,MoveNext));
@@ -126,6 +127,7 @@ class _FilledQuestionsSurveyState extends State<FilledQuestionsSurvey> {
   }
 
   void MoveNext(int i){
+
     if(currentpage < (list.length-1)){
 
       setState(() {

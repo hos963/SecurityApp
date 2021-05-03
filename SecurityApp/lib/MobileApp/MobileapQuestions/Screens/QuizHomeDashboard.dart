@@ -1,7 +1,10 @@
 import 'dart:convert';
 
+import 'package:Metropolitane/MobileApp/MobileapQuestions/Screens/PatolTask.dart';
+import 'package:Metropolitane/MobileApp/MobileapQuestions/Screens/PropertyInspection.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/Screens/QuizDashboard.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/Screens/QuizHome.dart';
+import 'package:Metropolitane/MobileApp/MobileapQuestions/Screens/UnLockTask.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/AppConstant.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/AppWidget.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizColors.dart';
@@ -81,6 +84,7 @@ class _QuizHomeDashboardState extends State<QuizHomeDashboard> {
                             height: 60,
                           ),
                           onPressed: ()  {
+                            Navigator.push(context,  MaterialPageRoute(builder: (context) => PatrolTask()));
                           }),
                       HomeTileButton(
                           text: 'Lock',
@@ -100,6 +104,7 @@ class _QuizHomeDashboardState extends State<QuizHomeDashboard> {
                             height: 60,
                           ),
                           onPressed: ()  {
+                            Navigator.push(context,  MaterialPageRoute(builder: (context) => UnLockTask()));
                           }),
                       HomeTileButton(
                           text: 'Property Inspection',
@@ -108,7 +113,8 @@ class _QuizHomeDashboardState extends State<QuizHomeDashboard> {
                             width: 60,
                             height: 60,
                           ),
-                          onPressed: ()  {
+                          onPressed: ()  { //PropertyInspection
+                            Navigator.push(context,  MaterialPageRoute(builder: (context) => PropertyInspection()));
                           }),
                     ],
                   ),),

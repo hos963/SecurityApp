@@ -11,8 +11,14 @@ import 'package:Metropolitane/WebArea/MainWeb/AddLock/AddLockPage.dart';
 import 'package:Metropolitane/WebArea/MainWeb/AddPatrol/AddPatrolPage.dart';
 import 'package:Metropolitane/WebArea/MainWeb/AddPropertyInspection/AddPropertyInspectionPage.dart';
 import 'package:Metropolitane/WebArea/MainWeb/AddUnLock/AddUnLockPage.dart';
+import 'package:Metropolitane/WebArea/MainWeb/LockReport/ReportPage.dart';
 import 'package:Metropolitane/WebArea/MainWeb/ReportPage/ReportPage.dart';
 import 'package:Metropolitane/WebArea/MainWeb/ReportPage/ReportdetailPage.dart';
+import 'package:Metropolitane/WebArea/MainWeb/LockReport/LockReportdetailPage.dart';
+import 'package:Metropolitane/WebArea/MainWeb/UnLockReport/ReportPage.dart';
+import 'package:Metropolitane/WebArea/MainWeb/UnLockReport/UnLockReportdetailPage.dart';
+import 'package:Metropolitane/WebArea/MainWeb/PatrolReport/PatrolReportdetailPage.dart';
+import 'package:Metropolitane/WebArea/MainWeb/PatrolReport/ReportPage.dart';
 import 'package:Metropolitane/model/AddAlarmModel.dart';
 import 'package:Metropolitane/model/QuestionareModel.dart';
 import 'package:flutter/material.dart';
@@ -54,6 +60,16 @@ const String AddLockPageRoute = 'AddLockPageroute';
 const String AddUnLockPageRoute = 'AddUnLockPageroute';
 
 const String AddPropertyInspectionPageRoute = 'AddPropertyInspectionPageroute';
+
+const String ReportLockPageRoute = 'addReportLockPageRoute';
+const String ReportDetailLockPageRoute = 'addReportDetailLockPageRoute';
+
+
+const String ReportUnLockPageRoute = 'addReportUnLockPageRoute';
+const String ReportDetailUnLockPageRoute = 'addReportDetailUnLockPageRoute';
+
+const String ReportsPatreolPage = 'addReportPatreolPage';
+const String PatrolReportsdetailPage = 'addPatrolReportdetailPage';
 
 const String ReportAlarmPageRoute = 'addReportRoutePage';
 const String ReporDetailtAlarmPageRoute = 'addReportDetailRoutePage';
@@ -121,6 +137,30 @@ Route<dynamic> generateRoute(RouteSettings settings) {
 
     case ReportAlarmPageRoute:
       return MaterialPageRoute(builder: (context) => ReportAlarmPage());
+
+      case ReportLockPageRoute:
+      return MaterialPageRoute(builder: (context) => ReportLockPage());
+
+      case ReportDetailLockPageRoute:
+        QuestionareModel questionareModel = settings.arguments;
+      return MaterialPageRoute(builder: (context) => LockReportdetailPage(questionareModel));
+
+
+      case ReportUnLockPageRoute:
+      return MaterialPageRoute(builder: (context) => ReportUnLockPage());
+
+      case ReportDetailUnLockPageRoute:
+        QuestionareModel questionareModel = settings.arguments;
+      return MaterialPageRoute(builder: (context) => UnLockReportdetailPage(questionareModel));
+
+
+      case ReportsPatreolPage:
+      return MaterialPageRoute(builder: (context) => ReportPatreolPage());
+
+      case PatrolReportsdetailPage:
+        QuestionareModel questionareModel = settings.arguments;
+      return MaterialPageRoute(builder: (context) => PatrolReportdetailPage(questionareModel));
+
     case ReporDetailtAlarmPageRoute:
       QuestionareModel questionareModel = settings.arguments;
 

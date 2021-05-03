@@ -14,8 +14,6 @@ class DashBoardButtonsContent extends StatelessWidget {
 
     DashBoardModel(namebutton: "Add Alarm", icon: "AddAlarm.png", iconhex: ""),
 
-    DashBoardModel(
-        namebutton: "Reports", icon: "ReportsHistory.png", iconhex: ""),
 
     DashBoardModel(
         namebutton: "Add Petroleum", icon: "shield.png", iconhex: ""),
@@ -28,6 +26,19 @@ class DashBoardButtonsContent extends StatelessWidget {
 
     DashBoardModel(
         namebutton: "Add Property inspection", icon: "building.png", iconhex: ""),
+
+    DashBoardModel(
+        namebutton: "Alarm Reports", icon: "ReportsHistory.png", iconhex: ""),
+
+
+    DashBoardModel(
+        namebutton: "Lock Reports", icon: "lockreport.png", iconhex: ""),
+
+    DashBoardModel(
+        namebutton: "UnLock Reports", icon: "unlockreport.png", iconhex: ""),
+
+    DashBoardModel(
+        namebutton: "Patrol Reports", icon: "patrolreport.png", iconhex: ""),
   ];
 
   @override
@@ -95,6 +106,26 @@ class DashBoardButtonsContent extends StatelessWidget {
                               // do something else
                               break;
 
+                              case 9:
+                              Navigator.pushNamed(
+                                  context, Router.ReportLockPageRoute);
+
+                              // do something else
+                              break;
+
+                              case 10:
+                              Navigator.pushNamed(
+                                  context, Router.ReportUnLockPageRoute);
+
+                              // do something else
+                              break;
+
+                            case 11:
+                              Navigator.pushNamed(
+                                  context, Router.ReportsPatreolPage);
+
+                              // do something else
+                              break;
 
                           }
                         },
