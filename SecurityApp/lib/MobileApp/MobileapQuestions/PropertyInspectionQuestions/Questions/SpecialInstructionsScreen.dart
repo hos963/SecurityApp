@@ -2,17 +2,16 @@ import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/AppWidget.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizColors.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizStrings.dart';
 import 'package:flutter/material.dart';
-import 'package:progress_indicator_button/progress_button.dart';
 
+import 'package:Metropolitane/MobileApp/MobileapQuestions/PropertyInspectionQuestions/Questions/JobCompleted.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:Metropolitane/MobileApp/MobileapQuestions/PropertyInspectionQuestions/Questions/ExternalImageScreen.dart';
-
-class OnSiteScreen extends StatefulWidget {
+import 'package:progress_indicator_button/progress_button.dart';
+class SpecialInstructionScreen extends StatefulWidget {
   @override
-  _OnSiteScreenState createState() => _OnSiteScreenState();
+  _SpecialInstructionScreenState createState() => _SpecialInstructionScreenState();
 }
 
-class _OnSiteScreenState extends State<OnSiteScreen> {
+class _SpecialInstructionScreenState extends State<SpecialInstructionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,10 +26,24 @@ class _OnSiteScreenState extends State<OnSiteScreen> {
           child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
+
                 SizedBox(height: 20),
 
-                text("Are you onsite?", textColor: quiz_textColorPrimary, isLongText: true, isCentered: true,fontSize: 22.0).center(),
-
+                Padding(
+                  padding: const EdgeInsets.only(left:18.0,right: 10.0),
+                  child: TextField(
+                    autofocus: true,
+                    decoration: new InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black, width: 1.0),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black, width: 1.0),
+                      ),
+                      hintText: 'Specific Instruction',
+                    ),
+                  ),
+                ),
                 SizedBox(height: 40),
                 // Container(
                 //   margin: EdgeInsets.all(60.0),
@@ -61,7 +74,7 @@ class _OnSiteScreenState extends State<OnSiteScreen> {
                         //   controller.reverse();
                       } else {
                         controller.forward();
-                        Navigator.push(context,  MaterialPageRoute(builder: (context) => ExternalImageScreen()));
+                        Navigator.push(context,  MaterialPageRoute(builder: (context) => JobCompleted()));
                       }
                     },
                   ),

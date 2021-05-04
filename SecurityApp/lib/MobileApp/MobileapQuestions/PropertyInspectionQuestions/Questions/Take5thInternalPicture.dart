@@ -1,4 +1,5 @@
 
+import 'package:Metropolitane/MobileApp/MobileapQuestions/PropertyInspectionQuestions/Questions/SpecialInstructionsScreen.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/AppWidget.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizColors.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizStrings.dart';
@@ -135,7 +136,7 @@ class _Take5thInternalPictureState extends State<Take5thInternalPicture> {
                         //   controller.reverse();
                       } else {
                         controller.forward();
-                       // Navigator.push(context,  MaterialPageRoute(builder: (context) => Take5thInternalPicture()));
+                       Navigator.push(context,  MaterialPageRoute(builder: (context) => SpecialInstructionScreen()));
                       }
                     },
                   ),

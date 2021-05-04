@@ -5,14 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:progress_indicator_button/progress_button.dart';
 
 import 'package:nb_utils/nb_utils.dart';
-import 'package:Metropolitane/MobileApp/MobileapQuestions/PropertyInspectionQuestions/Questions/ExternalImageScreen.dart';
-
-class OnSiteScreen extends StatefulWidget {
+class JobCompleted extends StatefulWidget {
   @override
-  _OnSiteScreenState createState() => _OnSiteScreenState();
+  _JobCompletedState createState() => _JobCompletedState();
 }
 
-class _OnSiteScreenState extends State<OnSiteScreen> {
+class _JobCompletedState extends State<JobCompleted> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,18 +27,18 @@ class _OnSiteScreenState extends State<OnSiteScreen> {
               children: <Widget>[
                 SizedBox(height: 20),
 
-                text("Are you onsite?", textColor: quiz_textColorPrimary, isLongText: true, isCentered: true,fontSize: 22.0).center(),
+                text("Job Completed", textColor: quiz_textColorPrimary, isLongText: true, isCentered: true,fontSize: 22.0).center(),
 
                 SizedBox(height: 40),
                 // Container(
                 //   margin: EdgeInsets.all(60.0),
                 //   child: quizButton(
-                //     textContent: quiz_lbl_continue,
+                //     textContent: "Finish",
                 //     onPressed: () {
                 //       Updatinngdata();
                 //     },
                 //   ),
-                // ),
+                // )
                 Container(
 
                   width: 200,
@@ -61,12 +59,11 @@ class _OnSiteScreenState extends State<OnSiteScreen> {
                         //   controller.reverse();
                       } else {
                         controller.forward();
-                        Navigator.push(context,  MaterialPageRoute(builder: (context) => ExternalImageScreen()));
+                        // Updatinngdata();
                       }
                     },
                   ),
                 ),
-
               ],
             ),
           ),

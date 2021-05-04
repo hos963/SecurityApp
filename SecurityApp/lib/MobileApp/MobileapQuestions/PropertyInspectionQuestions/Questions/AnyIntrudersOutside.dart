@@ -33,7 +33,7 @@ class _AnyIntrudersOutsideState extends State<AnyIntrudersOutside> {
             child: Column(
               children: <Widget>[
                 SizedBox(height: 20),
-                text("Any intro outside?",
+                text("Any intruders onsite?",
                     textColor: quiz_textColorPrimary,
                     isLongText: true,
                     isCentered: true,

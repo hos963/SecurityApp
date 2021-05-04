@@ -99,7 +99,7 @@ class _GasMeterPresentState extends State<GasMeterPresent> {
                       } else {
                         controller.forward();
 
-                        if(_singleValue=="yes"){
+                        if(_singleValue== "Yes"){
                           Navigator.push(context, MaterialPageRoute(builder: (context) => GasMeterPicture()));
                         }else
                         Navigator.push(context,  MaterialPageRoute(builder: (context) => WaterMeterPresent()));

@@ -125,9 +125,10 @@ class _HaveKeyScreenState extends State<HaveKeyScreen> {
     if (widget.addAlarmModel.questionareModel == null) {
       widget.addAlarmModel.questionareModel = new QuestionareModel();
     }
+
     widget.addAlarmModel.questionareModel.havekeys = istrue;
 
-    FirebaseService firebaseService = new FirebaseService();
+     FirebaseService firebaseService = new FirebaseService();
     await firebaseService.HavekeyUpdate(
         widget.addAlarmModel.alarmId, widget.addAlarmModel.questionareModel);
 

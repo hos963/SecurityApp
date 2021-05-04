@@ -33,7 +33,7 @@ class _AnyWorkerOutsideState extends State<AnyWorkerOutside> {
             child: Column(
               children: <Widget>[
                 SizedBox(height: 20),
-                text("Any workers outside?",
+                text("Any workers onsite?",
                     textColor: quiz_textColorPrimary,
                     isLongText: true,
                     isCentered: true,

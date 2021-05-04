@@ -1,4 +1,5 @@
 import 'package:Metropolitane/model/FirebaseUserData.dart';
+import 'package:Metropolitane/model/LockQuestionareModel.dart';
 import 'package:Metropolitane/model/QuestionareModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -10,7 +11,7 @@ class AddLockModel {
   String type;
   bool isactive;
   int state = 1;
-  QuestionareModel questionareModel;
+  LockQuestionareModel questionareModel;
 
   FirebaseUserData firebaseUserData;
 
@@ -31,7 +32,7 @@ class AddLockModel {
       lockLocation: parsedJson['lockLocation'],
       type: parsedJson['type'],
       questionareModel: parsedJson.containsKey("QuestionareModel")
-          ? QuestionareModel.fromJson(parsedJson['QuestionareModel'])
+          ? LockQuestionareModel.fromJson(parsedJson['QuestionareModel'])
           : null,
       isactive: parsedJson['isactive'],
     );
@@ -46,7 +47,7 @@ class AddLockModel {
       type: doc.data()['type'],
       state: doc.data()['state'],
       questionareModel: doc.data().containsKey("QuestionareModel")
-          ? QuestionareModel.fromJson(doc.data()['QuestionareModel'])
+          ? LockQuestionareModel.fromJson(doc.data()['QuestionareModel'])
           : null,
 
       firebaseUserData: doc.data().containsKey("firebaseUserData")

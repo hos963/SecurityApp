@@ -54,7 +54,7 @@ class _GasMeterPictureState extends State<GasMeterPicture> {
             child: Column(
               children: <Widget>[
                 SizedBox(height: 20),
-                text("Take water meter picture", textColor: quiz_textColorPrimary,
+                text("Take Gas meter picture", textColor: quiz_textColorPrimary,
                     isLongText: true,
                     isCentered: true,
                     fontSize: 22.0).center(),

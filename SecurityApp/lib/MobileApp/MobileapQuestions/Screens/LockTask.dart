@@ -5,6 +5,7 @@ import 'package:Metropolitane/FirebaseService/FirebaseService.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/LockSurveyQuestion/Questions/OnWayScreen.dart';
 import 'package:Metropolitane/Utilities/PreferenceUtils.dart';
 import 'package:Metropolitane/model/AddAlarmModel.dart';
+import 'package:Metropolitane/model/AddLockModel.dart';
 import 'package:Metropolitane/model/FirebaseUserData.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -201,7 +202,7 @@ class _QuizLockState extends State<LockTask> {
       });
   }
 
-  ListView GettingListCards(List<AddAlarmModel> listofalrm) {
+  ListView GettingListCards(List<AddLockModel> listofalrm) {
     return ListView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: listofalrm.length,
@@ -223,7 +224,7 @@ class _QuizLockState extends State<LockTask> {
     new DateTime(selectedDate.year, selectedDate.month, selectedDate.day);
     return StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
-            .collection('AlarmAlert')
+            .collection('LockAlert')
             .where("firebaseUserData.udid", isEqualTo: userid)
             .where("timestamp", isGreaterThanOrEqualTo: currentdate.toUtc())
             .where("timestamp", isLessThan: nextdate.toUtc())
@@ -239,15 +240,15 @@ class _QuizLockState extends State<LockTask> {
               }
               int index = 0;
 
-              List<AddAlarmModel> listofalrm =
-              List<AddAlarmModel>.empty(growable: true);
+              List<AddLockModel> listofalrm =
+              List<AddLockModel>.empty(growable: true);
               snapshot.data.docChanges.forEach((element) {
                 //UsersPost.fromDoc(element.doc);
 
 
-                AddAlarmModel alarmModel =      AddAlarmModel.fromDoc(element.doc);
-                if(alarmModel.state != 3){
-                  listofalrm.add(alarmModel);
+                AddLockModel addLockModel =      AddLockModel.fromDoc(element.doc);
+                if(addLockModel.state != 3){
+                  listofalrm.add(addLockModel);
 
                 }
 
@@ -261,11 +262,11 @@ class _QuizLockState extends State<LockTask> {
 }
 
 class AlarmCard extends StatelessWidget {
-  AddAlarmModel model;
+  AddLockModel model;
 
   Color bordercolor = Colors.white;
 
-  AlarmCard(AddAlarmModel model, int pos) {
+  AlarmCard(AddLockModel model, int pos) {
     this.model = model;
     if (model.state == 2) {
       bordercolor = CustomColors.orangecolor;
@@ -313,7 +314,7 @@ class AlarmCard extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                    model.alrmTitle,
+                    model.lockTitle,
                     maxLines: 3,
                     style: TextStyle(
                         fontSize: 16,
@@ -342,7 +343,7 @@ class AlarmCard extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                    model.alrmLocation,
+                    model.lockLocation,
                     maxLines: 3,
                     style: TextStyle(
                         fontSize: 16,
@@ -371,7 +372,7 @@ class AlarmCard extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                    model.alrmDesc,
+                    model.lockDesc,
                     maxLines: 3,
                     style: TextStyle(
                         fontSize: 16,
@@ -405,9 +406,9 @@ class AlarmCard extends StatelessWidget {
                   padding: EdgeInsets.only(bottom: 10.0),
                   child: TextButton(
                     onPressed: () {
-                      //AddingdataToStartquestionare(model, context);
+                      AddingdataToStartquestionare(model, context);
                      // Navigator.push(context,  MaterialPageRoute(builder: (context) => LockQuestionSurvey()));
-                      Navigator.push(context,  MaterialPageRoute(builder: (context) => OnWayScreen()));
+                     // Navigator.push(context,  MaterialPageRoute(builder: (context) => OnWayScreen()));
                     },
                     child: Text(
                       'Select Task',
@@ -430,30 +431,31 @@ class AlarmCard extends StatelessWidget {
   }
 
   Future<void> AddingdataToStartquestionare(
-      AddAlarmModel addAlarmModel, BuildContext context) async {
+      AddLockModel addLockModel, BuildContext context) async {
 
-    if(addAlarmModel.state == 3){
+    if(addLockModel.state == 3){
 
     }else {
-      if (addAlarmModel.state == 1) {
+      if (addLockModel.state == 1) {
         final progress = ProgressHUD.of(context);
         progress.show();
         FirebaseService firebaseService = new FirebaseService();
-        addAlarmModel.state = 2;
-        await firebaseService.UpdateAlarm(addAlarmModel);
+        addLockModel.state = 2;
+        await firebaseService.UpdateLock(addLockModel);
         progress.dismiss();
 
-        MovetoDetailPutScreen(addAlarmModel, context);
+        MovetoDetailPutScreen(addLockModel, context);
       } else {
-        MovetoDetailPutScreen(addAlarmModel, context);
+        MovetoDetailPutScreen(addLockModel, context);
       }
     }
   }
 
 
-  void MovetoDetailPutScreen( AddAlarmModel addAlarmModel, BuildContext context){
+  void MovetoDetailPutScreen( AddLockModel addLockModel, BuildContext context){
 
-    Navigator.pushNamed(context, Router.FilledQuestionsSurveyroute,arguments: addAlarmModel);
+    Navigator.pushNamed(context, Router.LockQuestionsSurveyroute,arguments: addLockModel);
+
   }
 
 }

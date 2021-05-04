@@ -10,6 +10,7 @@ import 'package:Metropolitane/model/AddPatrolModel.dart';
 import 'package:Metropolitane/model/AddPropertyInspectionModel.dart';
 import 'package:Metropolitane/model/AddUnlockModel.dart';
 import 'package:Metropolitane/model/AddressAlarmModel.dart';
+import 'package:Metropolitane/model/LockQuestionareModel.dart';
 import 'package:Metropolitane/model/QuestionareModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -158,6 +159,15 @@ class FirebaseService {
     return resp;
   }
 
+  Future<void> UpdateLock(AddLockModel lockModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("AlarmAlert")
+        .doc(lockModel.lockId)
+        .set(lockModel.AddLockTopMap(isupdate: true), SetOptions(merge: true));
+
+    return resp;
+  }
+
   Future<void> updateOnway(
       String keypath, QuestionareModel questionareModel) async {
     var resp = await _fireStoreDataBase
@@ -168,6 +178,28 @@ class FirebaseService {
     return resp;
   }
 
+  Future<void> updateOnwayLock(
+      String keypath, LockQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("LockAlert")
+        .doc(keypath)
+        .set(questionareModel.AddLockOnthewayToMap(), SetOptions(merge: true));
+
+    return resp;
+  }
+
+  Future<void> updateOnSiteLock(
+      String keypath, LockQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("LockAlert")
+        .doc(keypath)
+        .set(questionareModel.AddReachedonSiteModel(), SetOptions(merge: true));
+
+    return resp;
+  }
+
+
+
   Future<void> messagetoPannelToMapp(
       String keypath, QuestionareModel questionareModel) async {
     var resp = await _fireStoreDataBase
@@ -177,12 +209,53 @@ class FirebaseService {
 
     return resp;
   }
+
+  Future<void> specialInstructionLock(
+      String keypath, LockQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("LockAlert")
+        .doc(keypath)
+        .set(questionareModel.MessageOnPanelToMap(), SetOptions(merge: true));
+
+    return resp;
+  }
+
   Future<void> HavekeyUpdate(
       String keypath, QuestionareModel questionareModel) async {
     var resp = await _fireStoreDataBase
         .collection("AlarmAlert")
         .doc(keypath)
         .set(questionareModel.HaveKeyToMapModel(), SetOptions(merge: true));
+
+    return resp;
+  }
+
+  Future<void> HavekeyUpdateLock(
+      String keypath, LockQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("LockAlert")
+        .doc(keypath)
+        .set(questionareModel.HaveKeyToMapModel(), SetOptions(merge: true));
+
+    return resp;
+  }
+
+  Future<void> BuildingAlarmedAndSecuredLock(
+      String keypath, LockQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("LockAlert")
+        .doc(keypath)
+        .set(questionareModel.AlarmedAndSecured(), SetOptions(merge: true));
+
+    return resp;
+  }
+
+  Future<void> isWindowanddoorsecuredLock(
+      String keypath, LockQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("LockAlert")
+        .doc(keypath)
+        .set(questionareModel.isWindowAndDoorSecuredLock(), SetOptions(merge: true));
 
     return resp;
   }
@@ -201,6 +274,16 @@ class FirebaseService {
       String keypath, QuestionareModel questionareModel) async {
     var resp = await _fireStoreDataBase
         .collection("AlarmAlert")
+        .doc(keypath)
+        .set(questionareModel.LeaveBuildingtoMap(), SetOptions(merge: true));
+
+    return resp;
+  }
+
+  Future<void>JobCompleteLock(
+      String keypath, LockQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("LockAlert")
         .doc(keypath)
         .set(questionareModel.LeaveBuildingtoMap(), SetOptions(merge: true));
 
@@ -230,6 +313,25 @@ class FirebaseService {
     } else {
       var resp2 = await _fireStoreDataBase
           .collection("AlarmAlert")
+          .doc(keypath)
+          .set(questionareModel.ExternalPictureOfBuildingModeltoMap(), SetOptions(merge: true));
+
+      return resp2;
+    }
+  }
+
+  Future<void> InternalOrExternalUpdateLock(String keypath,
+      LockQuestionareModel questionareModel, bool isinternal) async {
+    if (isinternal == true) {
+      var resp = await _fireStoreDataBase
+          .collection("LockAlert")
+          .doc(keypath)
+          .set(questionareModel.InternakPictureOfBuildingModeltoMap(), SetOptions(merge: true));
+
+      return resp;
+    } else {
+      var resp2 = await _fireStoreDataBase
+          .collection("LockAlert")
           .doc(keypath)
           .set(questionareModel.ExternalPictureOfBuildingModeltoMap(), SetOptions(merge: true));
 

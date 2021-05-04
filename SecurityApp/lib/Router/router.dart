@@ -1,4 +1,5 @@
 import 'package:Metropolitane/MobileApp/MobileapQuestions/FillSurvayQuestions/FilledQuestionsSurvey.dart';
+import 'package:Metropolitane/MobileApp/MobileapQuestions/LockSurveyQuestion/LockQuestionsSurvey.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/Screens/QuizDashboard.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/Screens/QuizHomeDashboard.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/Screens/QuizNewList.dart';
@@ -20,6 +21,8 @@ import 'package:Metropolitane/WebArea/MainWeb/UnLockReport/UnLockReportdetailPag
 import 'package:Metropolitane/WebArea/MainWeb/PatrolReport/PatrolReportdetailPage.dart';
 import 'package:Metropolitane/WebArea/MainWeb/PatrolReport/ReportPage.dart';
 import 'package:Metropolitane/model/AddAlarmModel.dart';
+import 'package:Metropolitane/model/AddLockModel.dart';
+import 'package:Metropolitane/model/LockQuestionareModel.dart';
 import 'package:Metropolitane/model/QuestionareModel.dart';
 import 'package:flutter/material.dart';
 import 'package:Metropolitane/Pages/BioMatricAuth.dart';
@@ -80,6 +83,7 @@ const String QuizDashboardRoute = 'QuizDashboard';
 const String QuizListingroute = 'QuizListingroute';
 const String QuizSearchroute = 'QuizSearchroute';
 const String FilledQuestionsSurveyroute = 'FilledQuestionsSurveyroute';
+const String LockQuestionsSurveyroute = 'LockQuestionsSurveyroute';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
@@ -183,6 +187,11 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       AddAlarmModel addAlarmModel = settings.arguments;
       return MaterialPageRoute(
           builder: (context) => FilledQuestionsSurvey(addAlarmModel));
+
+      case LockQuestionsSurveyroute:
+      AddLockModel addLockModel = settings.arguments;
+      return MaterialPageRoute(
+          builder: (context) => LockQuestionSurvey(addLockModel));
 
     default:
       return MaterialPageRoute(

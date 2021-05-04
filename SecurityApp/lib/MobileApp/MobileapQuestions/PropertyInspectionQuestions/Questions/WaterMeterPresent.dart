@@ -98,7 +98,7 @@ class _WaterMeterPresentState extends State<WaterMeterPresent> {
                         //   controller.reverse();
                       } else {
                         controller.forward();
-                        if(_singleValue=="yes"){
+                        if(_singleValue=="Yes"){
                           Navigator.push(context, MaterialPageRoute(builder: (context) => WaterMeterPicture()));
                         }else
                         Navigator.push(context,  MaterialPageRoute(builder: (context) => AnyDamageToProperty()));

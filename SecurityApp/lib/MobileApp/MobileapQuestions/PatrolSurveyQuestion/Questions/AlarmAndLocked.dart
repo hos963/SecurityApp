@@ -29,7 +29,7 @@ class _AlarmAndLockedState extends State<AlarmAndLocked> {
               children: <Widget>[
                 SizedBox(height: 20),
 
-                text("Lock And Alarm", textColor: quiz_textColorPrimary, isLongText: true, isCentered: true,fontSize: 22.0).center(),
+                text("Lock And Alarm.?", textColor: quiz_textColorPrimary, isLongText: true, isCentered: true,fontSize: 22.0).center(),
 
                 SizedBox(height: 40),
                 // Container(

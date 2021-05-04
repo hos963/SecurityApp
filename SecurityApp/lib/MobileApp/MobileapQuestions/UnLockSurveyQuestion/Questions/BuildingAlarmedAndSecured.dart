@@ -1,3 +1,4 @@
+import 'package:Metropolitane/MobileApp/MobileapQuestions/PatrolSurveyQuestion/Questions/AlarmUnset.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/AppWidget.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizColors.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizStrings.dart';
@@ -99,7 +100,12 @@ class _BuildingAlarmAndSecuredState extends State<BuildingAlarmAndSecured> {
                       } else {
                         //controller.forward();
                         //  Updatinngdata();
-                        Navigator.push(context,  MaterialPageRoute(builder: (context) => SpecialInstructionScreen()));
+                        if(_singleValue=="Yes"){
+                          Navigator.push(context,  MaterialPageRoute(builder: (context) => AlarmUnset()));
+                        }
+                        else{
+                          Navigator.push(context,  MaterialPageRoute(builder: (context) => SpecialInstructionScreen()));
+                        }
                       }
                     },
                   ),

@@ -98,7 +98,7 @@ class _AnyDamageToPropertyState extends State<AnyDamageToProperty> {
                         //   controller.reverse();
                       } else {
                         controller.forward();
-                        if(_singleValue=="yes"){
+                        if(_singleValue=="Yes"){
                           Navigator.push(context, MaterialPageRoute(builder: (context) => AnyDamageToPropertyPic()));
                         }else
                         Navigator.push(context,  MaterialPageRoute(builder: (context) => AnyIntrudersOutside()));
