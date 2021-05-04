@@ -79,29 +79,29 @@ class DashBoardButtonsContent extends StatelessWidget {
                               break;
                             case 4:
                               Navigator.pushNamed(
-                                  context, Router.ReportAlarmPageRoute);
+                                  context, Router.AddPatrolPageRoute);
                               break;
                             case 5:
                               Navigator.pushNamed(
-                                  context, Router.AddPatrolPageRoute);
+                                  context, Router.AddLockPageRoute);
                               break;
 
                               case 6:
                               Navigator.pushNamed(
-                                  context, Router.AddLockPageRoute);
+                                  context, Router.AddUnLockPageRoute);
 
                               // do something else
                               break;
                             case 7:
                               Navigator.pushNamed(
-                                  context, Router.AddUnLockPageRoute);
+                                  context, Router.AddPropertyInspectionPageRoute);
 
                               // do something else
                               break;
 
                             case 8:
                               Navigator.pushNamed(
-                                  context, Router.AddPropertyInspectionPageRoute);
+                                  context, Router.ReportAlarmPageRoute);
 
                               // do something else
                               break;
