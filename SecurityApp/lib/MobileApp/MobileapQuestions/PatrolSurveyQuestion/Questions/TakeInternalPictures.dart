@@ -1,3 +1,7 @@
+import 'package:Metropolitane/FirebaseService/FirebaseService.dart';
+import 'package:Metropolitane/model/AddPatrolModel.dart';
+import 'package:Metropolitane/model/PatrolQuestionareModel.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
@@ -8,7 +12,21 @@ import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizStrings.dart
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizWidget.dart';
 import 'package:progress_indicator_button/progress_button.dart';
 
+
+import 'package:firebase_core/firebase_core.dart' as firebase_core;
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'dart:io' as io;
+
+import '../PatrolQuestionSurvey.dart';
+
 class TakeInternalPictures extends StatefulWidget {
+
+  final MyCallbackToback callback;
+
+  AddPatrolModel addPatrolModel;
+  TakeInternalPictures(this.addPatrolModel,this.callback);
+
+
   @override
   _TakeInternalPicturesState createState() => _TakeInternalPicturesState();
 }
@@ -52,184 +70,12 @@ class _TakeInternalPicturesState extends State<TakeInternalPictures> {
             child: Column(
               children: <Widget>[
                 SizedBox(height: 20),
-                text("Take 5 Internal Pictures", textColor: quiz_textColorPrimary,
+                text("Take 1st Internal Pictures", textColor: quiz_textColorPrimary,
                     isLongText: true,
                     isCentered: true,
                     fontSize: 22.0).center(),
 
                 SizedBox(height: 30),
-                Container(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
-                    children: <Widget>[
-
-                      Stack(
-                        alignment: Alignment.bottomRight,
-                        children: <Widget>[
-                          Container(
-                            height: width * 0.85,
-                            width: width * 0.85,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.rectangle,
-                                border: Border.all(color: quiz_white, width: 4)),
-                            child: _image == null
-                                ? Text('No image selected.').center()
-                                : Image.file(_image, fit: BoxFit.fill),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(top: 20),
-                            height: 40,
-                            width: 40,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.rectangle,
-                                border: Border.all(color: quiz_white, width: 4),
-                                color: quiz_white),
-                            child: Icon(Icons.edit, size: 20).onTap(() {
-
-                            }),
-                          ).paddingOnly(top: 16).onTap(() {
-                            //print("Edit profile");
-                          })
-                        ],
-                      ),
-
-                    ],
-                  ),
-                ).onTap(() {
-                  //  Navigator.of(context).pop();
-                  getImage();
-                }),
-                Container(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
-                    children: <Widget>[
-
-                      Stack(
-                        alignment: Alignment.bottomRight,
-                        children: <Widget>[
-                          Container(
-                            height: width * 0.85,
-                            width: width * 0.85,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.rectangle,
-                                border: Border.all(color: quiz_white, width: 4)),
-                            child: _image == null
-                                ? Text('No image selected.').center()
-                                : Image.file(_image, fit: BoxFit.fill),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(top: 20),
-                            height: 40,
-                            width: 40,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.rectangle,
-                                border: Border.all(color: quiz_white, width: 4),
-                                color: quiz_white),
-                            child: Icon(Icons.edit, size: 20).onTap(() {
-
-                            }),
-                          ).paddingOnly(top: 16).onTap(() {
-                            //print("Edit profile");
-                          })
-                        ],
-                      ),
-
-                    ],
-                  ),
-                ).onTap(() {
-                  //  Navigator.of(context).pop();
-                  getImage();
-                }),
-                Container(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
-                    children: <Widget>[
-
-                      Stack(
-                        alignment: Alignment.bottomRight,
-                        children: <Widget>[
-                          Container(
-                            height: width * 0.85,
-                            width: width * 0.85,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.rectangle,
-                                border: Border.all(color: quiz_white, width: 4)),
-                            child: _image == null
-                                ? Text('No image selected.').center()
-                                : Image.file(_image, fit: BoxFit.fill),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(top: 20),
-                            height: 40,
-                            width: 40,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.rectangle,
-                                border: Border.all(color: quiz_white, width: 4),
-                                color: quiz_white),
-                            child: Icon(Icons.edit, size: 20).onTap(() {
-
-                            }),
-                          ).paddingOnly(top: 16).onTap(() {
-                            //print("Edit profile");
-                          })
-                        ],
-                      ),
-
-                    ],
-                  ),
-                ).onTap(() {
-                  //  Navigator.of(context).pop();
-                  getImage();
-                }),
-                Container(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
-                    children: <Widget>[
-
-                      Stack(
-                        alignment: Alignment.bottomRight,
-                        children: <Widget>[
-                          Container(
-                            height: width * 0.85,
-                            width: width * 0.85,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.rectangle,
-                                border: Border.all(color: quiz_white, width: 4)),
-                            child: _image == null
-                                ? Text('No image selected.').center()
-                                : Image.file(_image, fit: BoxFit.fill),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(top: 20),
-                            height: 40,
-                            width: 40,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.rectangle,
-                                border: Border.all(color: quiz_white, width: 4),
-                                color: quiz_white),
-                            child: Icon(Icons.edit, size: 20).onTap(() {
-
-                            }),
-                          ).paddingOnly(top: 16).onTap(() {
-                            //print("Edit profile");
-                          })
-                        ],
-                      ),
-
-                    ],
-                  ),
-                ).onTap(() {
-                  //  Navigator.of(context).pop();
-                  getImage();
-                }),
                 Container(
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -304,8 +150,8 @@ class _TakeInternalPicturesState extends State<TakeInternalPictures> {
                         //   controller.reverse();
                       } else {
                         controller.forward();
-                        //     uploadFile(_image);
-                        Navigator.push(context,  MaterialPageRoute(builder: (context) => SpecificInstructions()));
+                             uploadFile(_image);
+                       // Navigator.push(context,  MaterialPageRoute(builder: (context) => SpecificInstructions()));
                       }
                     },
                   ),
@@ -317,4 +163,59 @@ class _TakeInternalPicturesState extends State<TakeInternalPictures> {
       ),
     );
   }
+
+
+  Future<firebase_storage.UploadTask> uploadFile(File file) async {
+    if (file == null) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('No file was selected'),
+      ));
+      return null;
+    }
+
+    firebase_storage.UploadTask uploadTask;
+
+    // Create a Reference to the file
+    firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
+        .ref()
+        .child('buuilding')
+        .child('/' + file.name);
+
+    final metadata = firebase_storage.SettableMetadata(
+        contentType: 'image/jpeg',
+        customMetadata: {'picked-file-path': file.path});
+
+    if (kIsWeb) {
+      uploadTask = ref.putData(await file.readAsBytes(), metadata);
+    } else {
+      uploadTask = ref.putFile(io.File(file.path), metadata);
+    }
+    var imageUrl = await (await uploadTask).ref.getDownloadURL();
+    Updatinngdata(imageUrl);
+    return Future.value(uploadTask);
+  }
+
+
+  Future<void> Updatinngdata(String ImgLinnk) async {
+    FirebaseService firebaseService = new FirebaseService();
+    if (widget.addPatrolModel.questionareModel == null) {
+      widget.addPatrolModel.questionareModel = new PatrolQuestionareModel();
+    }
+
+    InternalPictureOfBuildingModel takeInternalPictures =
+    new InternalPictureOfBuildingModel();
+    takeInternalPictures.internalbuildingpic = ImgLinnk;
+    widget.addPatrolModel.questionareModel.internalPictureOfBuildingModel =
+        takeInternalPictures;
+
+    // widget.addAlarmModel.questionareModel.onwayModel = onwayModel;
+
+    await firebaseService.TakeInternalPicture(widget.addPatrolModel.patrolId,
+        widget.addPatrolModel.questionareModel);
+
+    widget.callback(1);
+  }
+
+
+
 }

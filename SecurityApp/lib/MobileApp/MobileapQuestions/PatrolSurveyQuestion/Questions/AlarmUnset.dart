@@ -1,6 +1,9 @@
+import 'package:Metropolitane/FirebaseService/FirebaseService.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/AppWidget.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizColors.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizStrings.dart';
+import 'package:Metropolitane/model/AddPatrolModel.dart';
+import 'package:Metropolitane/model/PatrolQuestionareModel.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:group_radio_button/group_radio_button.dart';
@@ -8,7 +11,17 @@ import 'package:progress_indicator_button/progress_button.dart';
 
 import 'package:Metropolitane/MobileApp/MobileapQuestions/PatrolSurveyQuestion/Questions/TakeInternalPictures.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/PatrolSurveyQuestion/Questions/AdditionalComments.dart';
+
+import '../PatrolQuestionSurvey.dart';
 class AlarmUnset extends StatefulWidget {
+
+  final MyCallbackToback callback;
+  final Callbackforcustommove callbackforcustommove;
+
+  AddPatrolModel addPatrolModel;
+  AlarmUnset(this.addPatrolModel,this.callback,this.callbackforcustommove);
+
+
   @override
   _AlarmUnsetState createState() => _AlarmUnsetState();
 }
@@ -96,10 +109,11 @@ class _AlarmUnsetState extends State<AlarmUnset> {
                       } else {
                         controller.forward();
                         if(_singleValue == "Yes"){
-                          Navigator.push(context,  MaterialPageRoute(builder: (context) => TakeInternalPictures()));
+                          Updatinngdata();
+                        //  Navigator.push(context,  MaterialPageRoute(builder: (context) => TakeInternalPictures()));
                         }
                         else if(_singleValue == "No"){
-                          Navigator.push(context,  MaterialPageRoute(builder: (context) => AdditionalComments()));
+                          Updatinngdata();
                         }
                       }
                     },
@@ -112,5 +126,36 @@ class _AlarmUnsetState extends State<AlarmUnset> {
       ),
     );
   }
+
+
+  Future<void> Updatinngdata() async {
+    bool istrue = false;
+    if (_singleValue == "Yes") {
+      istrue = true;
+    } else {
+      istrue = false;
+    }
+
+    if (widget.addPatrolModel.questionareModel == null) {
+      widget.addPatrolModel.questionareModel = new PatrolQuestionareModel();
+    }
+
+    widget.addPatrolModel.questionareModel.alarmUnset = istrue;
+
+    FirebaseService firebaseService = new FirebaseService();
+    await firebaseService.AlarmUnset(
+        widget.addPatrolModel.patrolId, widget.addPatrolModel.questionareModel);
+
+
+
+    if (_singleValue == "Yes") {
+      widget.callback(1);
+    } else {
+      widget.callbackforcustommove(15);
+    }
+
+  }
+
+
 }
 

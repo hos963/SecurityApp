@@ -1,12 +1,23 @@
+import 'package:Metropolitane/FirebaseService/FirebaseService.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/AppWidget.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizColors.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizStrings.dart';
+import 'package:Metropolitane/model/AddPatrolModel.dart';
+import 'package:Metropolitane/model/PatrolQuestionareModel.dart';
 import 'package:flutter/material.dart';
 import 'package:progress_indicator_button/progress_button.dart';
 
 import 'package:nb_utils/nb_utils.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/PatrolSurveyQuestion//Questions/ExternalPatrolDone.dart';
+
+import '../PatrolQuestionSurvey.dart';
 class OnSiteScreen extends StatefulWidget {
+
+  final MyCallbackToback callback;
+
+  AddPatrolModel addPatrolModel;
+  OnSiteScreen(this.addPatrolModel,this.callback);
+
   @override
   _OnSiteScreenState createState() => _OnSiteScreenState();
 }
@@ -60,7 +71,8 @@ class _OnSiteScreenState extends State<OnSiteScreen> {
                         //   controller.reverse();
                       } else {
                         controller.forward();
-                        Navigator.push(context,  MaterialPageRoute(builder: (context) => ExternalPatrolDone()));
+                      //  Navigator.push(context,  MaterialPageRoute(builder: (context) => ExternalPatrolDone()));
+                        Updatinngdata();
                       }
                     },
                   ),
@@ -73,4 +85,21 @@ class _OnSiteScreenState extends State<OnSiteScreen> {
       ),
     );
   }
+
+  Future<void> Updatinngdata() async {
+  ReachedonSiteModel reachedonSiteModel = new ReachedonSiteModel();
+  reachedonSiteModel.reachedonsite = true;
+
+
+  if( widget.addPatrolModel.questionareModel == null){
+  widget.addPatrolModel.questionareModel = new PatrolQuestionareModel();
+  }
+  widget.addPatrolModel.questionareModel.reachedonSiteModel = reachedonSiteModel;
+
+  FirebaseService firebaseService = new FirebaseService();
+  await firebaseService.updateOnSitePatrol( widget.addPatrolModel.patrolId,widget.addPatrolModel.questionareModel);
+
+  widget. callback(1);
+}
+
 }

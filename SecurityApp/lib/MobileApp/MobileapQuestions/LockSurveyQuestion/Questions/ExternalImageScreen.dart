@@ -21,6 +21,7 @@ import '../LockQuestionsSurvey.dart';
 
 class ExternalImageScreen extends StatefulWidget {
   bool isinternal;
+
   final MyCallbackToback callback;
 
   AddLockModel addLockModel;

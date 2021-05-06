@@ -1,11 +1,23 @@
+import 'package:Metropolitane/FirebaseService/FirebaseService.dart';
+import 'package:Metropolitane/MobileApp/MobileapQuestions/UnLockSurveyQuestion/UnLockQuestionsSurvey.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/AppWidget.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizColors.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizStrings.dart';
+import 'package:Metropolitane/model/AddUnlockModel.dart';
+import 'package:Metropolitane/model/UnLockQuestionareModel.dart';
 import 'package:flutter/material.dart';
 import 'package:progress_indicator_button/progress_button.dart';
 
 import 'package:nb_utils/nb_utils.dart';
 class JobCompleted extends StatefulWidget {
+
+
+  final MyCallbackToback callback;
+
+  AddUnlockModel addUnlockModel;
+  JobCompleted(this.addUnlockModel,this.callback);
+
+
   @override
   _JobCompletedState createState() => _JobCompletedState();
 }
@@ -59,7 +71,7 @@ class _JobCompletedState extends State<JobCompleted> {
                         //   controller.reverse();
                       } else {
                         controller.forward();
-                        // Updatinngdata();
+                         Updatinngdata();
                       }
                     },
                   ),
@@ -71,4 +83,20 @@ class _JobCompletedState extends State<JobCompleted> {
       ),
     );
   }
+
+  Future<void> Updatinngdata() async {
+
+    FirebaseService firebaseService = new FirebaseService();
+    if (widget.addUnlockModel.questionareModel == null) {
+      widget.addUnlockModel.questionareModel = new UnLockQuestionareModel();
+    }
+    widget.addUnlockModel.questionareModel.leaveBuildingModel = new LeaveBuildingModel();
+    widget.addUnlockModel.questionareModel.leaveBuildingModel.leavebuilding = true;
+    await firebaseService.JobCompleteUnLock(
+        widget.addUnlockModel.unlockId, widget.addUnlockModel.questionareModel);
+
+    widget.callback(1);
+
+  }
+
 }

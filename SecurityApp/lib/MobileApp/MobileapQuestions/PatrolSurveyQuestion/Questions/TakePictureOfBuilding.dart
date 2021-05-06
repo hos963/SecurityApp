@@ -1,3 +1,7 @@
+import 'package:Metropolitane/FirebaseService/FirebaseService.dart';
+import 'package:Metropolitane/model/AddPatrolModel.dart';
+import 'package:Metropolitane/model/PatrolQuestionareModel.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
@@ -7,7 +11,19 @@ import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizColors.dart'
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizStrings.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizWidget.dart';
 import 'package:progress_indicator_button/progress_button.dart';
+
+import 'package:firebase_core/firebase_core.dart' as firebase_core;
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'dart:io' as io;
+
+import '../PatrolQuestionSurvey.dart';
 class TakePictureOfBuilding extends StatefulWidget {
+
+  final MyCallbackToback callback;
+
+  AddPatrolModel addPatrolModel;
+  TakePictureOfBuilding(this.addPatrolModel,this.callback);
+
   @override
   _TakePictureOfBuildingState createState() => _TakePictureOfBuildingState();
 }
@@ -304,7 +320,8 @@ class _TakePictureOfBuildingState extends State<TakePictureOfBuilding> {
                       } else {
                         controller.forward();
                         //     uploadFile(_image);
-                        Navigator.push(context,  MaterialPageRoute(builder: (context) => AdditionalComments()));
+                        //Navigator.push(context,  MaterialPageRoute(builder: (context) => AdditionalComments()));
+
                       }
                     },
                   ),
@@ -316,4 +333,59 @@ class _TakePictureOfBuildingState extends State<TakePictureOfBuilding> {
       ),
     );
   }
+
+
+
+  Future<firebase_storage.UploadTask> uploadFile(File file) async {
+    if (file == null) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('No file was selected'),
+      ));
+      return null;
+    }
+
+    firebase_storage.UploadTask uploadTask;
+
+    // Create a Reference to the file
+    firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
+        .ref()
+        .child('buuilding')
+        .child('/' + file.name);
+
+    final metadata = firebase_storage.SettableMetadata(
+        contentType: 'image/jpeg',
+        customMetadata: {'picked-file-path': file.path});
+
+    if (kIsWeb) {
+      uploadTask = ref.putData(await file.readAsBytes(), metadata);
+    } else {
+      uploadTask = ref.putFile(io.File(file.path), metadata);
+    }
+    var imageUrl = await (await uploadTask).ref.getDownloadURL();
+    Updatinngdata(imageUrl);
+    return Future.value(uploadTask);
+  }
+
+
+  Future<void> Updatinngdata(String ImgLinnk) async {
+    FirebaseService firebaseService = new FirebaseService();
+    if (widget.addPatrolModel.questionareModel == null) {
+      widget.addPatrolModel.questionareModel = new PatrolQuestionareModel();
+    }
+
+    TakePictureOfBuildingModel takePictureOfBuildingModel =
+      new TakePictureOfBuildingModel();
+      takePictureOfBuildingModel.externalbuildingpic = ImgLinnk;
+      widget.addPatrolModel.questionareModel.externalPictureOfBuildingModel =
+          takePictureOfBuildingModel;
+
+    // widget.addAlarmModel.questionareModel.onwayModel = onwayModel;
+
+    await firebaseService.TakePictureOfBuildingModel(widget.addPatrolModel.patrolId,
+        widget.addPatrolModel.questionareModel);
+
+    widget.callback(1);
+  }
+
+
 }

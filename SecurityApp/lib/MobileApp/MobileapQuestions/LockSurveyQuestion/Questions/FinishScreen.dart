@@ -1,37 +1,31 @@
 import 'package:Metropolitane/FirebaseService/FirebaseService.dart';
-import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/AppWidget.dart';
-import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizColors.dart';
-import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizStrings.dart';
-import 'package:Metropolitane/model/AddPatrolModel.dart';
-import 'package:Metropolitane/model/PatrolQuestionareModel.dart';
+import 'package:Metropolitane/MobileApp/MobileapQuestions/LockSurveyQuestion/LockQuestionsSurvey.dart';
+import 'package:Metropolitane/model/AddAlarmModel.dart';
+import 'package:Metropolitane/model/AddLockModel.dart';
+import 'package:Metropolitane/model/LockQuestionareModel.dart';
+import 'package:Metropolitane/model/QuestionareModel.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:Metropolitane/MobileApp/MobileapQuestions/Screens/QuizCreatePassword.dart';
+import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizColors.dart';
+import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizConstant.dart';
+import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizExtension.dart';
+import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizStrings.dart';
+import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizWidget.dart';
 import 'package:progress_indicator_button/progress_button.dart';
 
-import 'package:Metropolitane/MobileApp/MobileapQuestions/PatrolSurveyQuestion/Questions/JobCompleted.dart';
-
-import '../PatrolQuestionSurvey.dart';
-
-class AlarmAndLocked extends StatefulWidget {
-
+class FinishScreen extends StatefulWidget {
+  AddLockModel addAlarmModel;
   final MyCallbackToback callback;
-
-  AddPatrolModel addPatrolModel;
-  AlarmAndLocked(this.addPatrolModel,this.callback);
-
+  FinishScreen(this.addAlarmModel,this.callback);
   @override
-  _AlarmAndLockedState createState() => _AlarmAndLockedState();
+  _FinishScreenState createState() => _FinishScreenState();
 }
 
-class _AlarmAndLockedState extends State<AlarmAndLocked> {
+class _FinishScreenState extends State<FinishScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text('Survey'),
-      ),
-      body: SafeArea(
+      return SafeArea(
         child: Container(
           height: MediaQuery.of(context).size.height,
           color: quiz_app_background,
@@ -40,7 +34,7 @@ class _AlarmAndLockedState extends State<AlarmAndLocked> {
               children: <Widget>[
                 SizedBox(height: 20),
 
-                text("Lock And Alarm.?", textColor: quiz_textColorPrimary, isLongText: true, isCentered: true,fontSize: 22.0).center(),
+                text("Finish Survay", textColor: quiz_textColorPrimary, isLongText: true, isCentered: true,fontSize: 22.0).center(),
 
                 SizedBox(height: 40),
                 // Container(
@@ -72,8 +66,6 @@ class _AlarmAndLockedState extends State<AlarmAndLocked> {
                         //   controller.reverse();
                       } else {
                         controller.forward();
-                        // Updatinngdata();
-                       // Navigator.push(context,  MaterialPageRoute(builder: (context) => JobCompleted()));
                         Updatinngdata();
                       }
                     },
@@ -83,26 +75,21 @@ class _AlarmAndLockedState extends State<AlarmAndLocked> {
             ),
           ),
         ),
-      ),
-    );
+      );
   }
+
 
   Future<void> Updatinngdata() async {
 
-    LockAndAlarmed lockAndAlarmed = new LockAndAlarmed();
-    lockAndAlarmed.setalarm = true;
-
-
-    if( widget.addPatrolModel.questionareModel == null){
-      widget.addPatrolModel.questionareModel = new PatrolQuestionareModel();
-    }
-    widget.addPatrolModel.questionareModel.lockAndAlarmed = lockAndAlarmed;
-
     FirebaseService firebaseService = new FirebaseService();
-    await firebaseService.updateAlarmAndLockedPatrol( widget.addPatrolModel.patrolId,widget.addPatrolModel.questionareModel);
+    if (widget.addAlarmModel.questionareModel == null) {
+      widget.addAlarmModel.questionareModel = new LockQuestionareModel();
+    }
+    widget.addAlarmModel.state = 3;
 
-    widget. callback(1);
+    await firebaseService.UpdatingStatusLock(
+        widget.addAlarmModel.lockId,widget.addAlarmModel);
+    widget.callback(1);
 
   }
-
 }

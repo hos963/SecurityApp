@@ -73,7 +73,7 @@ class _AdditionalCommentsState extends State<AdditionalComments> {
                         //   controller.reverse();
                       } else {
                         controller.forward();
-                           Navigator.push(context,  MaterialPageRoute(builder: (context) => JobCompleted()));
+                          // Navigator.push(context,  MaterialPageRoute(builder: (context) => JobCompleted()));
                       }
                     },
                   ),

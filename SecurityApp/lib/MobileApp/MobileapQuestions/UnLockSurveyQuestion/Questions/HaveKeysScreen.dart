@@ -1,6 +1,10 @@
+import 'package:Metropolitane/FirebaseService/FirebaseService.dart';
+import 'package:Metropolitane/MobileApp/MobileapQuestions/UnLockSurveyQuestion/UnLockQuestionsSurvey.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizColors.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizStrings.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizWidget.dart';
+import 'package:Metropolitane/model/AddUnlockModel.dart';
+import 'package:Metropolitane/model/UnLockQuestionareModel.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:group_radio_button/group_radio_button.dart';
@@ -9,6 +13,13 @@ import 'package:progress_indicator_button/progress_button.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/UnLockSurveyQuestion/Questions/ExternalImageScreen.dart';
 
 class HaveKeysScreen extends StatefulWidget {
+
+
+  final MyCallbackToback callback;
+
+  AddUnlockModel addUnlockModel;
+  HaveKeysScreen(this.addUnlockModel,this.callback);
+
   @override
   _HaveKeysScreenState createState() => _HaveKeysScreenState();
 }
@@ -96,7 +107,7 @@ class _HaveKeysScreenState extends State<HaveKeysScreen> {
                         //   controller.reverse();
                       } else {
                         controller.forward();
-                        Navigator.push(context,  MaterialPageRoute(builder: (context) => ExternalImageScreen()));
+                        Updatinngdata();
                       }
                     },
                   ),
@@ -108,4 +119,27 @@ class _HaveKeysScreenState extends State<HaveKeysScreen> {
       ),
     );
   }
+
+
+  Future<void> Updatinngdata() async {
+    bool istrue = false;
+    if (_singleValue == "Yes") {
+      istrue = true;
+    } else {
+      istrue = false;
+    }
+
+    if (widget.addUnlockModel.questionareModel == null) {
+      widget.addUnlockModel.questionareModel = new UnLockQuestionareModel();
+    }
+
+    widget.addUnlockModel.questionareModel.havekeys = istrue;
+
+    FirebaseService firebaseService = new FirebaseService();
+    await firebaseService.HavekeyUpdateUnLock(
+        widget.addUnlockModel.unlockId, widget.addUnlockModel.questionareModel);
+
+    widget.callback(1);
+  }
+
 }

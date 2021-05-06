@@ -1,6 +1,9 @@
+import 'package:Metropolitane/FirebaseService/FirebaseService.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizColors.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizStrings.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizWidget.dart';
+import 'package:Metropolitane/model/AddPatrolModel.dart';
+import 'package:Metropolitane/model/PatrolQuestionareModel.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:group_radio_button/group_radio_button.dart';
@@ -9,7 +12,16 @@ import 'package:progress_indicator_button/progress_button.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/PatrolSurveyQuestion/Questions/TakeImageOfKeys.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/PatrolSurveyQuestion/Questions/DoKeyGiveAccess.dart';
 
+import '../PatrolQuestionSurvey.dart';
+
 class HaveKeysScreen extends StatefulWidget {
+
+  final MyCallbackToback callback;
+  final Callbackforcustommove callbackforcustommove;
+
+  AddPatrolModel addPatrolModel;
+  HaveKeysScreen(this.addPatrolModel,this.callback,this.callbackforcustommove);
+
   @override
   _HaveKeysScreenState createState() => _HaveKeysScreenState();
 }
@@ -99,11 +111,13 @@ class _HaveKeysScreenState extends State<HaveKeysScreen> {
                         controller.forward();
 
                         if(_singleValue == "Yes"){
-
-                           Navigator.push(context,  MaterialPageRoute(builder: (context) => TakeImageOfKeys()));
+                          Updatinngdata();
+                         //  Navigator.push(context,  MaterialPageRoute(builder: (context) => TakeImageOfKeys()));
                         }
                         else if(_singleValue == "No"){
-                          Navigator.push(context,  MaterialPageRoute(builder: (context) => DoKeyGiveAccess()));
+                        //  Navigator.push(context,  MaterialPageRoute(builder: (context) => DoKeyGiveAccess()));
+                          Updatinngdata();
+
                         }
 
                        // Navigator.push(context,  MaterialPageRoute(builder: (context) => ExternalImageScreen()));
@@ -118,4 +132,32 @@ class _HaveKeysScreenState extends State<HaveKeysScreen> {
       ),
     );
   }
+
+  Future<void> Updatinngdata() async {
+    bool istrue = false;
+    if (_singleValue == "Yes") {
+      istrue = true;
+    } else {
+      istrue = false;
+    }
+
+    if (widget.addPatrolModel.questionareModel == null) {
+      widget.addPatrolModel.questionareModel = new PatrolQuestionareModel();
+    }
+
+    widget.addPatrolModel.questionareModel.havekeys = istrue;
+
+    FirebaseService firebaseService = new FirebaseService();
+    await firebaseService.HavekeyUpdatePatrol(
+        widget.addPatrolModel.patrolId, widget.addPatrolModel.questionareModel);
+
+    if (_singleValue == "Yes") {
+      widget.callback(1);
+    } else {
+      widget.callback(2);
+    }
+
+
+  }
+
 }

@@ -1,5 +1,6 @@
 import 'package:Metropolitane/model/FirebaseUserData.dart';
 import 'package:Metropolitane/model/QuestionareModel.dart';
+import 'package:Metropolitane/model/UnLockQuestionareModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AddUnlockModel {
@@ -10,7 +11,7 @@ class AddUnlockModel {
   String type;
   bool isactive;
   int state = 1;
-  QuestionareModel questionareModel;
+  UnLockQuestionareModel questionareModel;
 
   FirebaseUserData firebaseUserData;
 
@@ -31,7 +32,7 @@ class AddUnlockModel {
       unlockLocation: parsedJson['unlockLocation'],
       type: parsedJson['type'],
       questionareModel: parsedJson.containsKey("QuestionareModel")
-          ? QuestionareModel.fromJson(parsedJson['QuestionareModel'])
+          ? UnLockQuestionareModel.fromJson(parsedJson['QuestionareModel'])
           : null,
       isactive: parsedJson['isactive'],
     );
@@ -41,12 +42,12 @@ class AddUnlockModel {
     return AddUnlockModel(
       unlockId: doc.data()['unlockId'],
       unlockTitle: doc.data()['unlockTitle'],
-      unlockDesc: doc.data()['lunockDesc'],
+      unlockDesc: doc.data()['unlockDesc'],
       unlockLocation: doc.data()['unlockLocation'],
       type: doc.data()['type'],
       state: doc.data()['state'],
       questionareModel: doc.data().containsKey("QuestionareModel")
-          ? QuestionareModel.fromJson(doc.data()['QuestionareModel'])
+          ? UnLockQuestionareModel.fromJson(doc.data()['QuestionareModel'])
           : null,
 
       firebaseUserData: doc.data().containsKey("firebaseUserData")

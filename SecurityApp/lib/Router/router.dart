@@ -1,9 +1,11 @@
 import 'package:Metropolitane/MobileApp/MobileapQuestions/FillSurvayQuestions/FilledQuestionsSurvey.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/LockSurveyQuestion/LockQuestionsSurvey.dart';
+import 'package:Metropolitane/MobileApp/MobileapQuestions/PatrolSurveyQuestion/PatrolQuestionSurvey.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/Screens/QuizDashboard.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/Screens/QuizHomeDashboard.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/Screens/QuizNewList.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/Screens/QuizSearch.dart';
+import 'package:Metropolitane/MobileApp/MobileapQuestions/UnLockSurveyQuestion/UnLockQuestionsSurvey.dart';
 import 'package:Metropolitane/WebArea/Createaddress/CreateAddress.dart';
 import 'package:Metropolitane/WebArea/MainDashBoardWeb/MainDashBoardWeb.dart';
 import 'package:Metropolitane/WebArea/MainWeb/AddAlarm/AddAlarmPage.dart';
@@ -22,8 +24,11 @@ import 'package:Metropolitane/WebArea/MainWeb/PatrolReport/PatrolReportdetailPag
 import 'package:Metropolitane/WebArea/MainWeb/PatrolReport/ReportPage.dart';
 import 'package:Metropolitane/model/AddAlarmModel.dart';
 import 'package:Metropolitane/model/AddLockModel.dart';
+import 'package:Metropolitane/model/AddPatrolModel.dart';
+import 'package:Metropolitane/model/AddUnlockModel.dart';
 import 'package:Metropolitane/model/LockQuestionareModel.dart';
 import 'package:Metropolitane/model/QuestionareModel.dart';
+import 'package:Metropolitane/model/UnLockQuestionareModel.dart';
 import 'package:flutter/material.dart';
 import 'package:Metropolitane/Pages/BioMatricAuth.dart';
 import 'package:Metropolitane/Pages/LoginPage/LoginPage.dart';
@@ -84,6 +89,8 @@ const String QuizListingroute = 'QuizListingroute';
 const String QuizSearchroute = 'QuizSearchroute';
 const String FilledQuestionsSurveyroute = 'FilledQuestionsSurveyroute';
 const String LockQuestionsSurveyroute = 'LockQuestionsSurveyroute';
+const String UnLockQuestionsSurveyroute = 'UnLockQuestionsSurveyroute';
+const String PatrolQuestionsSurveyroute = 'PatrolQuestionsSurveyroute';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
@@ -192,6 +199,16 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       AddLockModel addLockModel = settings.arguments;
       return MaterialPageRoute(
           builder: (context) => LockQuestionSurvey(addLockModel));
+
+    case UnLockQuestionsSurveyroute:
+      AddUnlockModel addUnlockModel = settings.arguments;
+      return MaterialPageRoute(
+          builder: (context) => UnLockQuestionsSurvey(addUnlockModel));
+
+      case PatrolQuestionsSurveyroute:
+      AddPatrolModel addPatrolModel = settings.arguments;
+      return MaterialPageRoute(
+          builder: (context) => PatrolQuestionSurvey(addPatrolModel));
 
     default:
       return MaterialPageRoute(

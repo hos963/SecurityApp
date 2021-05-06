@@ -1,7 +1,11 @@
+import 'package:Metropolitane/FirebaseService/FirebaseService.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/PatrolSurveyQuestion/Questions/AlarmUnset.dart';
+import 'package:Metropolitane/MobileApp/MobileapQuestions/UnLockSurveyQuestion/UnLockQuestionsSurvey.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/AppWidget.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizColors.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizStrings.dart';
+import 'package:Metropolitane/model/AddUnlockModel.dart';
+import 'package:Metropolitane/model/UnLockQuestionareModel.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -12,6 +16,14 @@ import 'package:progress_indicator_button/progress_button.dart';
 
 
 class BuildingAlarmAndSecured extends StatefulWidget {
+
+
+
+  final MyCallbackToback callback;
+
+  AddUnlockModel addUnlockModel;
+  BuildingAlarmAndSecured(this.addUnlockModel,this.callback);
+
   @override
   _BuildingAlarmAndSecuredState createState() => _BuildingAlarmAndSecuredState();
 }
@@ -99,13 +111,13 @@ class _BuildingAlarmAndSecuredState extends State<BuildingAlarmAndSecured> {
                         //   controller.reverse();
                       } else {
                         //controller.forward();
-                        //  Updatinngdata();
-                        if(_singleValue=="Yes"){
-                          Navigator.push(context,  MaterialPageRoute(builder: (context) => AlarmUnset()));
-                        }
-                        else{
-                          Navigator.push(context,  MaterialPageRoute(builder: (context) => SpecialInstructionScreen()));
-                        }
+                          Updatinngdata();
+                        // if(_singleValue=="Yes"){
+                        //   Navigator.push(context,  MaterialPageRoute(builder: (context) => AlarmUnset()));
+                        // }
+                        // else{
+                        //   Navigator.push(context,  MaterialPageRoute(builder: (context) => SpecialInstructionScreen()));
+                        // }
                       }
                     },
                   ),
@@ -117,4 +129,26 @@ class _BuildingAlarmAndSecuredState extends State<BuildingAlarmAndSecured> {
       ),
     );
   }
+
+  Future<void> Updatinngdata() async {
+    bool istrue = false;
+    if (_singleValue == "Yes") {
+      istrue = true;
+    } else {
+      istrue = false;
+    }
+
+    if (widget.addUnlockModel.questionareModel == null) {
+      widget.addUnlockModel.questionareModel = new UnLockQuestionareModel();
+    }
+
+    widget.addUnlockModel.questionareModel.unlockandunalarmed = istrue;
+
+    FirebaseService firebaseService = new FirebaseService();
+    await firebaseService.BuildingUnAlarmedAndUnAlarmedLock(
+        widget.addUnlockModel.unlockId, widget.addUnlockModel.questionareModel);
+
+    widget.callback(1);
+  }
+
 }

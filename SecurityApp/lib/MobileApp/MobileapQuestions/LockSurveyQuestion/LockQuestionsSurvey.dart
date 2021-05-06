@@ -1,6 +1,7 @@
 import 'package:Metropolitane/MobileApp/MobileapQuestions/LockSurveyQuestion/Questions/AllWindowsAndDoorsScreen.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/LockSurveyQuestion/Questions/BuildingAlarmedAndSecured.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/LockSurveyQuestion/Questions/ExternalImageScreen.dart';
+import 'package:Metropolitane/MobileApp/MobileapQuestions/LockSurveyQuestion/Questions/FinishScreen.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/LockSurveyQuestion/Questions/HaveKeysScreen.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/LockSurveyQuestion/Questions/JobCompleted.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/LockSurveyQuestion/Questions/OnSiteScreen.dart';
@@ -41,6 +42,7 @@ class _LockQuestionSurveyState extends State<LockQuestionSurvey> {
     list.add(BuildingAlarmAndSecured(widget.addLockModel,MoveNext));
     list.add(SpecialInstructionScreen(widget.addLockModel,MoveNext));
     list.add(JobCompleted(widget.addLockModel,MoveNext));
+    list.add(FinishScreen(widget.addLockModel,MoveNext));
 
     if(widget.addLockModel.questionareModel == null){
       currentpage = 0;
@@ -86,6 +88,9 @@ class _LockQuestionSurveyState extends State<LockQuestionSurvey> {
       if(questionmodel.leaveBuildingModel != null){
 
         currentpage = 9;
+      } if(questionmodel.leaveBuildingModel != null){
+
+        currentpage = 10;
       }
 
     }

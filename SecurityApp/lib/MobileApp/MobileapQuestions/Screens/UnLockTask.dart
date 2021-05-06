@@ -5,6 +5,7 @@ import 'package:Metropolitane/FirebaseService/FirebaseService.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/UnLockSurveyQuestion/Questions/OnWayScreen.dart';
 import 'package:Metropolitane/Utilities/PreferenceUtils.dart';
 import 'package:Metropolitane/model/AddAlarmModel.dart';
+import 'package:Metropolitane/model/AddUnlockModel.dart';
 import 'package:Metropolitane/model/FirebaseUserData.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -199,7 +200,7 @@ class _UnLockTaskState extends State<UnLockTask> {
       });
   }
 
-  ListView GettingListCards(List<AddAlarmModel> listofalrm) {
+  ListView GettingListCards(List<AddUnlockModel> listofalrm) {
     return ListView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: listofalrm.length,
@@ -221,7 +222,7 @@ class _UnLockTaskState extends State<UnLockTask> {
     new DateTime(selectedDate.year, selectedDate.month, selectedDate.day);
     return StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
-            .collection('AlarmAlert')
+            .collection('UnLockAlert')
             .where("firebaseUserData.udid", isEqualTo: userid)
             .where("timestamp", isGreaterThanOrEqualTo: currentdate.toUtc())
             .where("timestamp", isLessThan: nextdate.toUtc())
@@ -237,13 +238,13 @@ class _UnLockTaskState extends State<UnLockTask> {
               }
               int index = 0;
 
-              List<AddAlarmModel> listofalrm =
-              List<AddAlarmModel>.empty(growable: true);
+              List<AddUnlockModel> listofalrm =
+              List<AddUnlockModel>.empty(growable: true);
               snapshot.data.docChanges.forEach((element) {
                 //UsersPost.fromDoc(element.doc);
 
 
-                AddAlarmModel alarmModel =      AddAlarmModel.fromDoc(element.doc);
+                AddUnlockModel alarmModel =      AddUnlockModel.fromDoc(element.doc);
                 if(alarmModel.state != 3){
                   listofalrm.add(alarmModel);
 
@@ -259,11 +260,11 @@ class _UnLockTaskState extends State<UnLockTask> {
 }
 
 class AlarmCard extends StatelessWidget {
-  AddAlarmModel model;
+  AddUnlockModel model;
 
   Color bordercolor = Colors.white;
 
-  AlarmCard(AddAlarmModel model, int pos) {
+  AlarmCard(AddUnlockModel model, int pos) {
     this.model = model;
     if (model.state == 2) {
       bordercolor = CustomColors.orangecolor;
@@ -311,7 +312,7 @@ class AlarmCard extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                    model.alrmTitle,
+                    model.unlockTitle,
                     maxLines: 3,
                     style: TextStyle(
                         fontSize: 16,
@@ -340,7 +341,7 @@ class AlarmCard extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                    model.alrmLocation,
+                    model.unlockLocation,
                     maxLines: 3,
                     style: TextStyle(
                         fontSize: 16,
@@ -369,7 +370,7 @@ class AlarmCard extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                    model.alrmDesc,
+                    model.unlockDesc,
                     maxLines: 3,
                     style: TextStyle(
                         fontSize: 16,
@@ -403,9 +404,9 @@ class AlarmCard extends StatelessWidget {
                   padding: EdgeInsets.only(bottom: 10.0),
                   child: TextButton(
                     onPressed: () {
-                      //AddingdataToStartquestionare(model, context);
+                      AddingdataToStartquestionare(model, context);
                       // Navigator.push(context,  MaterialPageRoute(builder: (context) => LockQuestionSurvey()));
-                      Navigator.push(context,  MaterialPageRoute(builder: (context) => OnWayScreen()));
+                     // Navigator.push(context,  MaterialPageRoute(builder: (context) => OnWayScreen()));
                     },
                     child: Text(
                       'Select Task',
@@ -428,7 +429,7 @@ class AlarmCard extends StatelessWidget {
   }
 
   Future<void> AddingdataToStartquestionare(
-      AddAlarmModel addAlarmModel, BuildContext context) async {
+      AddUnlockModel addAlarmModel, BuildContext context) async {
 
     if(addAlarmModel.state == 3){
 
@@ -438,7 +439,7 @@ class AlarmCard extends StatelessWidget {
         progress.show();
         FirebaseService firebaseService = new FirebaseService();
         addAlarmModel.state = 2;
-        await firebaseService.UpdateAlarm(addAlarmModel);
+        await firebaseService.UpdateUnLock(addAlarmModel);
         progress.dismiss();
 
         MovetoDetailPutScreen(addAlarmModel, context);
@@ -449,9 +450,9 @@ class AlarmCard extends StatelessWidget {
   }
 
 
-  void MovetoDetailPutScreen( AddAlarmModel addAlarmModel, BuildContext context){
+  void MovetoDetailPutScreen( AddUnlockModel addAlarmModel, BuildContext context){
 
-    Navigator.pushNamed(context, Router.FilledQuestionsSurveyroute,arguments: addAlarmModel);
+    Navigator.pushNamed(context, Router.UnLockQuestionsSurveyroute,arguments: addAlarmModel);
   }
 
 }

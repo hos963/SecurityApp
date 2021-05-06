@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:collection';
 import 'dart:io';
 
+import 'package:Metropolitane/MobileApp/MobileapQuestions/PatrolSurveyQuestion/Questions/ExternalPatrolDone.dart';
 import 'package:Metropolitane/model/AddAlarmModel.dart';
 import 'package:Metropolitane/model/AddLockModel.dart';
 import 'package:Metropolitane/model/AddPatrolModel.dart';
@@ -11,7 +12,9 @@ import 'package:Metropolitane/model/AddPropertyInspectionModel.dart';
 import 'package:Metropolitane/model/AddUnlockModel.dart';
 import 'package:Metropolitane/model/AddressAlarmModel.dart';
 import 'package:Metropolitane/model/LockQuestionareModel.dart';
+import 'package:Metropolitane/model/PatrolQuestionareModel.dart';
 import 'package:Metropolitane/model/QuestionareModel.dart';
+import 'package:Metropolitane/model/UnLockQuestionareModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -159,6 +162,24 @@ class FirebaseService {
     return resp;
   }
 
+  Future<void> UpdatePatrol(AddPatrolModel addPatrolModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("PatrolAlert")
+        .doc(addPatrolModel.patrolId)
+        .set(addPatrolModel.AddPatrolTopMap(isupdate: true), SetOptions(merge: true));
+
+    return resp;
+  }
+
+  Future<void> UpdateUnLock(AddUnlockModel unlockModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("UnLockAlert")
+        .doc(unlockModel.unlockId)
+        .set(unlockModel.AddUnLockTopMap(isupdate: true), SetOptions(merge: true));
+
+    return resp;
+  }
+
   Future<void> UpdateLock(AddLockModel lockModel) async {
     var resp = await _fireStoreDataBase
         .collection("AlarmAlert")
@@ -188,10 +209,61 @@ class FirebaseService {
     return resp;
   }
 
+  Future<void> updateOnwayPatrol(
+      String keypath, PatrolQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("PatrolAlert")
+        .doc(keypath)
+        .set(questionareModel.AddAlrmOnthewayToMap(), SetOptions(merge: true));
+
+    return resp;
+  }
+
+  Future<void> updateAlarmAndLockedPatrol(
+      String keypath, PatrolQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("PatrolAlert")
+        .doc(keypath)
+        .set(questionareModel.lockAndAlarmedtoMap(), SetOptions(merge: true));
+
+    return resp;
+  }
+
+
+  Future<void> updateOnwayUnLock(
+      String keypath, UnLockQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("UnLockAlert")
+        .doc(keypath)
+        .set(questionareModel.AddUnLockOnthewayToMap(), SetOptions(merge: true));
+
+    return resp;
+  }
+
   Future<void> updateOnSiteLock(
       String keypath, LockQuestionareModel questionareModel) async {
     var resp = await _fireStoreDataBase
         .collection("LockAlert")
+        .doc(keypath)
+        .set(questionareModel.AddReachedonSiteModel(), SetOptions(merge: true));
+
+    return resp;
+  }
+  Future<void> updateOnSitePatrol(
+      String keypath, PatrolQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("PatrolAlert")
+        .doc(keypath)
+        .set(questionareModel.AddReachedonSiteModel(), SetOptions(merge: true));
+
+    return resp;
+  }
+
+
+  Future<void> updateOnSiteUnLock(
+      String keypath, UnLockQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("UnLockAlert")
         .doc(keypath)
         .set(questionareModel.AddReachedonSiteModel(), SetOptions(merge: true));
 
@@ -220,6 +292,26 @@ class FirebaseService {
     return resp;
   }
 
+  Future<void> specialInstructionPatrol(
+      String keypath, PatrolQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("PatrolAlert")
+        .doc(keypath)
+        .set(questionareModel.SpecialInstructionToMap(), SetOptions(merge: true));
+
+    return resp;
+  }
+
+  Future<void> specialInstructionUnLock(
+      String keypath, UnLockQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("UnLockAlert")
+        .doc(keypath)
+        .set(questionareModel.MessageOnPanelToMap(), SetOptions(merge: true));
+
+    return resp;
+  }
+
   Future<void> HavekeyUpdate(
       String keypath, QuestionareModel questionareModel) async {
     var resp = await _fireStoreDataBase
@@ -240,10 +332,80 @@ class FirebaseService {
     return resp;
   }
 
+  Future<void> HavekeyUpdatePatrol(
+      String keypath, PatrolQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("PatrolAlert")
+        .doc(keypath)
+        .set(questionareModel.HaveKeyToMapModel(), SetOptions(merge: true));
+
+    return resp;
+  }
+
+  Future<void> AlarmUnset(
+      String keypath, PatrolQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("PatrolAlert")
+        .doc(keypath)
+        .set(questionareModel.alarmUnsetToMapModel(), SetOptions(merge: true));
+
+    return resp;
+  }
+
+  Future<void> DoKeyGiveAcces(
+      String keypath, PatrolQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("PatrolAlert")
+        .doc(keypath)
+        .set(questionareModel.dokeygiveAccessToMapModel(), SetOptions(merge: true));
+
+    return resp;
+  }
+
+  Future<void>ExternalPatrolDone(
+      String keypath, PatrolQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("PatrolAlert")
+        .doc(keypath)
+        .set(questionareModel.ExternalPatrolDone(), SetOptions(merge: true));
+
+    return resp;
+  }
+
+  Future<void>IsBuildingPresent(
+      String keypath, PatrolQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("PatrolAlert")
+        .doc(keypath)
+        .set(questionareModel.IsBuildingPresent(), SetOptions(merge: true));
+
+    return resp;
+  }
+
+  Future<void> HavekeyUpdateUnLock(
+      String keypath, UnLockQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("UnLockAlert")
+        .doc(keypath)
+        .set(questionareModel.HaveKeyToMapModel(), SetOptions(merge: true));
+
+    return resp;
+  }
+
   Future<void> BuildingAlarmedAndSecuredLock(
       String keypath, LockQuestionareModel questionareModel) async {
     var resp = await _fireStoreDataBase
         .collection("LockAlert")
+        .doc(keypath)
+        .set(questionareModel.AlarmedAndSecured(), SetOptions(merge: true));
+
+    return resp;
+  }
+
+  Future<void> BuildingUnAlarmedAndUnAlarmedLock(
+      String keypath, UnLockQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("UnLockAlert")
         .doc(keypath)
         .set(questionareModel.AlarmedAndSecured(), SetOptions(merge: true));
 
@@ -290,12 +452,53 @@ class FirebaseService {
     return resp;
   }
 
+  Future<void>JobCompleteUnLock(
+      String keypath, UnLockQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("UnLockAlert")
+        .doc(keypath)
+        .set(questionareModel.LeaveBuildingtoMap(), SetOptions(merge: true));
+
+    return resp;
+  }
+
   Future<void>UpdatingStatus(
       String keypath, AddAlarmModel addAlarmModel) async {
     var resp = await _fireStoreDataBase
         .collection("AlarmAlert")
         .doc(keypath)
         .set(addAlarmModel.AddAlrmToMap(isupdate: true), SetOptions(merge: true));
+
+    return resp;
+  }
+
+  Future<void>UpdatingStatusUnLock(
+      String keypath, AddUnlockModel addAlarmModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("UnLockAlert")
+        .doc(keypath)
+        .set(addAlarmModel.AddUnLockTopMap(isupdate: true), SetOptions(merge: true));
+
+    return resp;
+  }
+
+  Future<void>UpdatingStatusLock(
+      String keypath, AddLockModel addAlarmModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("LockAlert")
+        .doc(keypath)
+        .set(addAlarmModel.AddLockTopMap(isupdate: true), SetOptions(merge: true));
+
+    return resp;
+  }
+
+
+  Future<void>UpdatingStatusPatrol(
+      String keypath, AddPatrolModel addAlarmModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("PatrolAlert")
+        .doc(keypath)
+        .set(addAlarmModel.AddPatrolTopMap(isupdate: true), SetOptions(merge: true));
 
     return resp;
   }
@@ -332,6 +535,108 @@ class FirebaseService {
     } else {
       var resp2 = await _fireStoreDataBase
           .collection("LockAlert")
+          .doc(keypath)
+          .set(questionareModel.ExternalPictureOfBuildingModeltoMap(), SetOptions(merge: true));
+
+      return resp2;
+    }
+  }
+
+  Future<void> TakePictureOfBuildingModel(String keypath,
+      PatrolQuestionareModel questionareModel) async {
+
+      var resp = await _fireStoreDataBase
+          .collection("PatrolAlert")
+          .doc(keypath)
+          .set(questionareModel.TakePictureOfBuildingModeltoMap(), SetOptions(merge: true));
+
+      return resp;
+
+  }
+  Future<void> TakePictureOfKeys(String keypath,
+      PatrolQuestionareModel questionareModel) async {
+
+      var resp = await _fireStoreDataBase
+          .collection("PatrolAlert")
+          .doc(keypath)
+          .set(questionareModel.TakePictureOfKeystoMap(), SetOptions(merge: true));
+
+      return resp;
+
+  }
+
+  Future<void> TakeInternalPicture(String keypath,
+      PatrolQuestionareModel questionareModel) async {
+
+    var resp = await _fireStoreDataBase
+          .collection("PatrolAlert")
+          .doc(keypath)
+          .set(questionareModel.InternalPictureOfBuildingModeltoMap(), SetOptions(merge: true));
+
+    return resp;
+
+  }
+
+  Future<void> TakeFirstInternalPicture(String keypath,
+      PatrolQuestionareModel questionareModel) async {
+
+      var resp = await _fireStoreDataBase
+          .collection("PatrolAlert")
+          .doc(keypath)
+          .set(questionareModel.InternalFirstPictureOfBuildingModeltoMap(), SetOptions(merge: true));
+
+      return resp;
+
+  }
+  Future<void> TakeSecondInternalPicture(String keypath,
+      PatrolQuestionareModel questionareModel) async {
+
+      var resp = await _fireStoreDataBase
+          .collection("PatrolAlert")
+          .doc(keypath)
+          .set(questionareModel.InternalSecondPictureOfBuildingModeltoMap(), SetOptions(merge: true));
+
+      return resp;
+
+  }
+
+  Future<void> TakeThirdInternalPicture(String keypath,
+      PatrolQuestionareModel questionareModel) async {
+
+      var resp = await _fireStoreDataBase
+          .collection("PatrolAlert")
+          .doc(keypath)
+          .set(questionareModel.InternalThirdPictureOfBuildingModeltoMap(), SetOptions(merge: true));
+
+      return resp;
+
+  }
+
+  Future<void> TakeFourthInternalPicture(String keypath,
+      PatrolQuestionareModel questionareModel) async {
+
+      var resp = await _fireStoreDataBase
+          .collection("PatrolAlert")
+          .doc(keypath)
+          .set(questionareModel.InternalFourthPictureOfBuildingModeltoMap(), SetOptions(merge: true));
+
+      return resp;
+
+  }
+
+
+  Future<void> InternalOrExternalUpdateUnLock(String keypath,
+      UnLockQuestionareModel questionareModel, bool isinternal) async {
+    if (isinternal == true) {
+      var resp = await _fireStoreDataBase
+          .collection("UnLockAlert")
+          .doc(keypath)
+          .set(questionareModel.ExternalPictureOfBuildingModeltoMap(), SetOptions(merge: true));
+
+      return resp;
+    } else {
+      var resp2 = await _fireStoreDataBase
+          .collection("UnLockAlert")
           .doc(keypath)
           .set(questionareModel.ExternalPictureOfBuildingModeltoMap(), SetOptions(merge: true));
 

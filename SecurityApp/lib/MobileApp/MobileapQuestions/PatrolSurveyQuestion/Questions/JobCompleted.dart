@@ -1,11 +1,20 @@
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/AppWidget.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizColors.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizStrings.dart';
+import 'package:Metropolitane/model/AddPatrolModel.dart';
 import 'package:flutter/material.dart';
 import 'package:progress_indicator_button/progress_button.dart';
 
 import 'package:nb_utils/nb_utils.dart';
+
+import '../PatrolQuestionSurvey.dart';
 class JobCompleted extends StatefulWidget {
+
+  final MyCallbackToback callback;
+
+  AddPatrolModel addPatrolModel;
+  JobCompleted(this.addPatrolModel,this.callback);
+
   @override
   _JobCompletedState createState() => _JobCompletedState();
 }

@@ -2,6 +2,8 @@ import 'package:Metropolitane/model/FirebaseUserData.dart';
 import 'package:Metropolitane/model/QuestionareModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'PatrolQuestionareModel.dart';
+
 class AddPatrolModel {
   String patrolId;
   String patrolTitle;
@@ -10,7 +12,7 @@ class AddPatrolModel {
   String type;
   bool isactive;
   int state = 1;
-  QuestionareModel questionareModel;
+  PatrolQuestionareModel questionareModel;
 
   FirebaseUserData firebaseUserData;
 
@@ -31,7 +33,7 @@ class AddPatrolModel {
       patrolLocation: parsedJson['patrolLocation'],
       type: parsedJson['type'],
       questionareModel: parsedJson.containsKey("QuestionareModel")
-          ? QuestionareModel.fromJson(parsedJson['QuestionareModel'])
+          ? PatrolQuestionareModel.fromJson(parsedJson['QuestionareModel'])
           : null,
       isactive: parsedJson['isactive'],
     );
@@ -46,7 +48,7 @@ class AddPatrolModel {
       type: doc.data()['type'],
       state: doc.data()['state'],
       questionareModel: doc.data().containsKey("QuestionareModel")
-          ? QuestionareModel.fromJson(doc.data()['QuestionareModel'])
+          ? PatrolQuestionareModel.fromJson(doc.data()['QuestionareModel'])
           : null,
 
       firebaseUserData: doc.data().containsKey("firebaseUserData")

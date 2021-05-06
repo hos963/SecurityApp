@@ -1,6 +1,9 @@
+import 'package:Metropolitane/FirebaseService/FirebaseService.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/AppWidget.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizColors.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizStrings.dart';
+import 'package:Metropolitane/model/AddPatrolModel.dart';
+import 'package:Metropolitane/model/PatrolQuestionareModel.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:group_radio_button/group_radio_button.dart';
@@ -9,7 +12,17 @@ import 'package:progress_indicator_button/progress_button.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/PatrolSurveyQuestion/Questions/AlarmUnset.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/PatrolSurveyQuestion/Questions/AdditionalComments.dart';
 
+import '../PatrolQuestionSurvey.dart';
+
 class DoKeyGiveAccess extends StatefulWidget {
+
+  final MyCallbackToback callback;
+  final Callbackforcustommove callbackforcustommove;
+
+
+  AddPatrolModel addPatrolModel;
+  DoKeyGiveAccess(this.addPatrolModel,this.callback,this.callbackforcustommove);
+
   @override
   _DoKeyGiveAccessState createState() => _DoKeyGiveAccessState();
 }
@@ -97,10 +110,12 @@ class _DoKeyGiveAccessState extends State<DoKeyGiveAccess> {
                       } else {
                         controller.forward();
                         if(_singleValue == "Yes"){
-                          Navigator.push(context,  MaterialPageRoute(builder: (context) => AlarmUnset()));
+                          Updatinngdata();
+                         // Navigator.push(context,  MaterialPageRoute(builder: (context) => AlarmUnset()));
                         }
                         else if(_singleValue == "No"){
-                          Navigator.push(context,  MaterialPageRoute(builder: (context) => AdditionalComments()));
+                         // Navigator.push(context,  MaterialPageRoute(builder: (context) => AdditionalComments()));
+                          Updatinngdata();
                         }
 
                       }
@@ -114,5 +129,34 @@ class _DoKeyGiveAccessState extends State<DoKeyGiveAccess> {
       ),
     );
   }
+
+  Future<void> Updatinngdata() async {
+    bool istrue = false;
+    if (_singleValue == "Yes") {
+      istrue = true;
+    } else {
+      istrue = false;
+    }
+
+    if (widget.addPatrolModel.questionareModel == null) {
+      widget.addPatrolModel.questionareModel = new PatrolQuestionareModel();
+    }
+
+    widget.addPatrolModel.questionareModel.dokeygiveAccess = istrue;
+
+    FirebaseService firebaseService = new FirebaseService();
+    await firebaseService.DoKeyGiveAcces(
+        widget.addPatrolModel.patrolId, widget.addPatrolModel.questionareModel);
+
+
+    if (_singleValue == "Yes") {
+      widget.callback(1);
+    } else {
+      widget.callbackforcustommove(15);
+    }
+
+
+  }
+
 }
 

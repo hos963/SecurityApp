@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
-import 'package:Metropolitane/MobileApp/MobileapQuestions/PatrolSurveyQuestion//Questions/AlarmAndLocked.dart';
+import 'package:Metropolitane/MobileApp/MobileapQuestions/PatrolSurveyQuestion/Questions/SpecificInstructions.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizColors.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizStrings.dart';
@@ -15,21 +15,20 @@ import 'package:progress_indicator_button/progress_button.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'dart:io' as io;
-
 import '../PatrolQuestionSurvey.dart';
 
-class TakeImageOfKeys extends StatefulWidget {
+class TakeSecondInternalPictures extends StatefulWidget {
 
   final MyCallbackToback callback;
 
   AddPatrolModel addPatrolModel;
-  TakeImageOfKeys(this.addPatrolModel,this.callback);
+  TakeSecondInternalPictures(this.addPatrolModel,this.callback);
 
   @override
-  _TakeImageOfKeysState createState() => _TakeImageOfKeysState();
+  _TakeInternalPicturesState createState() => _TakeInternalPicturesState();
 }
 
-class _TakeImageOfKeysState extends State<TakeImageOfKeys> {
+class _TakeInternalPicturesState extends State<TakeSecondInternalPictures> {
   File _image;
   final picker = ImagePicker();
 
@@ -68,7 +67,7 @@ class _TakeImageOfKeysState extends State<TakeImageOfKeys> {
             child: Column(
               children: <Widget>[
                 SizedBox(height: 20),
-                text("Take Picture of keys", textColor: quiz_textColorPrimary,
+                text("Take 2nd Internal Pictures", textColor: quiz_textColorPrimary,
                     isLongText: true,
                     isCentered: true,
                     fontSize: 22.0).center(),
@@ -149,7 +148,7 @@ class _TakeImageOfKeysState extends State<TakeImageOfKeys> {
                       } else {
                         controller.forward();
                         //     uploadFile(_image);
-                       // Navigator.push(context,  MaterialPageRoute(builder: (context) => AlarmAndLocked()));
+                        //Navigator.push(context,  MaterialPageRoute(builder: (context) => SpecificInstructions()));
                         uploadFile(_image);
                       }
                     },
@@ -178,7 +177,7 @@ class _TakeImageOfKeysState extends State<TakeImageOfKeys> {
     firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
         .ref()
         .child('buuilding')
-        .child('/' + file.name+'11');
+        .child('/' + file.name);
 
     final metadata = firebase_storage.SettableMetadata(
         contentType: 'image/jpeg',
@@ -201,20 +200,18 @@ class _TakeImageOfKeysState extends State<TakeImageOfKeys> {
       widget.addPatrolModel.questionareModel = new PatrolQuestionareModel();
     }
 
-    TakePictureOfKey takePictureOfBuildingModel =
-    new TakePictureOfKey();
-    takePictureOfBuildingModel.takePictureOfKeys = ImgLinnk;
-    widget.addPatrolModel.questionareModel.takePictureOfKeys =
+    InternalFirstPictureOfBuildingModel takePictureOfBuildingModel =
+    new InternalFirstPictureOfBuildingModel();
+    takePictureOfBuildingModel.internalbuildingpic = ImgLinnk;
+    widget.addPatrolModel.questionareModel.internalFirstPictureOfBuildingModel =
         takePictureOfBuildingModel;
 
     // widget.addAlarmModel.questionareModel.onwayModel = onwayModel;
 
-    await firebaseService.TakePictureOfKeys(widget.addPatrolModel.patrolId,
+    await firebaseService.TakeFirstInternalPicture(widget.addPatrolModel.patrolId,
         widget.addPatrolModel.questionareModel);
 
     widget.callback(1);
   }
-
-
 
 }
