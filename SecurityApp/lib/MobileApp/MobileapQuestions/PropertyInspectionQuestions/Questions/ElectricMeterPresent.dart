@@ -1,6 +1,9 @@
+import 'package:Metropolitane/FirebaseService/FirebaseService.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizColors.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizStrings.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizWidget.dart';
+import 'package:Metropolitane/model/AddPropertyInspectionModel.dart';
+import 'package:Metropolitane/model/PropertyInspectionQuestionareModel.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:group_radio_button/group_radio_button.dart';
@@ -8,7 +11,15 @@ import 'package:progress_indicator_button/progress_button.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/PropertyInspectionQuestions/Questions/GasMeterPresent.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/PropertyInspectionQuestions/Questions/ElectricMeterPicture.dart';
 
+import '../PropertyInspectionQuestions.dart';
+
 class ElectricMeterPresent extends StatefulWidget {
+
+  final MyCallbackToback myCallbackToback;
+  AddPropertyInspectionModel addPropertyInspectionModel;
+
+  ElectricMeterPresent(this.addPropertyInspectionModel,this.myCallbackToback);
+
   @override
   _ElectricMeterPresentState createState() => _ElectricMeterPresentState();
 }
@@ -96,11 +107,7 @@ class _ElectricMeterPresentState extends State<ElectricMeterPresent> {
                         //   controller.reverse();
                       } else {
                         controller.forward();
-
-                        if(_singleValue=="Yes"){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => ElectricMeterPicture()));
-                        }else
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => GasMeterPresent()));
+                        Updatinngdata();
                       }
                     },
                   ),
@@ -112,4 +119,31 @@ class _ElectricMeterPresentState extends State<ElectricMeterPresent> {
       ),
     );
   }
+
+  Future<void> Updatinngdata() async {
+    bool istrue = false;
+    if (_singleValue == "Yes") {
+      istrue = true;
+    } else {
+      istrue = false;
+    }
+
+    if (widget.addPropertyInspectionModel.questionareModel == null) {
+      widget.addPropertyInspectionModel.questionareModel = new PropertyInspectionQuestionareModel();
+    }
+
+    widget.addPropertyInspectionModel.questionareModel.electricMeterPresent = istrue;
+
+    FirebaseService firebaseService = new FirebaseService();
+    await firebaseService.ElectricMeterPresentProperty(
+        widget.addPropertyInspectionModel.inspectionId, widget.addPropertyInspectionModel.questionareModel);
+
+    if (_singleValue == "Yes") {
+      widget.myCallbackToback(1);
+    } else {
+      widget.myCallbackToback(2);
+    }
+
+  }
+
 }

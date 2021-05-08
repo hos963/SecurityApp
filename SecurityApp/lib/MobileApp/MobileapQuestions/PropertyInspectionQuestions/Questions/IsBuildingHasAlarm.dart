@@ -1,6 +1,9 @@
+import 'package:Metropolitane/FirebaseService/FirebaseService.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizColors.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizStrings.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizWidget.dart';
+import 'package:Metropolitane/model/AddPropertyInspectionModel.dart';
+import 'package:Metropolitane/model/PropertyInspectionQuestionareModel.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:group_radio_button/group_radio_button.dart';
@@ -8,7 +11,15 @@ import 'package:progress_indicator_button/progress_button.dart';
 
 import 'package:Metropolitane/MobileApp/MobileapQuestions/PropertyInspectionQuestions/Questions/AnyWaterLeaking.dart';
 
+import '../PropertyInspectionQuestions.dart';
+
 class IsBuildingHasAlarm extends StatefulWidget {
+
+  final MyCallbackToback myCallbackToback;
+  AddPropertyInspectionModel addPropertyInspectionModel;
+
+  IsBuildingHasAlarm(this.addPropertyInspectionModel,this.myCallbackToback);
+
   @override
   _IsBuildingHasAlarmState createState() => _IsBuildingHasAlarmState();
 }
@@ -32,7 +43,7 @@ class _IsBuildingHasAlarmState extends State<IsBuildingHasAlarm> {
             child: Column(
               children: <Widget>[
                 SizedBox(height: 20),
-                text("Is building has working alarm?",
+                text("Is building has working alarm system?",
                     textColor: quiz_textColorPrimary,
                     isLongText: true,
                     isCentered: true,
@@ -96,7 +107,8 @@ class _IsBuildingHasAlarmState extends State<IsBuildingHasAlarm> {
                         //   controller.reverse();
                       } else {
                         controller.forward();
-                        Navigator.push(context,  MaterialPageRoute(builder: (context) => AnyWaterLeaking()));
+                       // Navigator.push(context,  MaterialPageRoute(builder: (context) => AnyWaterLeaking()));
+                        Updatinngdata();
                       }
                     },
                   ),
@@ -108,4 +120,29 @@ class _IsBuildingHasAlarmState extends State<IsBuildingHasAlarm> {
       ),
     );
   }
+
+
+  Future<void> Updatinngdata() async {
+    bool istrue = false;
+    if (_singleValue == "Yes") {
+      istrue = true;
+    } else {
+      istrue = false;
+    }
+
+    if (widget.addPropertyInspectionModel.questionareModel == null) {
+      widget.addPropertyInspectionModel.questionareModel = new PropertyInspectionQuestionareModel();
+    }
+
+    widget.addPropertyInspectionModel.questionareModel.isbuildinghasalarm = istrue;
+
+    FirebaseService firebaseService = new FirebaseService();
+    await firebaseService.isBuildingHasAlarmProperty(
+        widget.addPropertyInspectionModel.inspectionId, widget.addPropertyInspectionModel.questionareModel);
+
+    widget.myCallbackToback(1);
+
+  }
+
+
 }

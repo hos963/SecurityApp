@@ -5,6 +5,7 @@ import 'dart:collection';
 import 'dart:io';
 
 import 'package:Metropolitane/MobileApp/MobileapQuestions/PatrolSurveyQuestion/Questions/ExternalPatrolDone.dart';
+import 'package:Metropolitane/MobileApp/MobileapQuestions/PropertyInspectionQuestions/Questions/AnyWaterLeaking.dart';
 import 'package:Metropolitane/model/AddAlarmModel.dart';
 import 'package:Metropolitane/model/AddLockModel.dart';
 import 'package:Metropolitane/model/AddPatrolModel.dart';
@@ -13,6 +14,7 @@ import 'package:Metropolitane/model/AddUnlockModel.dart';
 import 'package:Metropolitane/model/AddressAlarmModel.dart';
 import 'package:Metropolitane/model/LockQuestionareModel.dart';
 import 'package:Metropolitane/model/PatrolQuestionareModel.dart';
+import 'package:Metropolitane/model/PropertyInspectionQuestionareModel.dart';
 import 'package:Metropolitane/model/QuestionareModel.dart';
 import 'package:Metropolitane/model/UnLockQuestionareModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -162,6 +164,15 @@ class FirebaseService {
     return resp;
   }
 
+  Future<void> UpdatePropertyInspection(AddPropertyInspectionModel alarmModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("PropertyInspectionAlert")
+        .doc(alarmModel.inspectionId)
+        .set(alarmModel.AddPropertyInspectionAlertTopMap(isupdate: true), SetOptions(merge: true));
+
+    return resp;
+  }
+
   Future<void> UpdatePatrol(AddPatrolModel addPatrolModel) async {
     var resp = await _fireStoreDataBase
         .collection("PatrolAlert")
@@ -219,6 +230,16 @@ class FirebaseService {
     return resp;
   }
 
+  Future<void> updateOnwayProperty(
+      String keypath, PropertyInspectionQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("PropertyInspectionAlert")
+        .doc(keypath)
+        .set(questionareModel.AddAlrmOnthewayToMap(), SetOptions(merge: true));
+
+    return resp;
+  }
+
   Future<void> updateAlarmAndLockedPatrol(
       String keypath, PatrolQuestionareModel questionareModel) async {
     var resp = await _fireStoreDataBase
@@ -253,6 +274,16 @@ class FirebaseService {
       String keypath, PatrolQuestionareModel questionareModel) async {
     var resp = await _fireStoreDataBase
         .collection("PatrolAlert")
+        .doc(keypath)
+        .set(questionareModel.AddReachedonSiteModel(), SetOptions(merge: true));
+
+    return resp;
+  }
+
+  Future<void> updateOnSiteProperty(
+      String keypath, PropertyInspectionQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("PropertyInspectionAlert")
         .doc(keypath)
         .set(questionareModel.AddReachedonSiteModel(), SetOptions(merge: true));
 
@@ -302,6 +333,16 @@ class FirebaseService {
     return resp;
   }
 
+  Future<void> specialInstructionProperty(
+      String keypath, PropertyInspectionQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("PatrolAlert")
+        .doc(keypath)
+        .set(questionareModel.SpecialInstructionToMap(), SetOptions(merge: true));
+
+    return resp;
+  }
+
   Future<void> specialInstructionUnLock(
       String keypath, UnLockQuestionareModel questionareModel) async {
     var resp = await _fireStoreDataBase
@@ -338,6 +379,137 @@ class FirebaseService {
         .collection("PatrolAlert")
         .doc(keypath)
         .set(questionareModel.HaveKeyToMapModel(), SetOptions(merge: true));
+
+    return resp;
+  }
+
+  Future<void> HavekeyUpdateProperty(
+      String keypath, PropertyInspectionQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("PropertyInspectionAlert")
+        .doc(keypath)
+        .set(questionareModel.HaveKeyToMapModel(), SetOptions(merge: true));
+
+    return resp;
+  }
+
+  Future<void> isBuildingSecureProperty(
+      String keypath, PropertyInspectionQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("PropertyInspectionAlert")
+        .doc(keypath)
+        .set(questionareModel.isBuildingsecure(), SetOptions(merge: true));
+
+    return resp;
+  }
+
+  Future<void> isBuildingHasAlarmProperty(
+      String keypath, PropertyInspectionQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("PropertyInspectionAlert")
+        .doc(keypath)
+        .set(questionareModel.isbuildinghasAlarm(), SetOptions(merge: true));
+
+    return resp;
+  }
+
+  Future<void> AnyWaterLeakingProperty(
+      String keypath, PropertyInspectionQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("PropertyInspectionAlert")
+        .doc(keypath)
+        .set(questionareModel.AnyWaterLeaking(), SetOptions(merge: true));
+
+    return resp;
+  }
+
+  Future<void> ElectricMeterPresentProperty(
+      String keypath, PropertyInspectionQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("PropertyInspectionAlert")
+        .doc(keypath)
+        .set(questionareModel.ElectricMeterPresent(), SetOptions(merge: true));
+
+    return resp;
+  }
+
+  Future<void> GasMeterPresentProperty(
+      String keypath, PropertyInspectionQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("PropertyInspectionAlert")
+        .doc(keypath)
+        .set(questionareModel.GasMeterPresent(), SetOptions(merge: true));
+
+    return resp;
+  }
+
+  Future<void> WaterMeterPresentProperty(
+      String keypath, PropertyInspectionQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("PropertyInspectionAlert")
+        .doc(keypath)
+        .set(questionareModel.WaterMeterPresent(), SetOptions(merge: true));
+
+    return resp;
+  }
+  Future<void> AnyDamageToProperty(
+      String keypath, PropertyInspectionQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("PropertyInspectionAlert")
+        .doc(keypath)
+        .set(questionareModel.AnyDamagetoPropertyPresent(), SetOptions(merge: true));
+
+    return resp;
+  }
+
+
+  Future<void> AnyIntrodurOutsideToProperty(
+      String keypath, PropertyInspectionQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("PropertyInspectionAlert")
+        .doc(keypath)
+        .set(questionareModel.AnyIntrudersOutsidetoProperty(), SetOptions(merge: true));
+
+    return resp;
+  }
+
+  Future<void> AnyGraftiOutsideToProperty(
+      String keypath, PropertyInspectionQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("PropertyInspectionAlert")
+        .doc(keypath)
+        .set(questionareModel.AnyGraftiOutsidetoProperty(), SetOptions(merge: true));
+
+    return resp;
+  }
+
+  Future<void> AnyDrugUserOutsideToProperty(
+      String keypath, PropertyInspectionQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("PropertyInspectionAlert")
+        .doc(keypath)
+        .set(questionareModel.AnyDrugUseOutsidetoProperty(), SetOptions(merge: true));
+
+    return resp;
+  }
+
+
+  Future<void> AnyHealthIsueOutsideToProperty(
+      String keypath, PropertyInspectionQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("PropertyInspectionAlert")
+        .doc(keypath)
+        .set(questionareModel.AnyHeealthIssueOutsidetoProperty(), SetOptions(merge: true));
+
+    return resp;
+  }
+
+  Future<void> AnyWorkerOutsideToProperty(
+      String keypath, PropertyInspectionQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("PropertyInspectionAlert")
+        .doc(keypath)
+        .set(questionareModel.AnyWorkerOutsidetoProperty(), SetOptions(merge: true));
 
     return resp;
   }
@@ -452,6 +624,26 @@ class FirebaseService {
     return resp;
   }
 
+  Future<void>JobCompletePatrol(
+      String keypath, PatrolQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("PatrolAlert")
+        .doc(keypath)
+        .set(questionareModel.LeaveBuildingtoMap(), SetOptions(merge: true));
+
+    return resp;
+  }
+
+  Future<void>JobCompleteProperty(
+      String keypath, PropertyInspectionQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("PropertyInspectionAlert")
+        .doc(keypath)
+        .set(questionareModel.JobCompletedToMap(), SetOptions(merge: true));
+
+    return resp;
+  }
+
   Future<void>JobCompleteUnLock(
       String keypath, UnLockQuestionareModel questionareModel) async {
     var resp = await _fireStoreDataBase
@@ -492,13 +684,23 @@ class FirebaseService {
     return resp;
   }
 
-
   Future<void>UpdatingStatusPatrol(
       String keypath, AddPatrolModel addAlarmModel) async {
     var resp = await _fireStoreDataBase
         .collection("PatrolAlert")
         .doc(keypath)
         .set(addAlarmModel.AddPatrolTopMap(isupdate: true), SetOptions(merge: true));
+
+    return resp;
+  }
+
+
+  Future<void>UpdatingStatusProperty(
+      String keypath, AddPropertyInspectionModel addAlarmModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("PropertyInspectionAlert")
+        .doc(keypath)
+        .set(addAlarmModel.AddPropertyInspectionAlertTopMap(isupdate: true), SetOptions(merge: true));
 
     return resp;
   }
@@ -572,6 +774,127 @@ class FirebaseService {
           .collection("PatrolAlert")
           .doc(keypath)
           .set(questionareModel.InternalPictureOfBuildingModeltoMap(), SetOptions(merge: true));
+
+    return resp;
+
+  }
+
+  Future<void> TakeExternalPictureProperty(String keypath,
+      PropertyInspectionQuestionareModel questionareModel) async {
+
+    var resp = await _fireStoreDataBase
+          .collection("PropertyInspectionAlert")
+          .doc(keypath)
+          .set(questionareModel.ExternalImageScreenModeltoMap(), SetOptions(merge: true));
+
+    return resp;
+
+  }
+
+  Future<void> ElectricMeterPictureProperty(String keypath,
+      PropertyInspectionQuestionareModel questionareModel) async {
+
+    var resp = await _fireStoreDataBase
+          .collection("PropertyInspectionAlert")
+          .doc(keypath)
+          .set(questionareModel.ElectricMeterPresent(), SetOptions(merge: true));
+
+    return resp;
+
+  }
+
+  Future<void> GasMeterPictureModel(String keypath,
+      PropertyInspectionQuestionareModel questionareModel) async {
+
+    var resp = await _fireStoreDataBase
+          .collection("PropertyInspectionAlert")
+          .doc(keypath)
+          .set(questionareModel.GasMeterPictureModelToMap(), SetOptions(merge: true));
+
+    return resp;
+
+  }
+
+  Future<void> WaterMeterPictureModel(String keypath,
+      PropertyInspectionQuestionareModel questionareModel) async {
+
+    var resp = await _fireStoreDataBase
+          .collection("PropertyInspectionAlert")
+          .doc(keypath)
+          .set(questionareModel.WaterMeterPictureModelToMap(), SetOptions(merge: true));
+
+    return resp;
+
+  }
+
+  Future<void> AnyDamageToPropertyPicModel(String keypath,
+      PropertyInspectionQuestionareModel questionareModel) async {
+
+    var resp = await _fireStoreDataBase
+          .collection("PropertyInspectionAlert")
+          .doc(keypath)
+          .set(questionareModel.AnyDamageToPropertyPicModelToMap(), SetOptions(merge: true));
+
+    return resp;
+
+  }
+
+
+  Future<void> Take1stInternalPicturesModel(String keypath,
+      PropertyInspectionQuestionareModel questionareModel) async {
+
+    var resp = await _fireStoreDataBase
+          .collection("PropertyInspectionAlert")
+          .doc(keypath)
+          .set(questionareModel.Take1stInternalPicturesModelToMap(), SetOptions(merge: true));
+
+    return resp;
+
+  }
+
+  Future<void> Take2ndInternalPicturesModel(String keypath,
+      PropertyInspectionQuestionareModel questionareModel) async {
+
+    var resp = await _fireStoreDataBase
+          .collection("PropertyInspectionAlert")
+          .doc(keypath)
+          .set(questionareModel.Take2ndInternalPicturesModelToMap(), SetOptions(merge: true));
+
+    return resp;
+
+  }
+
+  Future<void> Take3rdInternalPicturesModel(String keypath,
+      PropertyInspectionQuestionareModel questionareModel) async {
+
+    var resp = await _fireStoreDataBase
+          .collection("PropertyInspectionAlert")
+          .doc(keypath)
+          .set(questionareModel.Take3rdInternalPicturesModelToMap(), SetOptions(merge: true));
+
+    return resp;
+
+  }
+
+  Future<void> Take4thInternalPicturesModel(String keypath,
+      PropertyInspectionQuestionareModel questionareModel) async {
+
+    var resp = await _fireStoreDataBase
+          .collection("PropertyInspectionAlert")
+          .doc(keypath)
+          .set(questionareModel.Take4thInternalPicturesModelToMap(), SetOptions(merge: true));
+
+    return resp;
+
+  }
+
+  Future<void> Take5thInternalPicturesModel(String keypath,
+      PropertyInspectionQuestionareModel questionareModel) async {
+
+    var resp = await _fireStoreDataBase
+          .collection("PropertyInspectionAlert")
+          .doc(keypath)
+          .set(questionareModel.Take5thInternalPicturesModelToMap(), SetOptions(merge: true));
 
     return resp;
 

@@ -1,7 +1,11 @@
 
+import 'package:Metropolitane/FirebaseService/FirebaseService.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/AppWidget.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizColors.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizStrings.dart';
+import 'package:Metropolitane/model/AddPropertyInspectionModel.dart';
+import 'package:Metropolitane/model/PropertyInspectionQuestionareModel.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
@@ -9,8 +13,20 @@ import 'dart:io';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/PropertyInspectionQuestions/Questions/WaterMeterPresent.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:progress_indicator_button/progress_button.dart';
+import 'package:firebase_core/firebase_core.dart' as firebase_core;
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'dart:io' as io;
+
+import '../PropertyInspectionQuestions.dart';
 
 class GasMeterPicture extends StatefulWidget {
+
+  final MyCallbackToback myCallbackToback;
+  AddPropertyInspectionModel addPropertyInspectionModel;
+
+  GasMeterPicture(this.addPropertyInspectionModel,this.myCallbackToback);
+
+
   @override
   _GasMeterPictureState createState() => _GasMeterPictureState();
 }
@@ -135,7 +151,8 @@ class _GasMeterPictureState extends State<GasMeterPicture> {
                         //   controller.reverse();
                       } else {
                         controller.forward();
-                        Navigator.push(context,  MaterialPageRoute(builder: (context) => WaterMeterPresent()));
+                       // Navigator.push(context,  MaterialPageRoute(builder: (context) => WaterMeterPresent()));
+                        uploadFile(_image);
                       }
                     },
                   ),
@@ -147,4 +164,57 @@ class _GasMeterPictureState extends State<GasMeterPicture> {
       ),
     );
   }
+
+  Future<firebase_storage.UploadTask> uploadFile(File file) async {
+    if (file == null) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('No file was selected'),
+      ));
+      return null;
+    }
+
+    firebase_storage.UploadTask uploadTask;
+
+    // Create a Reference to the file
+    firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
+        .ref()
+        .child('buuilding')
+        .child('/' + file.name);
+
+    final metadata = firebase_storage.SettableMetadata(
+        contentType: 'image/jpeg',
+        customMetadata: {'picked-file-path': file.path});
+
+    if (kIsWeb) {
+      uploadTask = ref.putData(await file.readAsBytes(), metadata);
+    } else {
+      uploadTask = ref.putFile(io.File(file.path), metadata);
+    }
+    var imageUrl = await (await uploadTask).ref.getDownloadURL();
+    Updatinngdata(imageUrl);
+    return Future.value(uploadTask);
+  }
+
+
+  Future<void> Updatinngdata(String ImgLinnk) async {
+    FirebaseService firebaseService = new FirebaseService();
+    if (widget.addPropertyInspectionModel.questionareModel == null) {
+      widget.addPropertyInspectionModel.questionareModel = new PropertyInspectionQuestionareModel();
+    }
+
+    GasMeterPictureModel takeInternalPictures =
+    new GasMeterPictureModel();
+    takeInternalPictures.gasMeterPictureModel = ImgLinnk;
+    widget.addPropertyInspectionModel.questionareModel.gasMeterPictureModel =
+        takeInternalPictures;
+
+    // widget.addAlarmModel.questionareModel.onwayModel = onwayModel;
+
+    await firebaseService.GasMeterPictureModel(widget.addPropertyInspectionModel.inspectionId,
+        widget.addPropertyInspectionModel.questionareModel);
+
+    widget.myCallbackToback(1);
+  }
+
+
 }

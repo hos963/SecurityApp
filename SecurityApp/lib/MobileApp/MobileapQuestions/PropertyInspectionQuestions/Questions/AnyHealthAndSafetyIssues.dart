@@ -1,7 +1,10 @@
 
+import 'package:Metropolitane/FirebaseService/FirebaseService.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizColors.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizStrings.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizWidget.dart';
+import 'package:Metropolitane/model/AddPropertyInspectionModel.dart';
+import 'package:Metropolitane/model/PropertyInspectionQuestionareModel.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:group_radio_button/group_radio_button.dart';
@@ -9,7 +12,18 @@ import 'package:progress_indicator_button/progress_button.dart';
 
 import 'package:Metropolitane/MobileApp/MobileapQuestions/PropertyInspectionQuestions/Questions/TakeInternalPictures.dart';
 
+import '../PropertyInspectionQuestions.dart';
+
 class AnyHealthAndSafetyIssues extends StatefulWidget {
+
+  final MyCallbackToback myCallbackToback;
+  AddPropertyInspectionModel addPropertyInspectionModel;
+
+  AnyHealthAndSafetyIssues(this.addPropertyInspectionModel,this.myCallbackToback);
+
+
+
+
   @override
   _AnyHealthAndSafetyIssuesState createState() => _AnyHealthAndSafetyIssuesState();
 }
@@ -97,7 +111,8 @@ class _AnyHealthAndSafetyIssuesState extends State<AnyHealthAndSafetyIssues> {
                         //   controller.reverse();
                       } else {
                         controller.forward();
-                        Navigator.push(context,  MaterialPageRoute(builder: (context) => TakeInternalPictures()));
+                       // Navigator.push(context,  MaterialPageRoute(builder: (context) => TakeInternalPictures()));
+                        Updatinngdata();
                       }
                     },
                   ),
@@ -109,4 +124,27 @@ class _AnyHealthAndSafetyIssuesState extends State<AnyHealthAndSafetyIssues> {
       ),
     );
   }
+
+  Future<void> Updatinngdata() async {
+    bool istrue = false;
+    if (_singleValue == "Yes") {
+      istrue = true;
+    } else {
+      istrue = false;
+    }
+
+    if (widget.addPropertyInspectionModel.questionareModel == null) {
+      widget.addPropertyInspectionModel.questionareModel = new PropertyInspectionQuestionareModel();
+    }
+
+    widget.addPropertyInspectionModel.questionareModel.AnyHealthAndSafetyIssues = istrue;
+
+    FirebaseService firebaseService = new FirebaseService();
+    await firebaseService.AnyHealthIsueOutsideToProperty(
+        widget.addPropertyInspectionModel.inspectionId, widget.addPropertyInspectionModel.questionareModel);
+
+    widget.myCallbackToback(1);
+
+  }
+
 }

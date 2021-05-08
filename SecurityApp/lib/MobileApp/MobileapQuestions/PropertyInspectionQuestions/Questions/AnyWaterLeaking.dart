@@ -1,6 +1,9 @@
+import 'package:Metropolitane/FirebaseService/FirebaseService.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizColors.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizStrings.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizWidget.dart';
+import 'package:Metropolitane/model/AddPropertyInspectionModel.dart';
+import 'package:Metropolitane/model/PropertyInspectionQuestionareModel.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:group_radio_button/group_radio_button.dart';
@@ -8,7 +11,15 @@ import 'package:progress_indicator_button/progress_button.dart';
 
 import 'package:Metropolitane/MobileApp/MobileapQuestions/PropertyInspectionQuestions/Questions/ElectricMeterPresent.dart';
 
+import '../PropertyInspectionQuestions.dart';
+
 class AnyWaterLeaking extends StatefulWidget {
+
+  final MyCallbackToback myCallbackToback;
+  AddPropertyInspectionModel addPropertyInspectionModel;
+
+  AnyWaterLeaking(this.addPropertyInspectionModel,this.myCallbackToback);
+
   @override
   _AnyWaterLeakingState createState() => _AnyWaterLeakingState();
 }
@@ -96,7 +107,8 @@ class _AnyWaterLeakingState extends State<AnyWaterLeaking> {
                         //   controller.reverse();
                       } else {
                         controller.forward();
-                        Navigator.push(context,  MaterialPageRoute(builder: (context) => ElectricMeterPresent()));
+                       // Navigator.push(context,  MaterialPageRoute(builder: (context) => ElectricMeterPresent()));
+                        Updatinngdata();
                       }
                     },
                   ),
@@ -107,5 +119,32 @@ class _AnyWaterLeakingState extends State<AnyWaterLeaking> {
         ),
       ),
     );
+
+
+
+  }
+
+  Future<void> Updatinngdata() async {
+    bool istrue = false;
+    if (_singleValue == "Yes") {
+      istrue = true;
+    } else {
+      istrue = false;
+    }
+
+    if (widget.addPropertyInspectionModel.questionareModel == null) {
+      widget.addPropertyInspectionModel.questionareModel = new PropertyInspectionQuestionareModel();
+    }
+
+    widget.addPropertyInspectionModel.questionareModel.anyWaterLeaking = istrue;
+
+    FirebaseService firebaseService = new FirebaseService();
+    await firebaseService.AnyWaterLeakingProperty(
+        widget.addPropertyInspectionModel.inspectionId, widget.addPropertyInspectionModel.questionareModel);
+
+    widget.myCallbackToback(1);
+
   }
 }
+
+

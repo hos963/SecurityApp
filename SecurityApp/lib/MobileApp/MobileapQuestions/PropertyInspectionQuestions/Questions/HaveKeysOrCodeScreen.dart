@@ -1,6 +1,9 @@
+import 'package:Metropolitane/FirebaseService/FirebaseService.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizColors.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizStrings.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizWidget.dart';
+import 'package:Metropolitane/model/AddPropertyInspectionModel.dart';
+import 'package:Metropolitane/model/PropertyInspectionQuestionareModel.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:group_radio_button/group_radio_button.dart';
@@ -8,7 +11,16 @@ import 'package:progress_indicator_button/progress_button.dart';
 
 import 'package:Metropolitane/MobileApp/MobileapQuestions/PropertyInspectionQuestions/Questions/IsBuildingSecure.dart';
 
+import '../PropertyInspectionQuestions.dart';
+
 class HaveKeysOrCodeScreen extends StatefulWidget {
+
+
+  final MyCallbackToback myCallbackToback;
+  AddPropertyInspectionModel addPropertyInspectionModel;
+
+  HaveKeysOrCodeScreen(this.addPropertyInspectionModel,this.myCallbackToback);
+
   @override
   _HaveKeysOrCodeScreenState createState() => _HaveKeysOrCodeScreenState();
 }
@@ -96,7 +108,8 @@ class _HaveKeysOrCodeScreenState extends State<HaveKeysOrCodeScreen> {
                         //   controller.reverse();
                       } else {
                         controller.forward();
-                        Navigator.push(context,  MaterialPageRoute(builder: (context) => IsBuildingSecure()));
+                       Updatinngdata();
+                        // Navigator.push(context,  MaterialPageRoute(builder: (context) => IsBuildingSecure()));
                       }
                     },
                   ),
@@ -108,4 +121,28 @@ class _HaveKeysOrCodeScreenState extends State<HaveKeysOrCodeScreen> {
       ),
     );
   }
+
+  Future<void> Updatinngdata() async {
+    bool istrue = false;
+    if (_singleValue == "Yes") {
+      istrue = true;
+    } else {
+      istrue = false;
+    }
+
+    if (widget.addPropertyInspectionModel.questionareModel == null) {
+      widget.addPropertyInspectionModel.questionareModel = new PropertyInspectionQuestionareModel();
+    }
+
+    widget.addPropertyInspectionModel.questionareModel.havekeys = istrue;
+
+    FirebaseService firebaseService = new FirebaseService();
+    await firebaseService.HavekeyUpdateProperty(
+        widget.addPropertyInspectionModel.inspectionId, widget.addPropertyInspectionModel.questionareModel);
+
+      widget.myCallbackToback(1);
+
+  }
+
+
 }

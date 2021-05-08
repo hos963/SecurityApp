@@ -41,6 +41,12 @@ class _PatrolQuestionSurveyState extends State<PatrolQuestionSurvey> {
   @override
   void initState() {
 
+
+
+
+
+
+
     list.add(OnWayScreen(widget.addPatrolModel, MoveNext));
     list.add(OnSiteScreen(widget.addPatrolModel, MoveNext));
     list.add(ExternalPatrolDone(widget.addPatrolModel, MoveNext));
@@ -58,7 +64,7 @@ class _PatrolQuestionSurveyState extends State<PatrolQuestionSurvey> {
     list.add(SpecificInstructions(widget.addPatrolModel, MoveNext));
     list.add(AlarmAndLocked(widget.addPatrolModel, MoveNext));
     list.add(JobCompleted(widget.addPatrolModel, MoveNext));
-    list.add(FinishScreen(widget.addPatrolModel, MoveNext));
+   // list.add(FinishScreen(widget.addPatrolModel, MoveNext));
 
     if (widget.addPatrolModel.questionareModel == null) {
       currentpage = 0;
@@ -133,7 +139,6 @@ class _PatrolQuestionSurveyState extends State<PatrolQuestionSurvey> {
         currentpage = 14;
       }
       if (questionmodel.specialInstruction != null) {
-        currentpage = 15;
 
         if(questionmodel.isBuildingPresent){
           currentpage = 15;
@@ -146,9 +151,9 @@ class _PatrolQuestionSurveyState extends State<PatrolQuestionSurvey> {
       if (questionmodel.lockAndAlarmed != null) {
         currentpage = 16;
       }
-      if (questionmodel.leaveBuildingModel != null) {
-        currentpage = 17;
-      }
+      // if (questionmodel.leaveBuildingModel != null) {
+      //   currentpage = 17;
+      // }
     }
     super.initState();
   }

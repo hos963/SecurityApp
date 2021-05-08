@@ -1,7 +1,10 @@
 
+import 'package:Metropolitane/FirebaseService/FirebaseService.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizColors.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizStrings.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizWidget.dart';
+import 'package:Metropolitane/model/AddPropertyInspectionModel.dart';
+import 'package:Metropolitane/model/PropertyInspectionQuestionareModel.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:group_radio_button/group_radio_button.dart';
@@ -10,7 +13,16 @@ import 'package:progress_indicator_button/progress_button.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/PropertyInspectionQuestions/Questions/WaterMeterPresent.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/PropertyInspectionQuestions/Questions/GasMeterPicture.dart';
 
+import '../PropertyInspectionQuestions.dart';
+
 class GasMeterPresent extends StatefulWidget {
+
+  final MyCallbackToback myCallbackToback;
+  AddPropertyInspectionModel addPropertyInspectionModel;
+
+  GasMeterPresent(this.addPropertyInspectionModel,this.myCallbackToback);
+
+
   @override
   _GasMeterPresentState createState() => _GasMeterPresentState();
 }
@@ -98,11 +110,11 @@ class _GasMeterPresentState extends State<GasMeterPresent> {
                         //   controller.reverse();
                       } else {
                         controller.forward();
-
-                        if(_singleValue== "Yes"){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => GasMeterPicture()));
-                        }else
-                        Navigator.push(context,  MaterialPageRoute(builder: (context) => WaterMeterPresent()));
+                        Updatinngdata();
+                      //   if(_singleValue== "Yes"){
+                      //     Navigator.push(context, MaterialPageRoute(builder: (context) => GasMeterPicture()));
+                      //   }else
+                      //   Navigator.push(context,  MaterialPageRoute(builder: (context) => WaterMeterPresent()));
                       }
                     },
                   ),
@@ -114,4 +126,30 @@ class _GasMeterPresentState extends State<GasMeterPresent> {
       ),
     );
   }
+  Future<void> Updatinngdata() async {
+    bool istrue = false;
+    if (_singleValue == "Yes") {
+      istrue = true;
+    } else {
+      istrue = false;
+    }
+
+    if (widget.addPropertyInspectionModel.questionareModel == null) {
+      widget.addPropertyInspectionModel.questionareModel = new PropertyInspectionQuestionareModel();
+    }
+
+    widget.addPropertyInspectionModel.questionareModel.gasMeterPresent = istrue;
+
+    FirebaseService firebaseService = new FirebaseService();
+    await firebaseService.GasMeterPresentProperty(
+        widget.addPropertyInspectionModel.inspectionId, widget.addPropertyInspectionModel.questionareModel);
+
+    if (_singleValue == "Yes") {
+      widget.myCallbackToback(1);
+    } else {
+      widget.myCallbackToback(2);
+    }
+
+  }
+
 }

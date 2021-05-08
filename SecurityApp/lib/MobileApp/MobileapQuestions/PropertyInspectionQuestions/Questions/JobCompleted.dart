@@ -1,11 +1,23 @@
+import 'package:Metropolitane/FirebaseService/FirebaseService.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/AppWidget.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizColors.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizStrings.dart';
+import 'package:Metropolitane/model/AddPropertyInspectionModel.dart';
+import 'package:Metropolitane/model/PropertyInspectionQuestionareModel.dart';
 import 'package:flutter/material.dart';
 import 'package:progress_indicator_button/progress_button.dart';
 
 import 'package:nb_utils/nb_utils.dart';
+
+import '../PropertyInspectionQuestions.dart';
 class JobCompleted extends StatefulWidget {
+
+  final MyCallbackToback callback;
+
+  AddPropertyInspectionModel addPropertyInspectionModel;
+  JobCompleted(this.addPropertyInspectionModel,this.callback);
+
+
   @override
   _JobCompletedState createState() => _JobCompletedState();
 }
@@ -71,4 +83,25 @@ class _JobCompletedState extends State<JobCompleted> {
       ),
     );
   }
+
+  Future<void> Updatinngdata() async {
+
+    FirebaseService firebaseService = new FirebaseService();
+    if (widget.addPropertyInspectionModel.questionareModel == null) {
+      widget.addPropertyInspectionModel.questionareModel = new PropertyInspectionQuestionareModel();
+    }
+    widget.addPropertyInspectionModel.questionareModel.jobCompletedModel = new JobCompletedModel();
+    widget.addPropertyInspectionModel.questionareModel.jobCompletedModel.jobcompleted = true;
+    await firebaseService.JobCompleteProperty(
+        widget.addPropertyInspectionModel.inspectionId, widget.addPropertyInspectionModel.questionareModel);
+
+    widget.addPropertyInspectionModel.state = 3;
+
+    await firebaseService.UpdatingStatusProperty(
+        widget.addPropertyInspectionModel.inspectionId,widget.addPropertyInspectionModel);
+
+    widget.callback(1);
+
+  }
+
 }

@@ -2,6 +2,8 @@ import 'package:Metropolitane/model/FirebaseUserData.dart';
 import 'package:Metropolitane/model/QuestionareModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'PropertyInspectionQuestionareModel.dart';
+
 class AddPropertyInspectionModel {
   String inspectionId;
   String inspectionTitle;
@@ -10,7 +12,7 @@ class AddPropertyInspectionModel {
   String type;
   bool isactive;
   int state = 1;
-  QuestionareModel questionareModel;
+  PropertyInspectionQuestionareModel questionareModel;
 
   FirebaseUserData firebaseUserData;
 
@@ -31,7 +33,7 @@ class AddPropertyInspectionModel {
       inspectionLocation: parsedJson['inspectionLocation'],
       type: parsedJson['type'],
       questionareModel: parsedJson.containsKey("QuestionareModel")
-          ? QuestionareModel.fromJson(parsedJson['QuestionareModel'])
+          ? PropertyInspectionQuestionareModel.fromJson(parsedJson['QuestionareModel'])
           : null,
       isactive: parsedJson['isactive'],
     );
@@ -46,7 +48,7 @@ class AddPropertyInspectionModel {
       type: doc.data()['type'],
       state: doc.data()['state'],
       questionareModel: doc.data().containsKey("QuestionareModel")
-          ? QuestionareModel.fromJson(doc.data()['QuestionareModel'])
+          ? PropertyInspectionQuestionareModel.fromJson(doc.data()['QuestionareModel'])
           : null,
 
       firebaseUserData: doc.data().containsKey("firebaseUserData")

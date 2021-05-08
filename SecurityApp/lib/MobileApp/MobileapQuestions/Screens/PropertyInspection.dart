@@ -5,6 +5,7 @@ import 'package:Metropolitane/FirebaseService/FirebaseService.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/PropertyInspectionQuestions/Questions/OnTheWayScreen.dart';
 import 'package:Metropolitane/Utilities/PreferenceUtils.dart';
 import 'package:Metropolitane/model/AddAlarmModel.dart';
+import 'package:Metropolitane/model/AddPropertyInspectionModel.dart';
 import 'package:Metropolitane/model/FirebaseUserData.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -198,7 +199,7 @@ class _PropertyInspectionState extends State<PropertyInspection> {
       });
   }
 
-  ListView GettingListCards(List<AddAlarmModel> listofalrm) {
+  ListView GettingListCards(List<AddPropertyInspectionModel> listofalrm) {
     return ListView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: listofalrm.length,
@@ -220,7 +221,7 @@ class _PropertyInspectionState extends State<PropertyInspection> {
     new DateTime(selectedDate.year, selectedDate.month, selectedDate.day);
     return StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
-            .collection('AlarmAlert')
+            .collection('PropertyInspectionAlert')
             .where("firebaseUserData.udid", isEqualTo: userid)
             .where("timestamp", isGreaterThanOrEqualTo: currentdate.toUtc())
             .where("timestamp", isLessThan: nextdate.toUtc())
@@ -236,13 +237,13 @@ class _PropertyInspectionState extends State<PropertyInspection> {
               }
               int index = 0;
 
-              List<AddAlarmModel> listofalrm =
-              List<AddAlarmModel>.empty(growable: true);
+              List<AddPropertyInspectionModel> listofalrm =
+              List<AddPropertyInspectionModel>.empty(growable: true);
               snapshot.data.docChanges.forEach((element) {
                 //UsersPost.fromDoc(element.doc);
 
 
-                AddAlarmModel alarmModel =      AddAlarmModel.fromDoc(element.doc);
+                AddPropertyInspectionModel alarmModel =      AddPropertyInspectionModel.fromDoc(element.doc);
                 if(alarmModel.state != 3){
                   listofalrm.add(alarmModel);
 
@@ -258,11 +259,11 @@ class _PropertyInspectionState extends State<PropertyInspection> {
 }
 
 class AlarmCard extends StatelessWidget {
-  AddAlarmModel model;
+  AddPropertyInspectionModel model;
 
   Color bordercolor = Colors.white;
 
-  AlarmCard(AddAlarmModel model, int pos) {
+  AlarmCard(AddPropertyInspectionModel model, int pos) {
     this.model = model;
     if (model.state == 2) {
       bordercolor = CustomColors.orangecolor;
@@ -310,7 +311,7 @@ class AlarmCard extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                    model.alrmTitle,
+                    model.inspectionTitle,
                     maxLines: 3,
                     style: TextStyle(
                         fontSize: 16,
@@ -339,7 +340,7 @@ class AlarmCard extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                    model.alrmLocation,
+                    model.inspectionLocation,
                     maxLines: 3,
                     style: TextStyle(
                         fontSize: 16,
@@ -368,7 +369,7 @@ class AlarmCard extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                    model.alrmDesc,
+                    model.inspectionDesc,
                     maxLines: 3,
                     style: TextStyle(
                         fontSize: 16,
@@ -402,9 +403,9 @@ class AlarmCard extends StatelessWidget {
                   padding: EdgeInsets.only(bottom: 10.0),
                   child: TextButton(
                     onPressed: () {
-                      //AddingdataToStartquestionare(model, context);
+                      AddingdataToStartquestionare(model, context);
                       // Navigator.push(context,  MaterialPageRoute(builder: (context) => LockQuestionSurvey()));
-                      Navigator.push(context,  MaterialPageRoute(builder: (context) => OnWayScreen()));
+                      //Navigator.push(context,  MaterialPageRoute(builder: (context) => OnWayScreen()));
                     },
                     child: Text(
                       'Select Task',
@@ -427,30 +428,30 @@ class AlarmCard extends StatelessWidget {
   }
 
   Future<void> AddingdataToStartquestionare(
-      AddAlarmModel addAlarmModel, BuildContext context) async {
+      AddPropertyInspectionModel addPropertyInspectionModel, BuildContext context) async {
 
-    if(addAlarmModel.state == 3){
+    if(addPropertyInspectionModel.state == 3){
 
     }else {
-      if (addAlarmModel.state == 1) {
+      if (addPropertyInspectionModel.state == 1) {
         final progress = ProgressHUD.of(context);
         progress.show();
         FirebaseService firebaseService = new FirebaseService();
-        addAlarmModel.state = 2;
-        await firebaseService.UpdateAlarm(addAlarmModel);
+        addPropertyInspectionModel.state = 2;
+        await firebaseService.UpdatePropertyInspection(addPropertyInspectionModel);
         progress.dismiss();
 
-        MovetoDetailPutScreen(addAlarmModel, context);
+        MovetoDetailPutScreen(addPropertyInspectionModel, context);
       } else {
-        MovetoDetailPutScreen(addAlarmModel, context);
+        MovetoDetailPutScreen(addPropertyInspectionModel, context);
       }
     }
   }
 
 
-  void MovetoDetailPutScreen( AddAlarmModel addAlarmModel, BuildContext context){
+  void MovetoDetailPutScreen( AddPropertyInspectionModel addPropertyInspectionModel, BuildContext context){
 
-    Navigator.pushNamed(context, Router.FilledQuestionsSurveyroute,arguments: addAlarmModel);
+    Navigator.pushNamed(context, Router.PropertyQuestionsSurveyroute,arguments: addPropertyInspectionModel);
   }
 
 }
