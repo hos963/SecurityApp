@@ -71,7 +71,7 @@ class _JobCompletedState extends State<JobCompleted> {
                         //   controller.reverse();
                       } else {
                         controller.forward();
-                        // Updatinngdata();
+                         Updatinngdata();
                       }
                     },
                   ),

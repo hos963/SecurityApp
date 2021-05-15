@@ -336,7 +336,7 @@ class FirebaseService {
   Future<void> specialInstructionProperty(
       String keypath, PropertyInspectionQuestionareModel questionareModel) async {
     var resp = await _fireStoreDataBase
-        .collection("PatrolAlert")
+        .collection("PropertyInspectionAlert")
         .doc(keypath)
         .set(questionareModel.SpecialInstructionToMap(), SetOptions(merge: true));
 
@@ -797,7 +797,7 @@ class FirebaseService {
     var resp = await _fireStoreDataBase
           .collection("PropertyInspectionAlert")
           .doc(keypath)
-          .set(questionareModel.ElectricMeterPresent(), SetOptions(merge: true));
+          .set(questionareModel.ElectricMeterPicture(), SetOptions(merge: true));
 
     return resp;
 

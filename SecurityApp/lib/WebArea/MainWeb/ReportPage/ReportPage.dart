@@ -1,14 +1,11 @@
 import 'package:Metropolitane/CustomColors/CustomColors.dart';
 import 'package:Metropolitane/CustomWidget/CustomDialog.dart';
-import 'package:Metropolitane/FirebaseService/FirebaseService.dart';
 import 'package:Metropolitane/WebArea/MainWeb/AddAlarm/Blocs/add_alarm_bloc.dart';
-import 'package:Metropolitane/WebArea/MainWeb/AddAlarm/Widgets/InputField.dart';
 import 'package:Metropolitane/WebArea/MainWeb/commons/theme.dart';
 import 'package:Metropolitane/model/AddAlarmModel.dart';
 import 'package:Metropolitane/model/FirebaseUserData.dart';
 import 'package:Metropolitane/model/QuestionareModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
@@ -27,7 +24,6 @@ class _ReportAlarmPagePageState extends State<ReportAlarmPage> {
   @override
   void initState() {
     super.initState();
-
     addAlarmBloc = BlocProvider.of<AddAlarmBloc>(context);
   }
 

@@ -3,9 +3,12 @@ import 'package:Metropolitane/CustomWidget/CustomDialog.dart';
 import 'package:Metropolitane/FirebaseService/FirebaseService.dart';
 import 'package:Metropolitane/WebArea/MainWeb/AddAlarm/Blocs/add_alarm_bloc.dart';
 import 'package:Metropolitane/WebArea/MainWeb/AddAlarm/Widgets/InputField.dart';
+import 'package:Metropolitane/WebArea/MainWeb/AddLock/Bloc/add_lock_bloc.dart';
 import 'package:Metropolitane/WebArea/MainWeb/commons/theme.dart';
 import 'package:Metropolitane/model/AddAlarmModel.dart';
+import 'package:Metropolitane/model/AddLockModel.dart';
 import 'package:Metropolitane/model/FirebaseUserData.dart';
+import 'package:Metropolitane/model/LockQuestionareModel.dart';
 import 'package:Metropolitane/model/QuestionareModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -21,14 +24,14 @@ class ReportLockPage extends StatefulWidget {
 
 class _ReportLockPageState extends State<ReportLockPage> {
   String addressselected;
-  AddAlarmBloc addAlarmBloc;
+  AddLockBloc addAlarmBloc;
   DateTimeRange dateTimeRange;
 
   @override
   void initState() {
     super.initState();
 
-    addAlarmBloc = BlocProvider.of<AddAlarmBloc>(context);
+    addAlarmBloc = BlocProvider.of<AddLockBloc>(context);
   }
 
   @override
@@ -40,15 +43,15 @@ class _ReportLockPageState extends State<ReportLockPage> {
 
   Widget completeBodyWidget() {
     return ProgressHUD(child: Builder(builder: (context) {
-      return BlocListener<AddAlarmBloc, AddAlarmState>(
+      return BlocListener<AddLockBloc, AddLockState>(
         listener: (context, state) {
-          if (state is AddAlarmLoading) {
+          if (state is AddLockLoading) {
             progress = ProgressHUD.of(context);
             progress.showWithText('Loading...');
             progress.show();
           }
 
-          if (state is AddAlarmFailedToAddDataState) {
+          if (state is AddLockFailedToAddDataState) {
             if (progress != null) {
               progress.dismiss();
             }
@@ -63,7 +66,7 @@ class _ReportLockPageState extends State<ReportLockPage> {
                     ));
           }
 
-          if (state is AddAlarmSuccessfullyPutdatastate) {
+          if (state is AddLockSuccessfullyPutdatastate) {
             if (progress != null) {
               progress.dismiss();
             }
@@ -141,11 +144,11 @@ class _ReportLockPageState extends State<ReportLockPage> {
   Widget getListing() {
     Query firebasequuery = dateTimeRange == null
         ? FirebaseFirestore.instance
-            .collection("AlarmAlert")
+            .collection("LockAlert")
             .where("timestamp", isGreaterThan: new DateTime.now())
             .orderBy('timestamp', descending: true)
         : FirebaseFirestore.instance
-            .collection("AlarmAlert")
+            .collection("LockAlert")
             .where("timestamp", isGreaterThan: dateTimeRange.start.toUtc())
             .where("timestamp", isLessThanOrEqualTo: dateTimeRange.end.toUtc())
             .orderBy('timestamp', descending: true);
@@ -164,8 +167,8 @@ class _ReportLockPageState extends State<ReportLockPage> {
               } else if (snapshot.data.docs.length == 0) {
                 return Text("No data founnd");
               } else {
-                List<AddAlarmModel> listalarm = snapshot.data.docs
-                    .map((e) => AddAlarmModel.fromDoc(e))
+                List<AddLockModel> listalarm = snapshot.data.docs
+                    .map((e) => AddLockModel.fromDoc(e))
                     .toList();
 
                 return ListView.builder(
@@ -184,10 +187,10 @@ class _ReportLockPageState extends State<ReportLockPage> {
                     }
 
                     return MyCardViewWidget(
-                      title: item.alrmTitle,
-                      subtitle: item.alrmDesc,
+                      title: item.lockTitle,
+                      subtitle: item.lockDesc,
                       isselected: isselected,
-                      locationnname: item.alrmLocation,
+                      locationnname: item.lockDesc,
                       questionareModel: item.questionareModel,
                       state: item.state,
                       firebaseUserData: item.firebaseUserData,
@@ -225,7 +228,7 @@ class MyCardViewWidget extends StatefulWidget {
   final String locationnname;
   final bool isselected;
   final int state;
-  final QuestionareModel questionareModel;
+  final LockQuestionareModel questionareModel;
   final FirebaseUserData firebaseUserData ;
 
   const MyCardViewWidget(

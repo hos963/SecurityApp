@@ -83,7 +83,8 @@ class _PropertyInspectionQuestionsState
         Take5thInternalPicture(widget.addPropertyInspectionModel, MoveNext));
     list.add(
         SpecialInstructionScreen(widget.addPropertyInspectionModel, MoveNext));
-    //   list.add(JobCompleted(widget.addPropertyInspectionModel),MoveNext);
+
+    list.add(JobCompleted(widget.addPropertyInspectionModel,MoveNext));
 
     if (widget.addPropertyInspectionModel.questionareModel == null) {
       currentpage = 0;
@@ -170,9 +171,9 @@ class _PropertyInspectionQuestionsState
       if (questionmodel.SpecificInstructions != null) {
         currentpage = 26;
       }
-      if (questionmodel.jobCompletedModel != null) {
-        currentpage = 27;
-      }
+      // if (questionmodel.jobCompletedModel != null) {
+      //   currentpage = 27;
+      // }
     }
 
     super.initState();

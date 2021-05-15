@@ -1,11 +1,11 @@
 import 'package:Metropolitane/CustomColors/CustomColors.dart';
 import 'package:Metropolitane/CustomWidget/CustomDialog.dart';
 import 'package:Metropolitane/FirebaseService/FirebaseService.dart';
-import 'package:Metropolitane/WebArea/MainWeb/AddAlarm/Blocs/add_alarm_bloc.dart';
-import 'package:Metropolitane/WebArea/MainWeb/AddAlarm/Widgets/InputField.dart';
+import 'package:Metropolitane/WebArea/MainWeb/AddPatrol/Bloc/add_patrol_bloc.dart';
 import 'package:Metropolitane/WebArea/MainWeb/commons/theme.dart';
-import 'package:Metropolitane/model/AddAlarmModel.dart';
+import 'package:Metropolitane/model/AddPatrolModel.dart';
 import 'package:Metropolitane/model/FirebaseUserData.dart';
+import 'package:Metropolitane/model/PatrolQuestionareModel.dart';
 import 'package:Metropolitane/model/QuestionareModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -21,14 +21,14 @@ class ReportPatreolPage extends StatefulWidget {
 
 class _ReportPatreolPageState extends State<ReportPatreolPage> {
   String addressselected;
-  AddAlarmBloc addAlarmBloc;
+  AddPatrolBloc addAlarmBloc;
   DateTimeRange dateTimeRange;
 
   @override
   void initState() {
     super.initState();
 
-    addAlarmBloc = BlocProvider.of<AddAlarmBloc>(context);
+    addAlarmBloc = BlocProvider.of<AddPatrolBloc>(context);
   }
 
   @override
@@ -40,15 +40,15 @@ class _ReportPatreolPageState extends State<ReportPatreolPage> {
 
   Widget completeBodyWidget() {
     return ProgressHUD(child: Builder(builder: (context) {
-      return BlocListener<AddAlarmBloc, AddAlarmState>(
+      return BlocListener<AddPatrolBloc, AddPatrolState>(
         listener: (context, state) {
-          if (state is AddAlarmLoading) {
+          if (state is AddPatrolLoading) {
             progress = ProgressHUD.of(context);
             progress.showWithText('Loading...');
             progress.show();
           }
 
-          if (state is AddAlarmFailedToAddDataState) {
+          if (state is AddPatrolFailedToAddDataState) {
             if (progress != null) {
               progress.dismiss();
             }
@@ -63,7 +63,7 @@ class _ReportPatreolPageState extends State<ReportPatreolPage> {
                     ));
           }
 
-          if (state is AddAlarmSuccessfullyPutdatastate) {
+          if (state is AddPatrolSuccessfullyPutdatastate) {
             if (progress != null) {
               progress.dismiss();
             }
@@ -141,11 +141,11 @@ class _ReportPatreolPageState extends State<ReportPatreolPage> {
   Widget getListing() {
     Query firebasequuery = dateTimeRange == null
         ? FirebaseFirestore.instance
-            .collection("AlarmAlert")
+            .collection("PatrolAlert")
             .where("timestamp", isGreaterThan: new DateTime.now())
             .orderBy('timestamp', descending: true)
         : FirebaseFirestore.instance
-            .collection("AlarmAlert")
+            .collection("PatrolAlert")
             .where("timestamp", isGreaterThan: dateTimeRange.start.toUtc())
             .where("timestamp", isLessThanOrEqualTo: dateTimeRange.end.toUtc())
             .orderBy('timestamp', descending: true);
@@ -164,8 +164,8 @@ class _ReportPatreolPageState extends State<ReportPatreolPage> {
               } else if (snapshot.data.docs.length == 0) {
                 return Text("No data founnd");
               } else {
-                List<AddAlarmModel> listalarm = snapshot.data.docs
-                    .map((e) => AddAlarmModel.fromDoc(e))
+                List<AddPatrolModel> listalarm = snapshot.data.docs
+                    .map((e) => AddPatrolModel.fromDoc(e))
                     .toList();
 
                 return ListView.builder(
@@ -184,10 +184,10 @@ class _ReportPatreolPageState extends State<ReportPatreolPage> {
                     }
 
                     return MyCardViewWidget(
-                      title: item.alrmTitle,
-                      subtitle: item.alrmDesc,
+                      title: item.patrolTitle,
+                      subtitle: item.patrolDesc,
                       isselected: isselected,
-                      locationnname: item.alrmLocation,
+                      locationnname: item.patrolLocation,
                       questionareModel: item.questionareModel,
                       state: item.state,
                       firebaseUserData: item.firebaseUserData,
@@ -225,7 +225,7 @@ class MyCardViewWidget extends StatefulWidget {
   final String locationnname;
   final bool isselected;
   final int state;
-  final QuestionareModel questionareModel;
+  final PatrolQuestionareModel questionareModel;
   final FirebaseUserData firebaseUserData ;
 
   const MyCardViewWidget(

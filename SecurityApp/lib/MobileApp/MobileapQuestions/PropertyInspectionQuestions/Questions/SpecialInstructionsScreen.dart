@@ -110,6 +110,8 @@ class _SpecialInstructionScreenState extends State<SpecialInstructionScreen> {
       await firebaseService.specialInstructionProperty(
           widget.addPropertyInspectionModel.inspectionId, widget.addPropertyInspectionModel.questionareModel);
 
+     // widget.addPropertyInspectionModel.state = 3;
+
       widget.callback(1);
     }
   }

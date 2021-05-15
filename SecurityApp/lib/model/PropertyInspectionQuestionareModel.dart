@@ -141,7 +141,7 @@ class PropertyInspectionQuestionareModel {
   Map<String ,dynamic>  ElectricMeterPictureProperty(){
     Map<String,dynamic> map = new Map();
     Map<String,dynamic> onallmapp = new Map();
-    onallmapp["externalImageScreenModel"] =  externalImageScreenModel.AdonwayModelToMap();
+    onallmapp["electricMeterPictureModel"] =  electricMeterPictureModel.AdonwayModelToMap();
     map['QuestionareModel'] =onallmapp;
 
     return map;
@@ -177,7 +177,16 @@ class PropertyInspectionQuestionareModel {
   Map<String ,dynamic>  ElectricMeterPresent(){
     Map<String,dynamic> map = new Map();
     Map<String,dynamic> onallmapp = new Map();
-    onallmapp["electricMeterPictureModel"] =  electricMeterPictureModel;
+    onallmapp["electricMeterPresent"] =  electricMeterPresent;
+    map['QuestionareModel'] =onallmapp;
+
+    return map;
+  }
+
+  Map<String ,dynamic>  ElectricMeterPicture(){
+    Map<String,dynamic> map = new Map();
+    Map<String,dynamic> onallmapp = new Map();
+    onallmapp["electricMeterPictureModel"] =  electricMeterPictureModel.AdonwayModelToMap();
     map['QuestionareModel'] =onallmapp;
 
     return map;
@@ -265,7 +274,7 @@ class PropertyInspectionQuestionareModel {
   Map<String ,dynamic>  GasMeterPictureModelToMap(){
     Map<String,dynamic> map = new Map();
     Map<String,dynamic> onallmapp = new Map();
-    onallmapp["gasMeterPictureModel"] =  gasMeterPictureModel;
+    onallmapp["gasMeterPictureModel"] =  gasMeterPictureModel.AdonwayModelToMap();
     map['QuestionareModel'] =onallmapp;
 
     return map;
@@ -274,7 +283,7 @@ class PropertyInspectionQuestionareModel {
   Map<String ,dynamic>  WaterMeterPictureModelToMap(){
     Map<String,dynamic> map = new Map();
     Map<String,dynamic> onallmapp = new Map();
-    onallmapp["waterMeterPictureModel"] =  waterMeterPictureModel;
+    onallmapp["waterMeterPictureModel"] =  waterMeterPictureModel.AdonwayModelToMap();
     map['QuestionareModel'] =onallmapp;
 
     return map;
@@ -283,7 +292,7 @@ class PropertyInspectionQuestionareModel {
   Map<String ,dynamic>  AnyDamageToPropertyPicModelToMap(){
     Map<String,dynamic> map = new Map();
     Map<String,dynamic> onallmapp = new Map();
-    onallmapp["anyDamageToPropertyPicModel"] =  anyDamageToPropertyPicModel;
+    onallmapp["anyDamageToPropertyPicModel"] =  anyDamageToPropertyPicModel.AdonwayModelToMap();
     map['QuestionareModel'] =onallmapp;
 
     return map;
@@ -292,7 +301,7 @@ class PropertyInspectionQuestionareModel {
   Map<String ,dynamic>  Take1stInternalPicturesModelToMap(){
     Map<String,dynamic> map = new Map();
     Map<String,dynamic> onallmapp = new Map();
-    onallmapp["take1stInternalPicturesModel"] =  take1stInternalPicturesModel;
+    onallmapp["take1stInternalPicturesModel"] =  take1stInternalPicturesModel.AdonwayModelToMap();
     map['QuestionareModel'] =onallmapp;
 
     return map;
@@ -301,7 +310,7 @@ class PropertyInspectionQuestionareModel {
   Map<String ,dynamic>  Take2ndInternalPicturesModelToMap(){
     Map<String,dynamic> map = new Map();
     Map<String,dynamic> onallmapp = new Map();
-    onallmapp["take2ndInternalPictureModel"] =  take2ndInternalPictureModel;
+    onallmapp["take2ndInternalPictureModel"] =  take2ndInternalPictureModel.AdonwayModelToMap();
     map['QuestionareModel'] =onallmapp;
 
     return map;
@@ -310,7 +319,7 @@ class PropertyInspectionQuestionareModel {
   Map<String ,dynamic>  Take3rdInternalPicturesModelToMap(){
     Map<String,dynamic> map = new Map();
     Map<String,dynamic> onallmapp = new Map();
-    onallmapp["take3rdInternalPictureModel"] =  take3rdInternalPictureModel;
+    onallmapp["take3rdInternalPictureModel"] =  take3rdInternalPictureModel.AdonwayModelToMap();
     map['QuestionareModel'] =onallmapp;
 
     return map;
@@ -319,7 +328,7 @@ class PropertyInspectionQuestionareModel {
   Map<String ,dynamic>  Take4thInternalPicturesModelToMap(){
     Map<String,dynamic> map = new Map();
     Map<String,dynamic> onallmapp = new Map();
-    onallmapp["take4thInternalPictureModel"] =  take4thInternalPictureModel;
+    onallmapp["take4thInternalPictureModel"] =  take4thInternalPictureModel.AdonwayModelToMap();
     map['QuestionareModel'] =onallmapp;
 
     return map;
@@ -329,7 +338,7 @@ class PropertyInspectionQuestionareModel {
   Map<String ,dynamic>  Take5thInternalPicturesModelToMap(){
     Map<String,dynamic> map = new Map();
     Map<String,dynamic> onallmapp = new Map();
-    onallmapp["take5thInternalPictureModel"] =  take5thInternalPictureModel;
+    onallmapp["take5thInternalPictureModel"] =  take5thInternalPictureModel.AdonwayModelToMap();
     map['QuestionareModel'] =onallmapp;
 
     return map;
@@ -347,7 +356,7 @@ class PropertyInspectionQuestionareModel {
   Map<String ,dynamic>  JobCompletedToMap(){
     Map<String,dynamic> map = new Map();
     Map<String,dynamic> onallmapp = new Map();
-    onallmapp["jobCompletedModel"] =  jobCompletedModel;
+    onallmapp["jobCompletedModel"] =  jobCompletedModel.AdonwayModelToMap();
     map['QuestionareModel'] =onallmapp;
 
     return map;
