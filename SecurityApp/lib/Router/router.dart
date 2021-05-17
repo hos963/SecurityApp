@@ -16,6 +16,8 @@ import 'package:Metropolitane/WebArea/MainWeb/AddPatrol/AddPatrolPage.dart';
 import 'package:Metropolitane/WebArea/MainWeb/AddPropertyInspection/AddPropertyInspectionPage.dart';
 import 'package:Metropolitane/WebArea/MainWeb/AddUnLock/AddUnLockPage.dart';
 import 'package:Metropolitane/WebArea/MainWeb/LockReport/ReportPage.dart';
+import 'package:Metropolitane/WebArea/MainWeb/PropertyReport/PropertyReportDetailPage.dart';
+import 'package:Metropolitane/WebArea/MainWeb/PropertyReport/ReportPage.dart';
 import 'package:Metropolitane/WebArea/MainWeb/ReportPage/ReportPage.dart';
 import 'package:Metropolitane/WebArea/MainWeb/ReportPage/ReportdetailPage.dart';
 import 'package:Metropolitane/WebArea/MainWeb/LockReport/LockReportdetailPage.dart';
@@ -29,6 +31,7 @@ import 'package:Metropolitane/model/AddPatrolModel.dart';
 import 'package:Metropolitane/model/AddPropertyInspectionModel.dart';
 import 'package:Metropolitane/model/AddUnlockModel.dart';
 import 'package:Metropolitane/model/LockQuestionareModel.dart';
+import 'package:Metropolitane/model/PatrolQuestionareModel.dart';
 import 'package:Metropolitane/model/PropertyInspectionQuestionareModel.dart';
 import 'package:Metropolitane/model/QuestionareModel.dart';
 import 'package:Metropolitane/model/UnLockQuestionareModel.dart';
@@ -81,6 +84,9 @@ const String ReportDetailUnLockPageRoute = 'addReportDetailUnLockPageRoute';
 
 const String ReportsPatreolPage = 'addReportPatreolPage';
 const String PatrolReportsdetailPage = 'addPatrolReportdetailPage';
+
+const String ReportsPropertyPage = 'ReportsPropertyPage';
+const String PropertyReportsdetailPage = 'PropertyReportsdetailPage';
 
 const String ReportAlarmPageRoute = 'addReportRoutePage';
 const String ReporDetailtAlarmPageRoute = 'addReportDetailRoutePage';
@@ -157,7 +163,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => ReportLockPage());
 
       case ReportDetailLockPageRoute:
-        QuestionareModel questionareModel = settings.arguments;
+        LockQuestionareModel questionareModel = settings.arguments;
       return MaterialPageRoute(builder: (context) => LockReportdetailPage(questionareModel));
 
 
@@ -165,7 +171,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => ReportUnLockPage());
 
       case ReportDetailUnLockPageRoute:
-        QuestionareModel questionareModel = settings.arguments;
+        UnLockQuestionareModel questionareModel = settings.arguments;
       return MaterialPageRoute(builder: (context) => UnLockReportdetailPage(questionareModel));
 
 
@@ -173,8 +179,15 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => ReportPatreolPage());
 
       case PatrolReportsdetailPage:
-        QuestionareModel questionareModel = settings.arguments;
+        PatrolQuestionareModel questionareModel = settings.arguments;
       return MaterialPageRoute(builder: (context) => PatrolReportdetailPage(questionareModel));
+
+      case ReportsPropertyPage:
+      return MaterialPageRoute(builder: (context) => ReportPropertyPage());
+
+      case PropertyReportsdetailPage:
+        PropertyInspectionQuestionareModel questionareModel = settings.arguments;
+      return MaterialPageRoute(builder: (context) => PropertyReportDetailPage(questionareModel));
 
     case ReporDetailtAlarmPageRoute:
       QuestionareModel questionareModel = settings.arguments;

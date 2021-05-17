@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:Metropolitane/CustomColors/CustomColors.dart';
 import 'package:Metropolitane/WebArea/MainWeb/commons/theme.dart';
+import 'package:Metropolitane/model/PatrolQuestionareModel.dart';
 import 'package:Metropolitane/model/QuestionareModel.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
@@ -15,7 +16,7 @@ import 'package:printing/printing.dart';
 
 import 'package:screenshot/screenshot.dart';
 class PatrolReportdetailPage extends StatelessWidget {
-  QuestionareModel questionareModel;
+  PatrolQuestionareModel questionareModel;
   ScreenshotController screenshotController = ScreenshotController();
   PatrolReportdetailPage(@required this.questionareModel);
 
@@ -115,7 +116,7 @@ class PatrolReportdetailPage extends StatelessWidget {
                     height: 20,
                   ),
                   Text(
-                      questionareModel.havekeys == null ? "" :  questionareModel.havekeys .toString() ,
+                      questionareModel.externalpatroldone == null ? "" :  questionareModel.externalpatroldone .toString() ,
 
                     style: TextStyle(fontSize: 20),
                   ),
@@ -131,6 +132,28 @@ class PatrolReportdetailPage extends StatelessWidget {
                     child: Center(
                       child: Text(
                         "Is Building Present .?",
+                        style: TextStyle(fontSize: 20, color: Colors.white),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    questionareModel.isBuildingPresent == null ? "" :  questionareModel.isBuildingPresent .toString() ,
+
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    height: 50,
+                    width: double.infinity,
+                    color: CustomColors.orangecolor,
+                    child: Center(
+                      child: Text(
+                        "Building Picture ",
                         style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                     ),
@@ -182,13 +205,43 @@ class PatrolReportdetailPage extends StatelessWidget {
                     height: 20,
                   ),
                   Text(
-                    questionareModel.areyouabletounsetAlarmModel != null ? questionareModel.areyouabletounsetAlarmModel.unsetalarm.toString()+ " at time "+ questionareModel.areyouabletounsetAlarmModel.unsetalarmtimestamp.toDate().toString() :" ",
+                    questionareModel.havekeys != null ? questionareModel.havekeys.toString() :" ",
                     style: TextStyle(fontSize: 20),
                   ),
                   SizedBox(
                     height: 20,
                   ),
-
+                  Container(
+                    height: 50,
+                    width: double.infinity,
+                    color: CustomColors.orangecolor,
+                    child: Center(
+                      child: Text(
+                        "Keys Picture ",
+                        style: TextStyle(fontSize: 20, color: Colors.white),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                      height: 400,
+                      width: 400,
+                      child: FadeInImage(
+                        width: 400,
+                        height: 400,
+                        image: NetworkImage(questionareModel.takePictureOfKeys
+                            !=
+                            null
+                            ? questionareModel.takePictureOfKeys.takePictureOfKeys
+                            : ""),
+                        placeholder: AssetImage("assets/images/placeholder.png"),
+                      )),
+                  // Image.network("https://firebasestorage.googleapis.com/v0/b/metropolitan-3d0c1.appspot.com/o/buuilding%2F2806f1de-aaf2-4d36-89d0-d7a596e118941150819418339817137.jpg?alt=media&token=3ba0e77f-87a8-427d-914d-6857e47dfee5"),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Container(
                     height: 50,
                     width: double.infinity,
@@ -204,7 +257,7 @@ class PatrolReportdetailPage extends StatelessWidget {
                     height: 20,
                   ),
                   Text(
-                    questionareModel.areyouabletosetAlarmModel != null ? questionareModel.areyouabletosetAlarmModel.setalarm.toString()+ " at time "+ questionareModel.areyouabletosetAlarmModel.timestamp.toDate().toString() :" ",
+                    questionareModel.dokeygiveAccess != null ? questionareModel.dokeygiveAccess.toString() :" ",
 
                     style: TextStyle(fontSize: 20),
                   ),
@@ -226,23 +279,19 @@ class PatrolReportdetailPage extends StatelessWidget {
                     height: 20,
                   ),
                   Text(
-                      questionareModel.leaveBuildingModel != null ? questionareModel.leaveBuildingModel.leavebuilding.toString()+ " at time "+ questionareModel.leaveBuildingModel.timestamp.toDate().toString() :" ",
-
+                    questionareModel.alarmUnset != null ? questionareModel.alarmUnset.toString():" ",
                     style: TextStyle(fontSize: 20),
                   ),
-
                   SizedBox(
                     height: 20,
                   ),
-
-
                   Container(
                     height: 50,
                     width: double.infinity,
                     color: CustomColors.orangecolor,
                     child: Center(
                       child: Text(
-                        "Internal pictures .?",
+                        "5 Building pictures .?",
                         style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                     ),
@@ -256,10 +305,10 @@ class PatrolReportdetailPage extends StatelessWidget {
                       child: FadeInImage(
                         width: 400,
                         height: 400,
-                        image: NetworkImage(questionareModel.externalPictureOfBuildingModel
+                        image: NetworkImage(questionareModel.internalPictureOfBuildingModel
                             !=
                             null
-                            ? questionareModel.externalPictureOfBuildingModel.externalbuildingpic
+                            ? questionareModel.internalPictureOfBuildingModel.internalbuildingpic
                             : ""),
                         placeholder: AssetImage("assets/images/placeholder.png"),
                       )),
@@ -269,10 +318,10 @@ class PatrolReportdetailPage extends StatelessWidget {
                       child: FadeInImage(
                         width: 400,
                         height: 400,
-                        image: NetworkImage(questionareModel.externalPictureOfBuildingModel
+                        image: NetworkImage(questionareModel.internalFirstPictureOfBuildingModel
                             !=
                             null
-                            ? questionareModel.externalPictureOfBuildingModel.externalbuildingpic
+                            ? questionareModel.internalFirstPictureOfBuildingModel.internalbuildingpic
                             : ""),
                         placeholder: AssetImage("assets/images/placeholder.png"),
                       )),
@@ -282,10 +331,10 @@ class PatrolReportdetailPage extends StatelessWidget {
                       child: FadeInImage(
                         width: 400,
                         height: 400,
-                        image: NetworkImage(questionareModel.externalPictureOfBuildingModel
+                        image: NetworkImage(questionareModel.internalSecondPictureOfBuildingModel
                             !=
                             null
-                            ? questionareModel.externalPictureOfBuildingModel.externalbuildingpic
+                            ? questionareModel.internalSecondPictureOfBuildingModel.internalbuildingpic
                             : ""),
                         placeholder: AssetImage("assets/images/placeholder.png"),
                       )),
@@ -295,10 +344,10 @@ class PatrolReportdetailPage extends StatelessWidget {
                       child: FadeInImage(
                         width: 400,
                         height: 400,
-                        image: NetworkImage(questionareModel.externalPictureOfBuildingModel
+                        image: NetworkImage(questionareModel.internalThirdPictureOfBuildingModel
                             !=
                             null
-                            ? questionareModel.externalPictureOfBuildingModel.externalbuildingpic
+                            ? questionareModel.internalThirdPictureOfBuildingModel.internalbuildingpic
                             : ""),
                         placeholder: AssetImage("assets/images/placeholder.png"),
                       )),
@@ -308,10 +357,10 @@ class PatrolReportdetailPage extends StatelessWidget {
                       child: FadeInImage(
                         width: 400,
                         height: 400,
-                        image: NetworkImage(questionareModel.externalPictureOfBuildingModel
+                        image: NetworkImage(questionareModel.internalFourthPictureOfBuildingModel
                             !=
                             null
-                            ? questionareModel.externalPictureOfBuildingModel.externalbuildingpic
+                            ? questionareModel.internalFourthPictureOfBuildingModel.internalbuildingpic
                             : ""),
                         placeholder: AssetImage("assets/images/placeholder.png"),
                       )),
@@ -320,16 +369,16 @@ class PatrolReportdetailPage extends StatelessWidget {
                     height: 20,
                   ),
                   Text(
-                    questionareModel.externalPictureOfBuildingModel
+                    questionareModel.internalPictureOfBuildingModel
                         !=
                         null
-                        ? questionareModel.externalPictureOfBuildingModel.timestampextpic.toDate().toString()
+                        ? questionareModel.internalPictureOfBuildingModel.timestamp.toDate().toString()
                         :"",
 
                     style: TextStyle(fontSize: 20),
                   ),
 
-                  Container(
+              /*    Container(
                     height: 50,
                     width: double.infinity,
                     color: CustomColors.orangecolor,
@@ -344,10 +393,10 @@ class PatrolReportdetailPage extends StatelessWidget {
                     height: 20,
                   ),
                   Text(
-                    questionareModel.havekeys == null ? "" :  questionareModel.havekeys .toString() ,
+                    questionareModel.specialInstruction == null ? "" :  questionareModel.specialInstruction .toString() ,
 
                     style: TextStyle(fontSize: 20),
-                  ),
+                  ),*/
                   SizedBox(
                     height: 20,
                   ),
@@ -368,7 +417,7 @@ class PatrolReportdetailPage extends StatelessWidget {
                     height: 20,
                   ),
                   Text(
-                    questionareModel.havekeys == null ? "" :  questionareModel.havekeys .toString() ,
+                    questionareModel.lockAndAlarmed == null ? "" :  questionareModel.lockAndAlarmed .toString() ,
 
                     style: TextStyle(fontSize: 20),
                   ),
@@ -392,7 +441,7 @@ class PatrolReportdetailPage extends StatelessWidget {
                     height: 20,
                   ),
                   Text(
-                    questionareModel.havekeys == null ? "" :  questionareModel.havekeys .toString() ,
+                    questionareModel.specialInstruction == null ? "" :  questionareModel.specialInstruction .toString() ,
 
                     style: TextStyle(fontSize: 20),
                   ),
@@ -415,7 +464,7 @@ class PatrolReportdetailPage extends StatelessWidget {
                     height: 20,
                   ),
                   Text(
-                    questionareModel.havekeys == null ? "" :  questionareModel.havekeys .toString() ,
+                    questionareModel.leaveBuildingModel == null ? "" :  questionareModel.leaveBuildingModel.leavebuilding .toString() ,
 
                     style: TextStyle(fontSize: 20),
                   ),

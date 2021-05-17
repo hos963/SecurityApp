@@ -39,7 +39,7 @@ class LockQuestionareModel {
       reachedonSiteModel:  parsedJson.containsKey('reachedonSiteModel')? ReachedonSiteModel.fromJson(parsedJson['reachedonSiteModel']) : null,
       havekeys: parsedJson['havekeys'],
       externalPictureOfBuildingModel:  parsedJson.containsKey('externalPictureOfBuildingModel')? ExternalPictureOfBuildingModel.fromJson(parsedJson['externalPictureOfBuildingModel']) : null,
-      doorsAndWindowsSecured:parsedJson['doorsAndWindowsSecured'],
+      doorsAndWindowsSecured:parsedJson['isWindowAndDoorSecuredLock'],
       internalPictureOfBuildingModel:  parsedJson.containsKey('internalPictureOfBuildingModel')? InternalPictureOfBuildingModel.fromJson(parsedJson['internalPictureOfBuildingModel']) : null,
       alarmedAndSecured:parsedJson['alarmedAndSecured'],
       messageOnPanel: parsedJson['messageOnPanel'],

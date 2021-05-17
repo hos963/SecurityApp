@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:Metropolitane/CustomColors/CustomColors.dart';
 import 'package:Metropolitane/WebArea/MainWeb/commons/theme.dart';
 import 'package:Metropolitane/model/QuestionareModel.dart';
+import 'package:Metropolitane/model/UnLockQuestionareModel.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:path_provider/path_provider.dart';
@@ -15,7 +16,7 @@ import 'package:printing/printing.dart';
 
 import 'package:screenshot/screenshot.dart';
 class UnLockReportdetailPage extends StatelessWidget {
-  QuestionareModel questionareModel;
+  UnLockQuestionareModel questionareModel;
   ScreenshotController screenshotController = ScreenshotController();
   UnLockReportdetailPage(@required this.questionareModel);
 
@@ -180,7 +181,7 @@ class UnLockReportdetailPage extends StatelessWidget {
                     height: 20,
                   ),
                   Text(
-                    questionareModel.areyouabletounsetAlarmModel != null ? questionareModel.areyouabletounsetAlarmModel.unsetalarm.toString()+ " at time "+ questionareModel.areyouabletounsetAlarmModel.unsetalarmtimestamp.toDate().toString() :" ",
+                    questionareModel.unlockandunalarmed != null ? questionareModel.unlockandunalarmed.toString():"",
                     style: TextStyle(fontSize: 20),
                   ),
                   SizedBox(
@@ -202,7 +203,7 @@ class UnLockReportdetailPage extends StatelessWidget {
                     height: 20,
                   ),
                   Text(
-                    questionareModel.areyouabletosetAlarmModel != null ? questionareModel.areyouabletosetAlarmModel.setalarm.toString()+ " at time "+ questionareModel.areyouabletosetAlarmModel.timestamp.toDate().toString() :" ",
+                    questionareModel.specialinstruction != null ? questionareModel.specialinstruction :" ",
 
                     style: TextStyle(fontSize: 20),
                   ),

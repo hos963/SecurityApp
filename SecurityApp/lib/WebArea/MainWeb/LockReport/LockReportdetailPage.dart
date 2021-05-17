@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:Metropolitane/CustomColors/CustomColors.dart';
 import 'package:Metropolitane/WebArea/MainWeb/commons/theme.dart';
+import 'package:Metropolitane/model/LockQuestionareModel.dart';
 import 'package:Metropolitane/model/QuestionareModel.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
@@ -15,7 +16,7 @@ import 'package:printing/printing.dart';
 
 import 'package:screenshot/screenshot.dart';
 class LockReportdetailPage extends StatelessWidget {
-  QuestionareModel questionareModel;
+  LockQuestionareModel questionareModel;
   ScreenshotController screenshotController = ScreenshotController();
   LockReportdetailPage(@required this.questionareModel);
 
@@ -180,7 +181,8 @@ class LockReportdetailPage extends StatelessWidget {
                     height: 20,
                   ),
                   Text(
-                    questionareModel.areyouabletounsetAlarmModel != null ? questionareModel.areyouabletounsetAlarmModel.unsetalarm.toString()+ " at time "+ questionareModel.areyouabletounsetAlarmModel.unsetalarmtimestamp.toDate().toString() :" ",
+                    questionareModel.doorsAndWindowsSecured == null ? "" :  questionareModel.doorsAndWindowsSecured .toString() ,
+
                     style: TextStyle(fontSize: 20),
                   ),
                   SizedBox(
@@ -204,9 +206,9 @@ class LockReportdetailPage extends StatelessWidget {
                       height: 400,
                       width: 400,
                       child: FadeInImage(
-                        image: NetworkImage(questionareModel.pictureOfAlarmPanelModel !=
+                        image: NetworkImage(questionareModel.internalPictureOfBuildingModel !=
                                 null
-                            ? questionareModel.pictureOfAlarmPanelModel.picalarmpanel
+                            ? questionareModel.internalPictureOfBuildingModel.internalbuildingpic
                             : "https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=jpg&quality=90&v=1530129081"),
                         placeholder: AssetImage("assets/images/placeholder.png"),
                       )),
@@ -215,7 +217,7 @@ class LockReportdetailPage extends StatelessWidget {
                   ),
 
                   Text(
-                    questionareModel.pictureOfAlarmPanelModel != null ? questionareModel.pictureOfAlarmPanelModel.timestamp.toDate().toString() :" ",
+                    questionareModel.externalPictureOfBuildingModel != null ? questionareModel.externalPictureOfBuildingModel.timestampextpic.toDate().toString() :" ",
                     style: TextStyle(fontSize: 20),
                   ),
 
@@ -234,7 +236,8 @@ class LockReportdetailPage extends StatelessWidget {
                     height: 20,
                   ),
                   Text(
-                    questionareModel.messageOnPanel != null ? questionareModel.messageOnPanel.toString() :" ",
+                    questionareModel.alarmedAndSecured == null ? "" :  questionareModel.alarmedAndSecured .toString() ,
+
                     style: TextStyle(fontSize: 20),
                   ),
                   SizedBox(
@@ -255,8 +258,7 @@ class LockReportdetailPage extends StatelessWidget {
                     height: 20,
                   ),
                   Text(
-                    questionareModel.areyouabletosetAlarmModel != null ? questionareModel.areyouabletosetAlarmModel.setalarm.toString()+ " at time "+ questionareModel.areyouabletosetAlarmModel.timestamp.toDate().toString() :" ",
-
+                    questionareModel.messageOnPanel != null ? questionareModel.messageOnPanel.toString() :" ",
                     style: TextStyle(fontSize: 20),
                   ),
                   SizedBox(

@@ -39,6 +39,9 @@ class DashBoardButtonsContent extends StatelessWidget {
 
     DashBoardModel(
         namebutton: "Patrol Reports", icon: "patrolreport.png", iconhex: ""),
+
+    DashBoardModel(
+        namebutton: "Inspection Reports", icon: "inspectionreport.png", iconhex: ""),
   ];
 
   @override
@@ -123,6 +126,12 @@ class DashBoardButtonsContent extends StatelessWidget {
                             case 11:
                               Navigator.pushNamed(
                                   context, Router.ReportsPatreolPage);
+
+                              break;
+
+                              case 12:
+                              Navigator.pushNamed(
+                                  context, Router.ReportsPropertyPage);
 
                               // do something else
                               break;
