@@ -85,13 +85,15 @@ class _LockQuestionSurveyState extends State<LockQuestionSurvey> {
 
         currentpage = 8;
       }
-      if(questionmodel.leaveBuildingModel != null){
+      // if(questionmodel.leaveBuildingModel != null){
+      //
+      //   currentpage = 9;
+      // }
 
-        currentpage = 9;
-      } if(questionmodel.leaveBuildingModel != null){
-
-        currentpage = 10;
-      }
+      // if(questionmodel.leaveBuildingModel != null){
+      //
+      //   currentpage = 10;
+      // }
 
     }
     super.initState();

@@ -34,7 +34,7 @@ class _ReachedOnSiteScreenState extends State<ReachedOnSiteScreen> {
             children: <Widget>[
               SizedBox(height: 20),
 
-              text("Do you reached Onsite?", textColor: quiz_textColorPrimary, isLongText: true, isCentered: true,fontSize: 22.0).center(),
+              text("Are you Onsite?", textColor: quiz_textColorPrimary, isLongText: true, isCentered: true,fontSize: 22.0).center(),
 
               SizedBox(height: 40),
               // Container(

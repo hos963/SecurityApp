@@ -224,8 +224,8 @@ class _UnLockTaskState extends State<UnLockTask> {
         stream: FirebaseFirestore.instance
             .collection('UnLockAlert')
             .where("firebaseUserData.udid", isEqualTo: userid)
-            .where("timestamp", isGreaterThanOrEqualTo: currentdate.toUtc())
-            .where("timestamp", isLessThan: nextdate.toUtc())
+            .where("futuretask", isGreaterThanOrEqualTo: currentdate.toUtc())
+            .where("futuretask", isLessThan: nextdate.toUtc())
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) return new Text('Error: ${snapshot.error}');

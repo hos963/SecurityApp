@@ -95,8 +95,24 @@ class _JobCompletedState extends State<JobCompleted> {
     await firebaseService.JobCompleteUnLock(
         widget.addUnlockModel.unlockId, widget.addUnlockModel.questionareModel);
 
+    Updatinngdataa();
+
+  }
+
+  Future<void> Updatinngdataa() async {
+
+    FirebaseService firebaseService = new FirebaseService();
+    if (widget.addUnlockModel.questionareModel == null) {
+      widget.addUnlockModel.questionareModel = new UnLockQuestionareModel();
+    }
+    widget.addUnlockModel.state = 3;
+
+    await firebaseService.UpdatingStatusUnLock(
+        widget.addUnlockModel.unlockId,widget.addUnlockModel);
+
     widget.callback(1);
 
   }
+
 
 }

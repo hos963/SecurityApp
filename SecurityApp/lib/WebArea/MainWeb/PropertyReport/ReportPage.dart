@@ -43,7 +43,8 @@ class _ReportPropertyPageState extends State<ReportPropertyPage> {
 
   Widget completeBodyWidget() {
     return ProgressHUD(child: Builder(builder: (context) {
-      return BlocListener<AddPropertyInspectionBloc, AddPropertyInspectionState>(
+      return BlocListener<AddPropertyInspectionBloc,
+          AddPropertyInspectionState>(
         listener: (context, state) {
           if (state is AddPropertyInspectionLoading) {
             progress = ProgressHUD.of(context);
@@ -95,6 +96,7 @@ class _ReportPropertyPageState extends State<ReportPropertyPage> {
       appBar: AppBar(
         elevation: 4,
         centerTitle: true,
+        iconTheme: IconThemeData(color: Colors.white),
         title: Text(
           'Property Report',
           style: TextStyle(color: Colors.white),
@@ -191,6 +193,7 @@ class _ReportPropertyPageState extends State<ReportPropertyPage> {
                       subtitle: item.inspectionDesc,
                       isselected: isselected,
                       locationnname: item.inspectionLocation,
+                      inspectionId: item.inspectionId,
                       questionareModel: item.questionareModel,
                       state: item.state,
                       firebaseUserData: item.firebaseUserData,
@@ -221,24 +224,26 @@ class _ReportPropertyPageState extends State<ReportPropertyPage> {
   }
 }
 
-
 class MyCardViewWidget extends StatefulWidget {
   final String title;
   final String subtitle;
   final String locationnname;
   final bool isselected;
+  final String inspectionId;
   final int state;
   final PropertyInspectionQuestionareModel questionareModel;
-  final FirebaseUserData firebaseUserData ;
+  final FirebaseUserData firebaseUserData;
 
   const MyCardViewWidget(
       {Key key,
       this.title,
       this.subtitle,
       this.isselected,
+      this.inspectionId,
       this.locationnname,
       this.questionareModel,
-      this.state,this.firebaseUserData})
+      this.state,
+      this.firebaseUserData})
       : super(key: key);
 
   @override
@@ -247,11 +252,16 @@ class MyCardViewWidget extends StatefulWidget {
 
 class _MyCardViewWidgetState extends State<MyCardViewWidget> {
   // bool selected = false;
- @override
+  @override
   Widget build(BuildContext context) {
-   String uuserdat = ( widget.firebaseUserData != null ?  "Email "+widget.firebaseUserData.email +" name "+widget.firebaseUserData.name : "");
+    String uuserdat = (widget.firebaseUserData != null
+        ? "Email " +
+            widget.firebaseUserData.email +
+            " name " +
+            widget.firebaseUserData.name
+        : "");
 
-   return InkWell(
+    return InkWell(
       onTap: () {
         if (widget.questionareModel != null) {
           Navigator.pushNamed(context, Router.PropertyReportsdetailPage,
@@ -309,7 +319,7 @@ class _MyCardViewWidgetState extends State<MyCardViewWidget> {
                               : CustomColors.orangecolor),
                     ),
                     Text(
-                     ""+uuserdat,
+                      "" + uuserdat,
                       style: TextStyle(
                           fontSize: 20,
                           color: widget.state == 3
@@ -318,7 +328,6 @@ class _MyCardViewWidgetState extends State<MyCardViewWidget> {
                     ),
                   ],
                 ),
-
                 SizedBox(
                   height: 20,
                 ),
@@ -363,6 +372,24 @@ class _MyCardViewWidgetState extends State<MyCardViewWidget> {
                               ? Colors.green
                               : CustomColors.orangecolor),
                     ),
+                    widget.isselected
+                        ? Container()
+                        : Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                OutlinedButton(
+                                    onPressed: () {
+                                      FirebaseFirestore.instance
+                                          .collection("PropertyInspectionAlert")
+                                          .doc(widget.inspectionId)
+                                          .delete();
+                                    },
+                                    child: Text('Delete'))
+                              ],
+                            ),
+                          ),
                   ],
                 )
               ],

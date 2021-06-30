@@ -39,7 +39,7 @@ class _SetAlarmScreenState extends State<SetAlarmScreen> {
           child: Column(
             children: <Widget>[
               SizedBox(height: 20),
-              text(widget.isunsetscreenn == true ? "Are you unset Alarm": "Set Alarm", textColor: quiz_textColorPrimary, isLongText: true, isCentered: true,fontSize: 22.0).center(),
+              text(widget.isunsetscreenn == true ? "Alarm unset":"Set Alarm", textColor: quiz_textColorPrimary, isLongText: true, isCentered: true,fontSize: 22.0).center(),
 
               SizedBox(height: 30),
               Container(

@@ -92,6 +92,7 @@ class _ReportPatreolPageState extends State<ReportPatreolPage> {
       appBar: AppBar(
         elevation: 4,
         centerTitle: true,
+        iconTheme: IconThemeData(color: Colors.white),
         title: Text(
           'Patrol Report',
           style: TextStyle(color: Colors.white),
@@ -188,6 +189,7 @@ class _ReportPatreolPageState extends State<ReportPatreolPage> {
                       subtitle: item.patrolDesc,
                       isselected: isselected,
                       locationnname: item.patrolLocation,
+                      patrolId: item.patrolId,
                       questionareModel: item.questionareModel,
                       state: item.state,
                       firebaseUserData: item.firebaseUserData,
@@ -218,15 +220,15 @@ class _ReportPatreolPageState extends State<ReportPatreolPage> {
   }
 }
 
-
 class MyCardViewWidget extends StatefulWidget {
   final String title;
   final String subtitle;
   final String locationnname;
   final bool isselected;
+  final String patrolId;
   final int state;
   final PatrolQuestionareModel questionareModel;
-  final FirebaseUserData firebaseUserData ;
+  final FirebaseUserData firebaseUserData;
 
   const MyCardViewWidget(
       {Key key,
@@ -234,8 +236,10 @@ class MyCardViewWidget extends StatefulWidget {
       this.subtitle,
       this.isselected,
       this.locationnname,
+      this.patrolId,
       this.questionareModel,
-      this.state,this.firebaseUserData})
+      this.state,
+      this.firebaseUserData})
       : super(key: key);
 
   @override
@@ -244,11 +248,16 @@ class MyCardViewWidget extends StatefulWidget {
 
 class _MyCardViewWidgetState extends State<MyCardViewWidget> {
   // bool selected = false;
- @override
+  @override
   Widget build(BuildContext context) {
-   String uuserdat = ( widget.firebaseUserData != null ?  "Email "+widget.firebaseUserData.email +" name "+widget.firebaseUserData.name : "");
+    String uuserdat = (widget.firebaseUserData != null
+        ? "Email " +
+            widget.firebaseUserData.email +
+            " name " +
+            widget.firebaseUserData.name
+        : "");
 
-   return InkWell(
+    return InkWell(
       onTap: () {
         if (widget.questionareModel != null) {
           Navigator.pushNamed(context, Router.PatrolReportsdetailPage,
@@ -306,7 +315,7 @@ class _MyCardViewWidgetState extends State<MyCardViewWidget> {
                               : CustomColors.orangecolor),
                     ),
                     Text(
-                     ""+uuserdat,
+                      "" + uuserdat,
                       style: TextStyle(
                           fontSize: 20,
                           color: widget.state == 3
@@ -315,7 +324,6 @@ class _MyCardViewWidgetState extends State<MyCardViewWidget> {
                     ),
                   ],
                 ),
-
                 SizedBox(
                   height: 20,
                 ),
@@ -360,6 +368,24 @@ class _MyCardViewWidgetState extends State<MyCardViewWidget> {
                               ? Colors.green
                               : CustomColors.orangecolor),
                     ),
+                    widget.isselected
+                        ? Container()
+                        : Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                OutlinedButton(
+                                    onPressed: () {
+                                      FirebaseFirestore.instance
+                                          .collection("PatrolAlert")
+                                          .doc(widget.patrolId)
+                                          .delete();
+                                    },
+                                    child: Text('Delete'))
+                              ],
+                            ),
+                          ),
                   ],
                 )
               ],

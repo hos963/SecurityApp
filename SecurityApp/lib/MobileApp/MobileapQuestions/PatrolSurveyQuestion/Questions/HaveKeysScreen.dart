@@ -9,7 +9,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:group_radio_button/group_radio_button.dart';
 import 'package:progress_indicator_button/progress_button.dart';
 
-import 'package:Metropolitane/MobileApp/MobileapQuestions/PatrolSurveyQuestion/Questions/TakeImageOfKeys.dart';
+import 'package:Metropolitane/MobileApp/MobileapQuestions/PatrolSurveyQuestion/Questions/TakePictureofkeys/TakeImageOfKeys.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/PatrolSurveyQuestion/Questions/DoKeyGiveAccess.dart';
 
 import '../PatrolQuestionSurvey.dart';
@@ -40,7 +40,7 @@ class _HaveKeysScreenState extends State<HaveKeysScreen> {
           child: Column(
             children: <Widget>[
               SizedBox(height: 20),
-              text("Do you have keys?",
+              text("Do you have keys or access code?",
                   textColor: quiz_textColorPrimary,
                   isLongText: true,
                   isCentered: true,

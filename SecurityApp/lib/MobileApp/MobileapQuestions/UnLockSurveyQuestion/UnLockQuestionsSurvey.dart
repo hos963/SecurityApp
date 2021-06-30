@@ -70,14 +70,6 @@ class _UnLockQuestionsSurveyState extends State<UnLockQuestionsSurvey> {
 
         currentpage = 6;
       }
-      if(questionmodel.leaveBuildingModel != null){
-
-        currentpage = 7;
-      }
-      if(questionmodel.leaveBuildingModel != null){
-
-        currentpage = 8;
-      }
 
     }
 
@@ -114,50 +106,7 @@ class _UnLockQuestionsSurveyState extends State<UnLockQuestionsSurvey> {
       body: Column(
         children: [
           Expanded(child: list[currentpage]),
-          // Container(
-          //   height: 60,
-          //   color: CustomColors.orangecolor,
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //     children: [
-          //
-          //       TextButton.icon(
-          //         label: Text(""),
-          //         icon: Icon(
-          //           Icons.arrow_back,
-          //           color: Colors.white,
-          //         ),
-          //         onPressed: () {
-          //
-          //           if(currentpage != 0){
-          //
-          //             setState(() {
-          //               currentpage --;
-          //             });
-          //           }
-          //
-          //
-          //         },
-          //       ),
-          //       TextButton.icon(
-          //         icon: Icon(Icons.arrow_forward, color: Colors.white),
-          //         label: Text(""),
-          //         onPressed: () {
-          //
-          //           if(currentpage < (list.length-1)){
-          //
-          //             setState(() {
-          //               currentpage ++;
-          //             });
-          //           }else{{
-          //           }
-          //           }
-          //         },
-          //       ),
-          //
-          //     ],
-          //   ),
-          // )
+
         ],
       ),
     );

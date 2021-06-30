@@ -26,13 +26,14 @@ GetIt locator = GetIt();
 void setupLocator() {
   locator.registerLazySingleton(() => LocalAuthenticationService());
 }
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp();
   await DeviceDatabase.init();
   await PreferenceUtils.init();
-   setupLocator();
+  setupLocator();
   runApp(MyApp());
 }
 
@@ -60,37 +61,31 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (_) => WebCreateAddressBocBloc(),
         ),
-
         BlocProvider(
           create: (_) => WebMainBloc(),
         ),
-
         BlocProvider(
           create: (_) => AddAlarmBloc(),
         ),
-
         BlocProvider(
           create: (_) => AddPatrolBloc(),
         ),
         BlocProvider(
           create: (_) => AddLockBloc(),
         ),
-
         BlocProvider(
           create: (_) => AddUnLockBloc(),
         ),
         BlocProvider(
           create: (_) => AddPropertyInspectionBloc(),
         ),
-
       ],
       child: MaterialApp(
+          debugShowCheckedModeBanner: false,
           title: 'International Traffic',
           theme: customcolor.CompanyThemeData,
           initialRoute: router.LoginPageRoute,
           onGenerateRoute: router.generateRoute),
     );
-
   }
-
 }

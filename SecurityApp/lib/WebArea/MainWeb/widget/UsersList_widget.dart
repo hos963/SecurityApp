@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:Metropolitane/CustomColors/CustomColors.dart';
@@ -38,8 +39,8 @@ class _ProjectWidgetState extends State<ProjectWidget> {
       shadowColor: Colors.grey,
       borderRadius: BorderRadius.circular(4),
       child: Container(
-        height: widget._media.height / 1.9,
-        width: widget._media.width / 3 + 20,
+        height: widget._media.height / 1.38 - 5,
+        width: widget._media.width / 2,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(4),
@@ -129,7 +130,6 @@ class _ProjectWidgetState extends State<ProjectWidget> {
       BuildContext context, FirebaseUserData firebaseUserData, int position) {
     return InkWell(
       onTap: () {
-
         Navigator.pushNamed(context, Router.AddingDevideIdtoUserRoute,
             arguments: firebaseUserData);
       },
@@ -163,6 +163,14 @@ class _ProjectWidgetState extends State<ProjectWidget> {
                   webMainBloc.add(setcheckisActiveUser(
                       newValue, position, firebaseUserData.udid));
                 }),
+            OutlinedButton(
+                onPressed: () {
+                  FirebaseFirestore.instance
+                      .collection('users')
+                      .doc(firebaseUserData.udid)
+                      .delete();
+                },
+                child: Text('Delete User'))
           ],
         ),
       ),

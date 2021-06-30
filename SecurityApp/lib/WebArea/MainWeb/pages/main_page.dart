@@ -15,7 +15,6 @@ import 'package:Metropolitane/WebArea/MainWeb/widget/quick_contact.dart';
 import 'package:Metropolitane/WebArea/MainWeb/widget/responsive_widget.dart';
 import 'package:Metropolitane/WebArea/MainWeb/widget/sidebar_menu..dart';
 
-
 class WebMainPage extends StatefulWidget {
   @override
   _WebMainPageState createState() => _WebMainPageState();
@@ -23,6 +22,7 @@ class WebMainPage extends StatefulWidget {
 
 class _WebMainPageState extends State<WebMainPage> {
   WebMainBloc webMainBloc;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -30,16 +30,14 @@ class _WebMainPageState extends State<WebMainPage> {
 
     webMainBloc = BlocProvider.of<WebMainBloc>(context);
   }
+
   var progress;
+
   @override
   Widget build(BuildContext context) {
-
-
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-
-
-        return completeBodyWidget() ;
+        return completeBodyWidget();
       },
     );
   }
@@ -59,15 +57,14 @@ class _WebMainPageState extends State<WebMainPage> {
               progress.dismiss();
             }
 
-
             showDialog(
                 context: context,
                 builder: (BuildContext context) => CustomDialog(
-                  imagepath: "",
-                  title: "Message",
-                  description: state.errorstr,
-                  buttonText: "OK",
-                ));
+                      imagepath: "",
+                      title: "Message",
+                      description: state.errorstr,
+                      buttonText: "OK",
+                    ));
           }
 
           if (state is SuccessfullyCreatedAccountstate) {
@@ -80,23 +77,19 @@ class _WebMainPageState extends State<WebMainPage> {
             showDialog(
                 context: context,
                 builder: (BuildContext context) => CustomDialog(
-                  imagepath: "",
-                  title: "Successfully Created",
-                  description: "Successfully Created",
-                  buttonText: "OK",
-                ));
+                      imagepath: "",
+                      title: "Successfully Created",
+                      description: "Successfully Created",
+                      buttonText: "OK",
+                    ));
           }
-
-
         },
         child: Mainflutter(context),
       );
     }));
   }
 
-
-
-  Widget Mainflutter(BuildContext context){
+  Widget Mainflutter(BuildContext context) {
     final _media = MediaQuery.of(context).size;
     return Material(
       child: Row(
@@ -104,7 +97,6 @@ class _WebMainPageState extends State<WebMainPage> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-
           Flexible(
             fit: FlexFit.loose,
             child: Column(
@@ -118,6 +110,7 @@ class _WebMainPageState extends State<WebMainPage> {
                   child: AppBar(
                     elevation: 4,
                     centerTitle: true,
+                    iconTheme: IconThemeData(color: Colors.white),
                     title: Text(
                       'Register User / View User',
                       style: TextStyle(color: Colors.white),
@@ -226,11 +219,14 @@ class _WebMainPageState extends State<WebMainPage> {
                             SizedBox(
                               width: 10,
                             ),
-                            QuickContact(media: _media),
-                            SizedBox(
-                              width:10,
+                            Padding(
+                              padding: const EdgeInsets.only(top: 20),
+                              child: QuickContact(media: _media),
                             ),
-                          //  DeleteDataArea(media: _media)
+                            SizedBox(
+                              width: 10,
+                            ),
+                            //  DeleteDataArea(media: _media)
                           ],
                         ),
                       ),
@@ -257,6 +253,5 @@ class _WebMainPageState extends State<WebMainPage> {
         ],
       ),
     );
-
   }
 }

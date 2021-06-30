@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:Metropolitane/FirebaseService/FirebaseService.dart';
 import 'package:Metropolitane/model/AddAlarmModel.dart';
 import 'package:Metropolitane/model/QuestionareModel.dart';
@@ -8,6 +10,7 @@ import 'dart:io';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizImages.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:group_radio_button/group_radio_button.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -22,14 +25,16 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:progress_indicator_button/progress_button.dart';
 import 'dart:io' as io;
 import '../FilledQuestionsSurvey.dart';
+
 class PictureOfAlarmPanelScreen extends StatefulWidget {
-
-
   final MyCallbackToback callback;
   AddAlarmModel addAlarmModel;
-  PictureOfAlarmPanelScreen(this.addAlarmModel,this.callback);
+
+  PictureOfAlarmPanelScreen(this.addAlarmModel, this.callback);
+
   @override
-  _PictureOfAlarmPanelScreenState createState() => _PictureOfAlarmPanelScreenState();
+  _PictureOfAlarmPanelScreenState createState() =>
+      _PictureOfAlarmPanelScreenState();
 }
 
 class _PictureOfAlarmPanelScreenState extends State<PictureOfAlarmPanelScreen> {
@@ -37,7 +42,8 @@ class _PictureOfAlarmPanelScreenState extends State<PictureOfAlarmPanelScreen> {
   final picker = ImagePicker();
 
   Future getImage() async {
-    final pickedFile = await picker.getImage(source: ImageSource.camera);
+    final pickedFile =
+        await picker.getImage(source: ImageSource.camera, imageQuality: 85);
 
     setState(() {
       if (pickedFile != null) {
@@ -52,7 +58,7 @@ class _PictureOfAlarmPanelScreenState extends State<PictureOfAlarmPanelScreen> {
   Widget build(BuildContext context) {
     //return Container(child: Text(widget.isinternal == true ? "Internal building pictuure": "External Building picture"),);
     var width = MediaQuery.of(context).size.width;
-    return  SafeArea(
+    return SafeArea(
       child: Container(
         height: MediaQuery.of(context).size.height,
         color: quiz_app_background,
@@ -60,16 +66,19 @@ class _PictureOfAlarmPanelScreenState extends State<PictureOfAlarmPanelScreen> {
           child: Column(
             children: <Widget>[
               SizedBox(height: 20),
-              text("Picture Of Alarm Panel", textColor: quiz_textColorPrimary, isLongText: true, isCentered: true,fontSize: 22.0).center(),
+              text("Picture Of Alarm Panel",
+                      textColor: quiz_textColorPrimary,
+                      isLongText: true,
+                      isCentered: true,
+                      fontSize: 22.0)
+                  .center(),
 
               SizedBox(height: 30),
               Container(
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
                   children: <Widget>[
-
                     Stack(
                       alignment: Alignment.bottomRight,
                       children: <Widget>[
@@ -81,31 +90,27 @@ class _PictureOfAlarmPanelScreenState extends State<PictureOfAlarmPanelScreen> {
                               border: Border.all(color: quiz_white, width: 4)),
                           child: _image == null
                               ? Text('No image selected.').center()
-                              : Image.file(_image,fit: BoxFit.fill),
+                              : Image.file(_image, fit: BoxFit.fill),
                         ),
                         Container(
-                          margin: EdgeInsets.only(top:20),
+                          margin: EdgeInsets.only(top: 20),
                           height: 40,
                           width: 40,
                           decoration: BoxDecoration(
                               shape: BoxShape.rectangle,
                               border: Border.all(color: quiz_white, width: 4),
                               color: quiz_white),
-                          child: Icon(Icons.edit, size: 20).onTap(() {
-
-                          }),
-                        ).paddingOnly( top: 16).onTap(() {
+                          child: Icon(Icons.edit, size: 20).onTap(() {}),
+                        ).paddingOnly(top: 16).onTap(() {
                           //print("Edit profile");
                         })
                       ],
                     ),
-
                   ],
                 ),
               ).onTap(() {
                 //  Navigator.of(context).pop();
                 getImage();
-
               }),
               SizedBox(height: 20),
               // Container(
@@ -119,7 +124,6 @@ class _PictureOfAlarmPanelScreenState extends State<PictureOfAlarmPanelScreen> {
               // )
 
               Container(
-
                 width: 200,
                 height: 50,
                 child: ProgressButton(
@@ -150,7 +154,6 @@ class _PictureOfAlarmPanelScreenState extends State<PictureOfAlarmPanelScreen> {
     );
   }
 
-
   Future<firebase_storage.UploadTask> uploadFile(File file) async {
     if (file == null) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -165,7 +168,7 @@ class _PictureOfAlarmPanelScreenState extends State<PictureOfAlarmPanelScreen> {
     firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
         .ref()
         .child('alarmpanel')
-        .child('/'+file.name +'.jpg');
+        .child('/' + file.name + '.jpg');
 
     final metadata = firebase_storage.SettableMetadata(
         contentType: 'image/jpeg',
@@ -181,7 +184,6 @@ class _PictureOfAlarmPanelScreenState extends State<PictureOfAlarmPanelScreen> {
     return Future.value(uploadTask);
   }
 
-
   // Future<void> _downloadLink(firebase_storage.Reference ref) async {
   //   final link = await ref.getDownloadURL();
   //   print(" Image link  "+link);
@@ -191,23 +193,22 @@ class _PictureOfAlarmPanelScreenState extends State<PictureOfAlarmPanelScreen> {
   //
   // }
 
-
   Future<void> Updatinngdata(String ImgLinnk) async {
     FirebaseService firebaseService = new FirebaseService();
-    if( widget.addAlarmModel.questionareModel == null){
+    if (widget.addAlarmModel.questionareModel == null) {
       widget.addAlarmModel.questionareModel = new QuestionareModel();
     }
 
-
-      widget.addAlarmModel.questionareModel.pictureOfAlarmPanelModel = new PictureOfAlarmPanelModel();
-    widget.addAlarmModel.questionareModel.pictureOfAlarmPanelModel.picalarmpanel = ImgLinnk;
-
+    widget.addAlarmModel.questionareModel.pictureOfAlarmPanelModel =
+        new PictureOfAlarmPanelModel();
+    widget.addAlarmModel.questionareModel.pictureOfAlarmPanelModel
+        .picalarmpanel = ImgLinnk;
 
     // widget.addAlarmModel.questionareModel.onwayModel = onwayModel;
 
+    await firebaseService.PictureOfAlarmPanel(
+        widget.addAlarmModel.alarmId, widget.addAlarmModel.questionareModel);
 
-    await firebaseService.PictureOfAlarmPanel( widget.addAlarmModel.alarmId,widget.addAlarmModel.questionareModel);
-
-    widget. callback(1);
+    widget.callback(1);
   }
 }

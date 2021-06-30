@@ -1,0 +1,7 @@
+[
+  {
+    "origin": ["{custom-domain}"],
+    "method": ["GET"],
+    "maxAgeSeconds": 3600
+  }
+]

@@ -13,17 +13,20 @@ class AddPatrolModel {
   bool isactive;
   int state = 1;
   PatrolQuestionareModel questionareModel;
-
+  var futuretask;
   FirebaseUserData firebaseUserData;
 
   AddPatrolModel(
       {this.patrolId,
-        this.patrolTitle,
-        this.patrolDesc,
-        this.patrolLocation,
-        this.type,
-        this.isactive,
-        this.questionareModel,this.firebaseUserData,this.state});
+      this.patrolTitle,
+      this.patrolDesc,
+      this.patrolLocation,
+      this.type,
+      this.isactive,
+      this.questionareModel,
+      this.firebaseUserData,
+      this.state,
+      this.futuretask});
 
   factory AddPatrolModel.fromJson(Map<String, dynamic> parsedJson) {
     return AddPatrolModel(
@@ -36,6 +39,7 @@ class AddPatrolModel {
           ? PatrolQuestionareModel.fromJson(parsedJson['QuestionareModel'])
           : null,
       isactive: parsedJson['isactive'],
+      futuretask: parsedJson['futuretask'],
     );
   }
 
@@ -50,18 +54,16 @@ class AddPatrolModel {
       questionareModel: doc.data().containsKey("QuestionareModel")
           ? PatrolQuestionareModel.fromJson(doc.data()['QuestionareModel'])
           : null,
-
       firebaseUserData: doc.data().containsKey("firebaseUserData")
           ? FirebaseUserData.fromJson(doc.data()['firebaseUserData'])
           : null,
-
       isactive: doc.data()['isactive'],
+      futuretask: doc.data()['futuretask'],
     );
   }
 
-
-  Map<String ,dynamic>  AddPatrolTopMap({bool isupdate = false}){
-    Map<String,dynamic> map = new Map();
+  Map<String, dynamic> AddPatrolTopMap({bool isupdate = false}) {
+    Map<String, dynamic> map = new Map();
 
     map['patrolId'] = this.patrolId;
     map['patrolTitle'] = this.patrolTitle;
@@ -69,15 +71,13 @@ class AddPatrolModel {
     map['patrolLocation'] = this.patrolLocation;
     map['type'] = this.type;
     map['isactive'] = true;
-    map['firebaseUserData'] = this.firebaseUserData.FirebaseUSertoMap(this.firebaseUserData);
+    map['firebaseUserData'] =
+        this.firebaseUserData.FirebaseUSertoMap(this.firebaseUserData);
     map['state'] = this.state;
-    if(isupdate == false) {
+    map['futuretask'] = this.futuretask;
+    if (isupdate == false) {
       map['timestamp'] = FieldValue.serverTimestamp();
     }
     return map;
   }
-
-
-
-
 }

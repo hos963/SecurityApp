@@ -7,7 +7,7 @@ import 'package:Metropolitane/MobileApp/MobileapQuestions/PatrolSurveyQuestion/Q
 import 'package:Metropolitane/MobileApp/MobileapQuestions/PatrolSurveyQuestion/Questions/OnWayScreen.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/PatrolSurveyQuestion/Questions/SpecificInstructions.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/PatrolSurveyQuestion/Questions/TakeFifthInternalPictures.dart';
-import 'package:Metropolitane/MobileApp/MobileapQuestions/PatrolSurveyQuestion/Questions/TakeImageOfKeys.dart';
+import 'package:Metropolitane/MobileApp/MobileapQuestions/PatrolSurveyQuestion/Questions/TakePictureofkeys/TakeImageOfKeys.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/PatrolSurveyQuestion/Questions/TakeInternalPictures.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/PatrolSurveyQuestion/Questions/TakePictureOfBuilding.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/PatrolSurveyQuestion/Questions/TakeSecondInternalPictures.dart';
@@ -144,7 +144,7 @@ class _PatrolQuestionSurveyState extends State<PatrolQuestionSurvey> {
           currentpage = 15;
         }
         else{
-          currentpage = 17;
+          currentpage = 16;
         }
 
       }

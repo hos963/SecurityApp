@@ -13,30 +13,34 @@ class AddPropertyInspectionModel {
   bool isactive;
   int state = 1;
   PropertyInspectionQuestionareModel questionareModel;
-
+  var futuretask;
   FirebaseUserData firebaseUserData;
 
   AddPropertyInspectionModel(
       {this.inspectionId,
-        this.inspectionTitle,
-        this.inspectionDesc,
-        this.inspectionLocation,
-        this.type,
-        this.isactive,
-        this.questionareModel,this.firebaseUserData,this.state});
+      this.inspectionTitle,
+      this.inspectionDesc,
+      this.inspectionLocation,
+      this.type,
+      this.isactive,
+      this.questionareModel,
+      this.firebaseUserData,
+      this.state,
+      this.futuretask});
 
   factory AddPropertyInspectionModel.fromJson(Map<String, dynamic> parsedJson) {
     return AddPropertyInspectionModel(
-      inspectionId: parsedJson['inspectionId'],
-      inspectionTitle: parsedJson['inspectionTitle'],
-      inspectionDesc: parsedJson['inspectionDesc'],
-      inspectionLocation: parsedJson['inspectionLocation'],
-      type: parsedJson['type'],
-      questionareModel: parsedJson.containsKey("QuestionareModel")
-          ? PropertyInspectionQuestionareModel.fromJson(parsedJson['QuestionareModel'])
-          : null,
-      isactive: parsedJson['isactive'],
-    );
+        inspectionId: parsedJson['inspectionId'],
+        inspectionTitle: parsedJson['inspectionTitle'],
+        inspectionDesc: parsedJson['inspectionDesc'],
+        inspectionLocation: parsedJson['inspectionLocation'],
+        type: parsedJson['type'],
+        questionareModel: parsedJson.containsKey("QuestionareModel")
+            ? PropertyInspectionQuestionareModel.fromJson(
+                parsedJson['QuestionareModel'])
+            : null,
+        isactive: parsedJson['isactive'],
+        futuretask: parsedJson['futuretask']);
   }
 
   factory AddPropertyInspectionModel.fromDoc(DocumentSnapshot doc) {
@@ -48,20 +52,20 @@ class AddPropertyInspectionModel {
       type: doc.data()['type'],
       state: doc.data()['state'],
       questionareModel: doc.data().containsKey("QuestionareModel")
-          ? PropertyInspectionQuestionareModel.fromJson(doc.data()['QuestionareModel'])
+          ? PropertyInspectionQuestionareModel.fromJson(
+              doc.data()['QuestionareModel'])
           : null,
-
       firebaseUserData: doc.data().containsKey("firebaseUserData")
           ? FirebaseUserData.fromJson(doc.data()['firebaseUserData'])
           : null,
-
       isactive: doc.data()['isactive'],
+      futuretask: doc.data()['futuretask'],
     );
   }
 
-
-  Map<String ,dynamic>  AddPropertyInspectionAlertTopMap({bool isupdate = false}){
-    Map<String,dynamic> map = new Map();
+  Map<String, dynamic> AddPropertyInspectionAlertTopMap(
+      {bool isupdate = false}) {
+    Map<String, dynamic> map = new Map();
 
     map['inspectionId'] = this.inspectionId;
     map['inspectionTitle'] = this.inspectionTitle;
@@ -69,15 +73,13 @@ class AddPropertyInspectionModel {
     map['inspectionLocation'] = this.inspectionLocation;
     map['type'] = this.type;
     map['isactive'] = true;
-    map['firebaseUserData'] = this.firebaseUserData.FirebaseUSertoMap(this.firebaseUserData);
+    map['firebaseUserData'] =
+        this.firebaseUserData.FirebaseUSertoMap(this.firebaseUserData);
     map['state'] = this.state;
-    if(isupdate == false) {
+    map['futuretask'] = this.futuretask;
+    if (isupdate == false) {
       map['timestamp'] = FieldValue.serverTimestamp();
     }
     return map;
   }
-
-
-
-
 }

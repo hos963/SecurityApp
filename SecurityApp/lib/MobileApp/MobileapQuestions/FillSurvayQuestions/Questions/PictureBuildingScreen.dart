@@ -40,7 +40,7 @@ class _PictureBuildingScreenState extends State<PictureBuildingScreen> {
   final picker = ImagePicker();
 
   Future getImage() async {
-    final pickedFile = await picker.getImage(source: ImageSource.camera);
+    final pickedFile = await picker.getImage(source: ImageSource.camera,imageQuality: 85);
 
     setState(() {
       if (pickedFile != null) {

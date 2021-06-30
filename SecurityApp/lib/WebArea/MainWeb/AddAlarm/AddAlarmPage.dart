@@ -10,7 +10,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
-
+import 'dart:convert';
+import 'package:intl/intl.dart';
 import 'Widgets/Gender.dart';
 import 'Widgets/InputField.dart';
 import 'Widgets/Membership.dart';
@@ -23,13 +24,14 @@ class AddAlarmPage extends StatefulWidget {
 }
 
 class _AddAlarmPageState extends State<AddAlarmPage> {
-
   String addressselected;
   AddAlarmBloc addAlarmBloc;
 
   final TextEditingController _TittleController = TextEditingController();
   final TextEditingController _detailController = TextEditingController();
   FirebaseUserData firebaseUserData;
+  final DateFormat dateFormat = DateFormat("yyyy-MM-dd");
+  DateTime selectdate = DateTime.now().toUtc();
 
   @override
   void initState() {
@@ -98,6 +100,7 @@ class _AddAlarmPageState extends State<AddAlarmPage> {
       appBar: AppBar(
         elevation: 4,
         centerTitle: true,
+        iconTheme: IconThemeData(color: Colors.white),
         title: Text(
           'Add Alarm',
           style: TextStyle(color: Colors.white),
@@ -141,8 +144,47 @@ class _AddAlarmPageState extends State<AddAlarmPage> {
                               numberoflines: 6),
 
                           SizedBox(height: 20.0),
+                          Row(
+                            children: [
+                              Container(
+                                width: 80.0,
+                                child: Text(
+                                  "Select Date",
+                                  textAlign: TextAlign.left,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 40.0,
+                              ),
+                              Container(
+                                height: 50,
+                                width: MediaQuery.of(context).size.width / 3.7,
+                                color: Colors.blue[50],
+                                child: OutlinedButton(
+                                  onPressed: () async {
+                                    final startdate =
+                                        await _showStartDatePicker(context);
 
+                                    print(startdate);
 
+                                    setState(() {
+                                      this.selectdate = DateTime(
+                                        startdate.year,
+                                        startdate.month,
+                                        startdate.day,
+                                      );
+                                    });
+                                    print(selectdate);
+                                  },
+                                  child: Text(
+                                    dateFormat.format(selectdate),
+                                    // style: TextStyle(color: Colors.white),
+                                  ),
+                                  // color: Colors.blue,
+                                ),
+                              ),
+                            ],
+                          ),
 
                           SizedBox(height: 20.0),
 
@@ -158,23 +200,23 @@ class _AddAlarmPageState extends State<AddAlarmPage> {
                               width: 40.0,
                             ),
                             TextButton(
-                              onPressed: (){
-
-                                Navigator.pushNamed(context, Router.ListUsersSelectionRoutePage).then((value) {
+                              onPressed: () {
+                                Navigator.pushNamed(context,
+                                        Router.ListUsersSelectionRoutePage)
+                                    .then((value) {
                                   setState(() {
-
                                     firebaseUserData = value;
                                   });
-
-
-
                                 });
                               },
                               child: Container(
                                 height: 50,
                                 width: MediaQuery.of(context).size.width / 3.7,
                                 color: Colors.blue[50],
-                                child: Center(child: Text(this.firebaseUserData != null ? this.firebaseUserData.name : "Select User")),
+                                child: Center(
+                                    child: Text(this.firebaseUserData != null
+                                        ? this.firebaseUserData.name
+                                        : "Select User")),
                               ),
                             ),
                           ]),
@@ -220,9 +262,6 @@ class _AddAlarmPageState extends State<AddAlarmPage> {
                             ),
                           ),
 
-
-
-
                           SizedBox(
                             height: 40.0,
                           ),
@@ -241,8 +280,6 @@ class _AddAlarmPageState extends State<AddAlarmPage> {
                                     color: CustomColors.orangecolor,
                                   ),
                                   onPressed: () {
-
-
                                     SubmittedAddAlarm(context);
                                   },
                                   child: Text(
@@ -268,39 +305,55 @@ class _AddAlarmPageState extends State<AddAlarmPage> {
     );
   }
 
-  void SubmittedAddAlarm(BuildContext context) {
+  // Future<TimeOfDay> _showstarttime(BuildContext context) {
+  //   final now = DateTime.now();
+  //   return showTimePicker(
+  //     context: context,
+  //     initialEntryMode: TimePickerEntryMode.input,
+  //     initialTime: TimeOfDay(hour: now.hour, minute: now.minute),
+  //   );
+  // }
 
+  Future<DateTime> _showStartDatePicker(BuildContext context) {
+    return showDatePicker(
+      context: context,
+      initialDate: DateTime.now().add(Duration(seconds: 1)),
+      firstDate: DateTime(2013),
+      lastDate: DateTime(2100),
+    );
+  }
+
+  void SubmittedAddAlarm(BuildContext context) {
     //
     String title = _TittleController.text;
     String detail = _detailController.text;
 
-    if(firebaseUserData != null && addressselected != null  && addressselected.isNotEmpty && title != null  && title.isNotEmpty && detail != null &&detail.isNotEmpty){
+    if (firebaseUserData != null &&
+        addressselected != null &&
+        addressselected.isNotEmpty &&
+        title != null &&
+        title.isNotEmpty &&
+        detail != null &&
+        detail.isNotEmpty) {
+      AddAlarmModel addAlarmModel = new AddAlarmModel(
+          alrmTitle: title,
+          alrmDesc: detail,
+          alrmLocation: addressselected,
+          type: "Alarm",
+          futuretask: selectdate,
+          firebaseUserData: firebaseUserData,
+          isactive: true);
 
+      addAlarmBloc.add(SavingAlarmDataToFirebaseEvent(addAlarmModel));
 
+      //firebaseService.addAlarm(addressselected, title, detail);
 
-
-    AddAlarmModel addAlarmModel = new AddAlarmModel(
-        alrmTitle: title,
-        alrmDesc : detail,
-        alrmLocation : addressselected ,
-        type : "Alarm",
-        firebaseUserData: firebaseUserData,
-        isactive : true);
-
-     addAlarmBloc.add(SavingAlarmDataToFirebaseEvent(addAlarmModel));
-
-     //firebaseService.addAlarm(addressselected, title, detail);
-
-    }else{
-
+    } else {
       showAlertDialog(context);
     }
-
   }
 
-
   showAlertDialog(BuildContext context) {
-
     // set up the button
     Widget okButton = TextButton(
       child: Text("OK"),

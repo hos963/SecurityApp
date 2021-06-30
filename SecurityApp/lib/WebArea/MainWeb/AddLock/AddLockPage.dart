@@ -10,7 +10,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
-
+import 'package:intl/intl.dart';
 
 import 'package:Metropolitane/Router/router.dart' as Router;
 
@@ -26,6 +26,8 @@ class _AddLockPageState extends State<AddLockPage> {
   final TextEditingController _TittleController = TextEditingController();
   final TextEditingController _detailController = TextEditingController();
   FirebaseUserData firebaseUserData;
+  final DateFormat dateFormat = DateFormat("yyyy-MM-dd");
+  DateTime selectdate = DateTime.now().toUtc();
 
   @override
   void initState() {
@@ -91,10 +93,10 @@ class _AddLockPageState extends State<AddLockPage> {
 
   Widget AddPatrolBody(BuildContext context) {
     return Scaffold(
-
       appBar: AppBar(
         elevation: 4,
         centerTitle: true,
+        iconTheme: IconThemeData(color: Colors.white),
         title: Text(
           'Add Lock',
           style: TextStyle(color: Colors.white),
@@ -138,7 +140,47 @@ class _AddLockPageState extends State<AddLockPage> {
                               numberoflines: 6),
 
                           SizedBox(height: 20.0),
+                          Row(
+                            children: [
+                              Container(
+                                width: 80.0,
+                                child: Text(
+                                  "Select Date",
+                                  textAlign: TextAlign.left,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 40.0,
+                              ),
+                              Container(
+                                height: 50,
+                                width: MediaQuery.of(context).size.width / 3.7,
+                                color: Colors.blue[50],
+                                child: OutlinedButton(
+                                  onPressed: () async {
+                                    final startdate =
+                                        await _showStartDatePicker(context);
 
+                                    print(startdate);
+
+                                    setState(() {
+                                      this.selectdate = DateTime(
+                                        startdate.year,
+                                        startdate.month,
+                                        startdate.day,
+                                      );
+                                    });
+                                    print(selectdate);
+                                  },
+                                  child: Text(
+                                    dateFormat.format(selectdate),
+                                    // style: TextStyle(color: Colors.white),
+                                  ),
+                                  // color: Colors.blue,
+                                ),
+                              ),
+                            ],
+                          ),
                           SizedBox(height: 20.0),
 
                           Row(children: <Widget>[
@@ -258,6 +300,15 @@ class _AddLockPageState extends State<AddLockPage> {
     );
   }
 
+  Future<DateTime> _showStartDatePicker(BuildContext context) {
+    return showDatePicker(
+      context: context,
+      initialDate: DateTime.now().add(Duration(seconds: 1)),
+      firstDate: DateTime(2013),
+      lastDate: DateTime(2100),
+    );
+  }
+
   void SubmittedAddLock(BuildContext context) {
     //
     String title = _TittleController.text;
@@ -276,7 +327,8 @@ class _AddLockPageState extends State<AddLockPage> {
           lockLocation: addressselected,
           type: "Lock",
           firebaseUserData: firebaseUserData,
-          isactive: true);
+          isactive: true,
+          futuretask: selectdate);
 
       addLockBloc.add(SavingLockDataToFirebaseEvent(addLockModel));
 

@@ -9,7 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
-
+import 'package:intl/intl.dart';
 import 'package:Metropolitane/Router/router.dart' as Router;
 
 class AddUnLockPage extends StatefulWidget {
@@ -24,6 +24,8 @@ class _AddUnLockPageState extends State<AddUnLockPage> {
   final TextEditingController _TittleController = TextEditingController();
   final TextEditingController _detailController = TextEditingController();
   FirebaseUserData firebaseUserData;
+  final DateFormat dateFormat = DateFormat("yyyy-MM-dd");
+  DateTime selectdate = DateTime.now().toUtc();
 
   @override
   void initState() {
@@ -56,11 +58,11 @@ class _AddUnLockPageState extends State<AddUnLockPage> {
             showDialog(
                 context: context,
                 builder: (BuildContext context) => CustomDialog(
-                  imagepath: "",
-                  title: "Message",
-                  description: state.errorstr,
-                  buttonText: "OK",
-                ));
+                      imagepath: "",
+                      title: "Message",
+                      description: state.errorstr,
+                      buttonText: "OK",
+                    ));
           }
 
           if (state is AddUnLockSuccessfullyPutdatastate) {
@@ -75,11 +77,11 @@ class _AddUnLockPageState extends State<AddUnLockPage> {
             showDialog(
                 context: context,
                 builder: (BuildContext context) => CustomDialog(
-                  imagepath: "",
-                  title: "Successfully Data Sent",
-                  description: "Successfully Created",
-                  buttonText: "OK",
-                ));
+                      imagepath: "",
+                      title: "Successfully Data Sent",
+                      description: "Successfully Created",
+                      buttonText: "OK",
+                    ));
           }
         },
         child: AddPatrolBody(context),
@@ -89,10 +91,10 @@ class _AddUnLockPageState extends State<AddUnLockPage> {
 
   Widget AddPatrolBody(BuildContext context) {
     return Scaffold(
-
       appBar: AppBar(
         elevation: 4,
         centerTitle: true,
+        iconTheme: IconThemeData(color: Colors.white),
         title: Text(
           'Add UnLock',
           style: TextStyle(color: Colors.white),
@@ -136,7 +138,47 @@ class _AddUnLockPageState extends State<AddUnLockPage> {
                               numberoflines: 6),
 
                           SizedBox(height: 20.0),
+                          Row(
+                            children: [
+                              Container(
+                                width: 80.0,
+                                child: Text(
+                                  "Select Date",
+                                  textAlign: TextAlign.left,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 40.0,
+                              ),
+                              Container(
+                                height: 50,
+                                width: MediaQuery.of(context).size.width / 3.7,
+                                color: Colors.blue[50],
+                                child: OutlinedButton(
+                                  onPressed: () async {
+                                    final startdate =
+                                        await _showStartDatePicker(context);
 
+                                    print(startdate);
+
+                                    setState(() {
+                                      this.selectdate = DateTime(
+                                        startdate.year,
+                                        startdate.month,
+                                        startdate.day,
+                                      );
+                                    });
+                                    print(selectdate);
+                                  },
+                                  child: Text(
+                                    dateFormat.format(selectdate),
+                                    // style: TextStyle(color: Colors.white),
+                                  ),
+                                  // color: Colors.blue,
+                                ),
+                              ),
+                            ],
+                          ),
                           SizedBox(height: 20.0),
 
                           Row(children: <Widget>[
@@ -153,7 +195,7 @@ class _AddUnLockPageState extends State<AddUnLockPage> {
                             TextButton(
                               onPressed: () {
                                 Navigator.pushNamed(context,
-                                    Router.ListUsersSelectionRoutePage)
+                                        Router.ListUsersSelectionRoutePage)
                                     .then((value) {
                                   setState(() {
                                     firebaseUserData = value;
@@ -226,7 +268,7 @@ class _AddUnLockPageState extends State<AddUnLockPage> {
                                 alignment: Alignment.bottomCenter,
                                 child: OutlineButton(
                                   padding:
-                                  EdgeInsets.fromLTRB(100, 15, 100, 15),
+                                      EdgeInsets.fromLTRB(100, 15, 100, 15),
                                   borderSide: BorderSide(
                                     color: CustomColors.orangecolor,
                                   ),
@@ -256,6 +298,15 @@ class _AddUnLockPageState extends State<AddUnLockPage> {
     );
   }
 
+  Future<DateTime> _showStartDatePicker(BuildContext context) {
+    return showDatePicker(
+      context: context,
+      initialDate: DateTime.now().add(Duration(seconds: 1)),
+      firstDate: DateTime(2013),
+      lastDate: DateTime(2100),
+    );
+  }
+
   void SubmittedAddUnLock(BuildContext context) {
     //
     String title = _TittleController.text;
@@ -271,6 +322,7 @@ class _AddUnLockPageState extends State<AddUnLockPage> {
       AddUnlockModel addUnlockModel = new AddUnlockModel(
           unlockTitle: title,
           unlockDesc: detail,
+          futuretask: selectdate,
           unlockLocation: addressselected,
           type: "UnLock",
           firebaseUserData: firebaseUserData,

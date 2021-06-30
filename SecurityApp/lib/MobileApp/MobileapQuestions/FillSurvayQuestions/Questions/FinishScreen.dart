@@ -32,7 +32,7 @@ class _FinishScreenState extends State<FinishScreen> {
               children: <Widget>[
                 SizedBox(height: 20),
 
-                text("Finish Survay", textColor: quiz_textColorPrimary, isLongText: true, isCentered: true,fontSize: 22.0).center(),
+                text("Job Completed", textColor: quiz_textColorPrimary, isLongText: true, isCentered: true,fontSize: 22.0).center(),
 
                 SizedBox(height: 40),
                 // Container(

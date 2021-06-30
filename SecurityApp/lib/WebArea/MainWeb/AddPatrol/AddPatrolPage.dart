@@ -9,7 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
-
+import 'package:intl/intl.dart';
 import 'package:Metropolitane/Router/router.dart' as Router;
 
 class AddPatrolPage extends StatefulWidget {
@@ -24,6 +24,8 @@ class _AddPatrolPageState extends State<AddPatrolPage> {
   final TextEditingController _TittleController = TextEditingController();
   final TextEditingController _detailController = TextEditingController();
   FirebaseUserData firebaseUserData;
+  final DateFormat dateFormat = DateFormat("yyyy-MM-dd");
+  DateTime selectdate = DateTime.now().toUtc();
 
   @override
   void initState() {
@@ -56,11 +58,11 @@ class _AddPatrolPageState extends State<AddPatrolPage> {
             showDialog(
                 context: context,
                 builder: (BuildContext context) => CustomDialog(
-                  imagepath: "",
-                  title: "Message",
-                  description: state.errorstr,
-                  buttonText: "OK",
-                ));
+                      imagepath: "",
+                      title: "Message",
+                      description: state.errorstr,
+                      buttonText: "OK",
+                    ));
           }
 
           if (state is AddPatrolSuccessfullyPutdatastate) {
@@ -75,11 +77,11 @@ class _AddPatrolPageState extends State<AddPatrolPage> {
             showDialog(
                 context: context,
                 builder: (BuildContext context) => CustomDialog(
-                  imagepath: "",
-                  title: "Successfully Data Sent",
-                  description: "Successfully Created",
-                  buttonText: "OK",
-                ));
+                      imagepath: "",
+                      title: "Successfully Data Sent",
+                      description: "Successfully Created",
+                      buttonText: "OK",
+                    ));
           }
         },
         child: AddPatrolBody(context),
@@ -92,6 +94,7 @@ class _AddPatrolPageState extends State<AddPatrolPage> {
       appBar: AppBar(
         elevation: 4,
         centerTitle: true,
+        iconTheme: IconThemeData(color: Colors.white),
         title: Text(
           'Add Patrol',
           style: TextStyle(color: Colors.white),
@@ -136,7 +139,47 @@ class _AddPatrolPageState extends State<AddPatrolPage> {
 
                           SizedBox(height: 20.0),
 
+                          Row(
+                            children: [
+                              Container(
+                                width: 80.0,
+                                child: Text(
+                                  "Select Date",
+                                  textAlign: TextAlign.left,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 40.0,
+                              ),
+                              Container(
+                                height: 50,
+                                width: MediaQuery.of(context).size.width / 3.7,
+                                color: Colors.blue[50],
+                                child: OutlinedButton(
+                                  onPressed: () async {
+                                    final startdate =
+                                        await _showStartDatePicker(context);
 
+                                    print(startdate);
+
+                                    setState(() {
+                                      this.selectdate = DateTime(
+                                        startdate.year,
+                                        startdate.month,
+                                        startdate.day,
+                                      );
+                                    });
+                                    print(selectdate);
+                                  },
+                                  child: Text(
+                                    dateFormat.format(selectdate),
+                                    // style: TextStyle(color: Colors.white),
+                                  ),
+                                  // color: Colors.blue,
+                                ),
+                              ),
+                            ],
+                          ),
 
                           SizedBox(height: 20.0),
 
@@ -152,23 +195,23 @@ class _AddPatrolPageState extends State<AddPatrolPage> {
                               width: 40.0,
                             ),
                             TextButton(
-                              onPressed: (){
-
-                                Navigator.pushNamed(context, Router.ListUsersSelectionRoutePage).then((value) {
+                              onPressed: () {
+                                Navigator.pushNamed(context,
+                                        Router.ListUsersSelectionRoutePage)
+                                    .then((value) {
                                   setState(() {
-
                                     firebaseUserData = value;
                                   });
-
-
-
                                 });
                               },
                               child: Container(
                                 height: 50,
                                 width: MediaQuery.of(context).size.width / 3.7,
                                 color: Colors.blue[50],
-                                child: Center(child: Text(this.firebaseUserData != null ? this.firebaseUserData.name : "Select User")),
+                                child: Center(
+                                    child: Text(this.firebaseUserData != null
+                                        ? this.firebaseUserData.name
+                                        : "Select User")),
                               ),
                             ),
                           ]),
@@ -214,9 +257,6 @@ class _AddPatrolPageState extends State<AddPatrolPage> {
                             ),
                           ),
 
-
-
-
                           SizedBox(
                             height: 40.0,
                           ),
@@ -230,13 +270,11 @@ class _AddPatrolPageState extends State<AddPatrolPage> {
                                 alignment: Alignment.bottomCenter,
                                 child: OutlineButton(
                                   padding:
-                                  EdgeInsets.fromLTRB(100, 15, 100, 15),
+                                      EdgeInsets.fromLTRB(100, 15, 100, 15),
                                   borderSide: BorderSide(
                                     color: CustomColors.orangecolor,
                                   ),
                                   onPressed: () {
-
-
                                     SubmittedAddPatrol(context);
                                   },
                                   child: Text(
@@ -262,39 +300,46 @@ class _AddPatrolPageState extends State<AddPatrolPage> {
     );
   }
 
-  void SubmittedAddPatrol(BuildContext context) {
+  Future<DateTime> _showStartDatePicker(BuildContext context) {
+    return showDatePicker(
+      context: context,
+      initialDate: DateTime.now().add(Duration(seconds: 1)),
+      firstDate: DateTime(2013),
+      lastDate: DateTime(2100),
+    );
+  }
 
+  void SubmittedAddPatrol(BuildContext context) {
     //
     String title = _TittleController.text;
     String detail = _detailController.text;
 
-    if(firebaseUserData != null && addressselected != null  && addressselected.isNotEmpty && title != null  && title.isNotEmpty && detail != null &&detail.isNotEmpty){
-
-
-
-
+    if (firebaseUserData != null &&
+        addressselected != null &&
+        addressselected.isNotEmpty &&
+        title != null &&
+        title.isNotEmpty &&
+        detail != null &&
+        detail.isNotEmpty) {
       AddPatrolModel addPatrolModel = new AddPatrolModel(
           patrolTitle: title,
-          patrolDesc : detail,
-          patrolLocation : addressselected ,
-          type : "Patrol" ,
+          patrolDesc: detail,
+          futuretask: selectdate,
+          patrolLocation: addressselected,
+          type: "Patrol",
           firebaseUserData: firebaseUserData,
-          isactive : true);
+          isactive: true);
 
       addPatrolBloc.add(SavingPatrolDataToFirebaseEvent(addPatrolModel));
 
       //firebaseService.addAlarm(addressselected, title, detail);
 
-    }else{
-
+    } else {
       showAlertDialog(context);
     }
-
   }
 
-
   showAlertDialog(BuildContext context) {
-
     // set up the button
     Widget okButton = TextButton(
       child: Text("OK"),
@@ -366,4 +411,3 @@ class ListOfAddresses extends StatelessWidget {
     );
   }
 }
-

@@ -11,6 +11,7 @@ class AddAlarmModel {
   bool isactive;
   int state = 1;
   QuestionareModel questionareModel;
+  var futuretask;
 
   FirebaseUserData firebaseUserData;
 
@@ -21,7 +22,10 @@ class AddAlarmModel {
       this.alrmLocation,
       this.type,
       this.isactive,
-      this.questionareModel,this.firebaseUserData,this.state});
+      this.questionareModel,
+      this.firebaseUserData,
+      this.state,
+      this.futuretask});
 
   factory AddAlarmModel.fromJson(Map<String, dynamic> parsedJson) {
     return AddAlarmModel(
@@ -34,6 +38,7 @@ class AddAlarmModel {
           ? QuestionareModel.fromJson(parsedJson['QuestionareModel'])
           : null,
       isactive: parsedJson['isactive'],
+      futuretask: parsedJson['futuretask'],
     );
   }
 
@@ -45,21 +50,19 @@ class AddAlarmModel {
       alrmLocation: doc.data()['alrmLocation'],
       type: doc.data()['type'],
       state: doc.data()['state'],
+      futuretask: doc.data()['futuretask'],
       questionareModel: doc.data().containsKey("QuestionareModel")
           ? QuestionareModel.fromJson(doc.data()['QuestionareModel'])
           : null,
-
       firebaseUserData: doc.data().containsKey("firebaseUserData")
           ? FirebaseUserData.fromJson(doc.data()['firebaseUserData'])
           : null,
-
       isactive: doc.data()['isactive'],
     );
   }
 
-
-  Map<String ,dynamic>  AddAlrmToMap({bool isupdate = false}){
-    Map<String,dynamic> map = new Map();
+  Map<String, dynamic> AddAlrmToMap({bool isupdate = false}) {
+    Map<String, dynamic> map = new Map();
 
     map['alarmId'] = this.alarmId;
     map['alrmTitle'] = this.alrmTitle;
@@ -67,15 +70,13 @@ class AddAlarmModel {
     map['alrmLocation'] = this.alrmLocation;
     map['type'] = this.type;
     map['isactive'] = true;
-    map['firebaseUserData'] = this.firebaseUserData.FirebaseUSertoMap(this.firebaseUserData);
+    map['firebaseUserData'] =
+        this.firebaseUserData.FirebaseUSertoMap(this.firebaseUserData);
     map['state'] = this.state;
-    if(isupdate == false) {
+    map['futuretask'] = this.futuretask;
+    if (isupdate == false) {
       map['timestamp'] = FieldValue.serverTimestamp();
     }
     return map;
   }
-
-
-
-
 }

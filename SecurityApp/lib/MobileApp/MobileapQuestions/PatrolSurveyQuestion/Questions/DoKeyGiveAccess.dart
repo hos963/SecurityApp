@@ -40,7 +40,7 @@ class _DoKeyGiveAccessState extends State<DoKeyGiveAccess> {
           child: Column(
             children: <Widget>[
               SizedBox(height: 20),
-              text("Do Key Give Access?",
+              text("Do keys or access code give access?",
                   textColor: quiz_textColorPrimary,
                   isLongText: true,
                   isCentered: true,

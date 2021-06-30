@@ -95,6 +95,7 @@ class _ReportUnLockPageState extends State<ReportUnLockPage> {
       appBar: AppBar(
         elevation: 4,
         centerTitle: true,
+        iconTheme: IconThemeData(color: Colors.white),
         title: Text(
           'UnLock Report',
           style: TextStyle(color: Colors.white),
@@ -191,6 +192,7 @@ class _ReportUnLockPageState extends State<ReportUnLockPage> {
                       subtitle: item.unlockDesc,
                       isselected: isselected,
                       locationnname: item.unlockLocation,
+                      unlockId: item.unlockId,
                       questionareModel: item.questionareModel,
                       state: item.state,
                       firebaseUserData: item.firebaseUserData,
@@ -221,15 +223,15 @@ class _ReportUnLockPageState extends State<ReportUnLockPage> {
   }
 }
 
-
 class MyCardViewWidget extends StatefulWidget {
   final String title;
   final String subtitle;
   final String locationnname;
   final bool isselected;
+  final String unlockId;
   final int state;
   final UnLockQuestionareModel questionareModel;
-  final FirebaseUserData firebaseUserData ;
+  final FirebaseUserData firebaseUserData;
 
   const MyCardViewWidget(
       {Key key,
@@ -238,7 +240,9 @@ class MyCardViewWidget extends StatefulWidget {
       this.isselected,
       this.locationnname,
       this.questionareModel,
-      this.state,this.firebaseUserData})
+      this.unlockId,
+      this.state,
+      this.firebaseUserData})
       : super(key: key);
 
   @override
@@ -247,11 +251,16 @@ class MyCardViewWidget extends StatefulWidget {
 
 class _MyCardViewWidgetState extends State<MyCardViewWidget> {
   // bool selected = false;
- @override
+  @override
   Widget build(BuildContext context) {
-   String uuserdat = ( widget.firebaseUserData != null ?  "Email "+widget.firebaseUserData.email +" name "+widget.firebaseUserData.name : "");
+    String uuserdat = (widget.firebaseUserData != null
+        ? "Email " +
+            widget.firebaseUserData.email +
+            " name " +
+            widget.firebaseUserData.name
+        : "");
 
-   return InkWell(
+    return InkWell(
       onTap: () {
         if (widget.questionareModel != null) {
           Navigator.pushNamed(context, Router.ReportDetailUnLockPageRoute,
@@ -309,7 +318,7 @@ class _MyCardViewWidgetState extends State<MyCardViewWidget> {
                               : CustomColors.orangecolor),
                     ),
                     Text(
-                     ""+uuserdat,
+                      "" + uuserdat,
                       style: TextStyle(
                           fontSize: 20,
                           color: widget.state == 3
@@ -318,7 +327,6 @@ class _MyCardViewWidgetState extends State<MyCardViewWidget> {
                     ),
                   ],
                 ),
-
                 SizedBox(
                   height: 20,
                 ),
@@ -363,6 +371,24 @@ class _MyCardViewWidgetState extends State<MyCardViewWidget> {
                               ? Colors.green
                               : CustomColors.orangecolor),
                     ),
+                    widget.isselected
+                        ? Container()
+                        : Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                OutlinedButton(
+                                    onPressed: () {
+                                      FirebaseFirestore.instance
+                                          .collection("UnLockAlert")
+                                          .doc(widget.unlockId)
+                                          .delete();
+                                    },
+                                    child: Text('Delete'))
+                              ],
+                            ),
+                          ),
                   ],
                 )
               ],

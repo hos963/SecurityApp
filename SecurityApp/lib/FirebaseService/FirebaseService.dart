@@ -766,6 +766,49 @@ class FirebaseService {
       return resp;
 
   }
+  Future<void> Take2ndPictureOfKey(String keypath,
+      PatrolQuestionareModel questionareModel) async {
+
+      var resp = await _fireStoreDataBase
+          .collection("PatrolAlert")
+          .doc(keypath)
+          .set(questionareModel.Take2ndPictureOfKeystoMap(), SetOptions(merge: true));
+
+      return resp;
+
+  }
+
+  Future<void> Take3rdPictureOfKey(String keypath,
+      PatrolQuestionareModel questionareModel) async {
+
+      var resp = await _fireStoreDataBase
+          .collection("PatrolAlert")
+          .doc(keypath)
+          .set(questionareModel.Take3rdPictureOfKeystoMap(), SetOptions(merge: true));
+
+      return resp;
+
+  } Future<void> Take4thPictureOfKey(String keypath,
+      PatrolQuestionareModel questionareModel) async {
+
+      var resp = await _fireStoreDataBase
+          .collection("PatrolAlert")
+          .doc(keypath)
+          .set(questionareModel.Take4thPictureOfKeystoMap(), SetOptions(merge: true));
+
+      return resp;
+
+  } Future<void> Take5thPictureOfKey(String keypath,
+      PatrolQuestionareModel questionareModel) async {
+
+      var resp = await _fireStoreDataBase
+          .collection("PatrolAlert")
+          .doc(keypath)
+          .set(questionareModel.Take5thPictureOfKeystoMap(), SetOptions(merge: true));
+
+      return resp;
+
+  }
 
   Future<void> TakeInternalPicture(String keypath,
       PatrolQuestionareModel questionareModel) async {

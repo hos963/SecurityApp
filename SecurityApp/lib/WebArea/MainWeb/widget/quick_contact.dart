@@ -71,7 +71,7 @@ class _QuickContactState extends State<QuickContact> {
       child: Container(
         padding: EdgeInsets.only(top: 10, left: 10, right: 10),
         height: widget._media.height / 1.38 - 5,
-        width: widget._media.width / 5 - 12,
+        width: widget._media.width / 2.5,
         color: Colors.white,
         child: Form(
           key: _formKey,
@@ -120,7 +120,6 @@ class _QuickContactState extends State<QuickContact> {
                         child: Icon(Icons.email, color: Color(0xff224597)),
                       ),
                       hintText: 'User E-mail',
-
                       fillColor: Colors.white,
                       filled: true,
                       contentPadding:
@@ -180,7 +179,7 @@ class _QuickContactState extends State<QuickContact> {
               ),
               SizedBox(height: 10),
               Align(
-                alignment: Alignment.bottomLeft,
+                alignment: Alignment.center,
                 child: InkWell(
                   onTap: () {
                     //Send Button
@@ -196,8 +195,8 @@ class _QuickContactState extends State<QuickContact> {
                     color: Colors.greenAccent,
                     child: Container(
                       alignment: Alignment.center,
-                      height: 35,
-                      width: 80,
+                      height: 40,
+                      width: 150,
                       child: Text(
                         'User User Account',
                         style: TextStyle(

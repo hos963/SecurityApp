@@ -28,7 +28,6 @@ class QuizHome extends StatefulWidget {
 
   @override
   _QuizHomeState createState() => _QuizHomeState();
-
 }
 
 class _QuizHomeState extends State<QuizHome> {
@@ -47,12 +46,12 @@ class _QuizHomeState extends State<QuizHome> {
     super.initState();
   }
 
-  String gettingdateTodaydate() {
-    var now = new DateTime.now();
-    var formatter = new DateFormat('yyyy-MM-dd');
-    String formattedDate = formatter.format(now);
-    return formattedDate;
-  }
+  // String gettingdateTodaydate() {
+  //   var now = new DateTime.now();
+  //   var formatter = new DateFormat('yyyy-MM-dd');
+  //   String formattedDate = formatter.format(now);
+  //   return formattedDate;
+  // }
 
   Future<FirebaseUserData> gettingData() async {
     String usercompletedata =
@@ -207,7 +206,7 @@ class _QuizHomeState extends State<QuizHome> {
       physics: ScrollPhysics(),
       itemBuilder: (BuildContext context, int index) => GestureDetector(
         onTap: () {
-         // launchScreen(context, QuizDetails.tag);
+          // launchScreen(context, QuizDetails.tag);
         },
         child: AlarmCard(listofalrm[index], index),
       ),
@@ -223,10 +222,11 @@ class _QuizHomeState extends State<QuizHome> {
         stream: FirebaseFirestore.instance
             .collection('AlarmAlert')
             .where("firebaseUserData.udid", isEqualTo: userid)
-            .where("timestamp", isGreaterThanOrEqualTo: currentdate.toUtc())
-            .where("timestamp", isLessThan: nextdate.toUtc())
+            .where("futuretask", isGreaterThanOrEqualTo: currentdate.toUtc())
+            .where("futuretask", isLessThan: nextdate.toUtc())
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          print(snapshot.data.toString());
           if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:
@@ -242,11 +242,9 @@ class _QuizHomeState extends State<QuizHome> {
               snapshot.data.docChanges.forEach((element) {
                 //UsersPost.fromDoc(element.doc);
 
-
-                AddAlarmModel alarmModel =      AddAlarmModel.fromDoc(element.doc);
-                if(alarmModel.state != 3){
+                AddAlarmModel alarmModel = AddAlarmModel.fromDoc(element.doc);
+                if (alarmModel.state != 3) {
                   listofalrm.add(alarmModel);
-
                 }
 
                 index++;
@@ -427,10 +425,8 @@ class AlarmCard extends StatelessWidget {
 
   Future<void> AddingdataToStartquestionare(
       AddAlarmModel addAlarmModel, BuildContext context) async {
-
-    if(addAlarmModel.state == 3){
-
-    }else {
+    if (addAlarmModel.state == 3) {
+    } else {
       if (addAlarmModel.state == 1) {
         final progress = ProgressHUD.of(context);
         progress.show();
@@ -446,10 +442,9 @@ class AlarmCard extends StatelessWidget {
     }
   }
 
-
-  void MovetoDetailPutScreen( AddAlarmModel addAlarmModel, BuildContext context){
-
-    Navigator.pushNamed(context, Router.FilledQuestionsSurveyroute,arguments: addAlarmModel);
+  void MovetoDetailPutScreen(
+      AddAlarmModel addAlarmModel, BuildContext context) {
+    Navigator.pushNamed(context, Router.FilledQuestionsSurveyroute,
+        arguments: addAlarmModel);
   }
-
 }
