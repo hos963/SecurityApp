@@ -33,7 +33,7 @@ void main() async {
   await Firebase.initializeApp();
   await DeviceDatabase.init();
   await PreferenceUtils.init();
-  setupLocator();
+  setupLocator();9
   runApp(MyApp());
 }
 

@@ -41,12 +41,6 @@ class _PatrolQuestionSurveyState extends State<PatrolQuestionSurvey> {
   @override
   void initState() {
 
-
-
-
-
-
-
     list.add(OnWayScreen(widget.addPatrolModel, MoveNext));
     list.add(OnSiteScreen(widget.addPatrolModel, MoveNext));
     list.add(ExternalPatrolDone(widget.addPatrolModel, MoveNext));

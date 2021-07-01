@@ -66,7 +66,7 @@ class _TakeInternalPicturesState extends State<TakeFifthInternalPictures> {
           child: Column(
             children: <Widget>[
               SizedBox(height: 20),
-              text("Take 5th Internal Pictures", textColor: quiz_textColorPrimary,
+              text("Take 5th Pictures", textColor: quiz_textColorPrimary,
                   isLongText: true,
                   isCentered: true,
                   fontSize: 22.0).center(),

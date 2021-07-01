@@ -46,7 +46,6 @@ class _PropertyInspectionQuestionsState
   int currentpage = 0;
 
   List<Widget> list = [];
-
   @override
   void initState() {
     list.add(OnWayScreen(widget.addPropertyInspectionModel, MoveNext));
@@ -109,31 +108,38 @@ class _PropertyInspectionQuestionsState
         currentpage = 5;
       }
       if (questionmodel.isbuildinghasalarm != null) {
-        currentpage = 6;
+
+        if(questionmodel.isbuildinghasalarm==true){
+
+          currentpage = 6;
+        }
+        else
+        currentpage = 20;
+
       }
       if (questionmodel.anyWaterLeaking != null) {
         currentpage = 7;
       }
       if (questionmodel.electricMeterPresent != null) {
-        currentpage = 8;
+        currentpage = 9;
       }
       if (questionmodel.electricMeterPictureModel != null) {
         currentpage = 9;
       }
       if (questionmodel.gasMeterPresent != null) {
-        currentpage = 10;
+        currentpage = 11;
       }
       if (questionmodel.gasMeterPictureModel != null) {
         currentpage = 11;
       }
       if (questionmodel.waterMeterPresent != null) {
-        currentpage = 12;
+        currentpage = 13;
       }
       if (questionmodel.waterMeterPictureModel != null) {
         currentpage = 13;
       }
       if (questionmodel.anyDamageToProperty != null) {
-        currentpage = 14;
+        currentpage = 15;
       }
       if (questionmodel.anyDamageToPropertyPicModel != null) {
         currentpage = 15;

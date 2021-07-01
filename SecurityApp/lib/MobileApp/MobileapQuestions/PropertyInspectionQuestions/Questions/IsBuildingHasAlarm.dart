@@ -43,7 +43,7 @@ class _IsBuildingHasAlarmState extends State<IsBuildingHasAlarm> {
             child: Column(
               children: <Widget>[
                 SizedBox(height: 20),
-                text("Is building has working alarm system?",
+                text("Property unlocked and un alarmed?",
                     textColor: quiz_textColorPrimary,
                     isLongText: true,
                     isCentered: true,
