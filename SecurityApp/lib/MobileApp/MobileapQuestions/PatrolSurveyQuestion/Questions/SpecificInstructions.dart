@@ -13,9 +13,10 @@ import '../PatrolQuestionSurvey.dart';
 class SpecificInstructions extends StatefulWidget {
 
   final MyCallbackToback callback;
-
+  final Callbackforcustommove callbackforcustommove;
   AddPatrolModel addPatrolModel;
-  SpecificInstructions(this.addPatrolModel,this.callback);
+
+  SpecificInstructions(this.addPatrolModel,this.callback,this.callbackforcustommove);
 
 
   @override
@@ -102,7 +103,25 @@ class _SpecificInstructionsState extends State<SpecificInstructions> {
       await firebaseService.specialInstructionPatrol(
           widget.addPatrolModel.patrolId, widget.addPatrolModel.questionareModel);
 
-      widget.callback(1);
+
+      if(widget.addPatrolModel.questionareModel.isBuildingPresent==false){
+      widget.callbackforcustommove(16);
+      }
+      if(widget.addPatrolModel.questionareModel.havekeys==false){
+      widget.callbackforcustommove(16);
+      }
+
+      if(widget.addPatrolModel.questionareModel.dokeygiveAccess==false){
+        widget.callbackforcustommove(16);
+      }
+
+      if(widget.addPatrolModel.questionareModel.alarmUnset==false){
+        widget.callbackforcustommove(16);
+      }
+
+      else
+        widget.callback(1);
+
     }
   }
 

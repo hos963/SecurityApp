@@ -16,9 +16,11 @@ import '../PatrolQuestionSurvey.dart';
 class AlarmUnset extends StatefulWidget {
 
   final MyCallbackToback callback;
+
   final Callbackforcustommove callbackforcustommove;
 
   AddPatrolModel addPatrolModel;
+
   AlarmUnset(this.addPatrolModel,this.callback,this.callbackforcustommove);
 
 

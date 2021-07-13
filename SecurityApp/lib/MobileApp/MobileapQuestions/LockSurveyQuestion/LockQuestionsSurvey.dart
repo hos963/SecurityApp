@@ -50,27 +50,19 @@ class _LockQuestionSurveyState extends State<LockQuestionSurvey> {
     }else{
 
       var questionmodel = widget.addLockModel.questionareModel;
-
       if(questionmodel.onwayModel != null){
         currentpage = 1;
       }
-
       if(questionmodel.reachedonSiteModel != null){
-
         currentpage = 2;
       }
-
       if(questionmodel.havekeys != null){
-
         currentpage = 3;
       }
       if(questionmodel.externalPictureOfBuildingModel != null){
-
         currentpage = 4;
       }
-
       if(questionmodel.doorsAndWindowsSecured != null){
-
         currentpage = 5;
       }
       if(questionmodel.internalPictureOfBuildingModel != null){

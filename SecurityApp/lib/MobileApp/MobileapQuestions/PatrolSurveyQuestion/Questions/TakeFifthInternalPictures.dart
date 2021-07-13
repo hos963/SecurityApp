@@ -24,9 +24,10 @@ import 'dart:io' as io;
 class TakeFifthInternalPictures extends StatefulWidget {
 
   final MyCallbackToback callback;
+  final Callbackforcustommove callbackforcustommove;
 
   AddPatrolModel addPatrolModel;
-  TakeFifthInternalPictures(this.addPatrolModel,this.callback);
+  TakeFifthInternalPictures(this.addPatrolModel,this.callback,this.callbackforcustommove);
 
   @override
   _TakeInternalPicturesState createState() => _TakeInternalPicturesState();
@@ -209,6 +210,15 @@ class _TakeInternalPicturesState extends State<TakeFifthInternalPictures> {
         widget.addPatrolModel.questionareModel);
 
     widget.callback(1);
+
+   /* if(widget.addPatrolModel.questionareModel.isBuildingPresent==true){
+      widget.callback(1);
+    }
+    if(widget.addPatrolModel.questionareModel.havekeys==false){
+      widget.callbackforcustommove(1);
+    }
+*/
+
   }
 
 

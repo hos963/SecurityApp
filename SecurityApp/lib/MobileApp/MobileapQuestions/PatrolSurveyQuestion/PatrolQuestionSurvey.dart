@@ -19,6 +19,7 @@ import 'package:flutter/material.dart';
 import 'Questions/AlarmAndLocked.dart';
 import 'Questions/FinishScreen.dart';
 import 'Questions/JobCompleted.dart';
+import 'Questions/ScanQrCode.dart';
 import 'Questions/TakeFourthInternalPictures.dart';
 
 typedef void MyCallbackToback(int foo);
@@ -35,13 +36,19 @@ class PatrolQuestionSurvey extends StatefulWidget {
 
 class _PatrolQuestionSurveyState extends State<PatrolQuestionSurvey> {
   int currentpage = 0;
-
   List<Widget> list = [];
-
   @override
   void initState() {
 
+
+
+
+
+
+
+
     list.add(OnWayScreen(widget.addPatrolModel, MoveNext));
+    list.add(QrCode(widget.addPatrolModel, MoveNext));
     list.add(OnSiteScreen(widget.addPatrolModel, MoveNext));
     list.add(ExternalPatrolDone(widget.addPatrolModel, MoveNext));
     list.add(IsBuildingPresent(widget.addPatrolModel, MoveNext,MoveCustomIndex));
@@ -54,8 +61,8 @@ class _PatrolQuestionSurveyState extends State<PatrolQuestionSurvey> {
     list.add(TakeSecondInternalPictures(widget.addPatrolModel, MoveNext));
     list.add(TakeThirdInternalPictures(widget.addPatrolModel, MoveNext));
     list.add(TakeFourthInternalPictures(widget.addPatrolModel, MoveNext));
-    list.add(TakeFifthInternalPictures(widget.addPatrolModel, MoveNext));
-    list.add(SpecificInstructions(widget.addPatrolModel, MoveNext));
+    list.add(TakeFifthInternalPictures(widget.addPatrolModel, MoveNext,MoveCustomIndex));
+    list.add(SpecificInstructions(widget.addPatrolModel, MoveNext,MoveCustomIndex));
     list.add(AlarmAndLocked(widget.addPatrolModel, MoveNext));
     list.add(JobCompleted(widget.addPatrolModel, MoveNext));
    // list.add(FinishScreen(widget.addPatrolModel, MoveNext));
@@ -69,85 +76,89 @@ class _PatrolQuestionSurveyState extends State<PatrolQuestionSurvey> {
         currentpage = 1;
       }
 
-      if (questionmodel.reachedonSiteModel != null) {
+      if (questionmodel.qrScan != null) {
         currentpage = 2;
       }
 
-      if (questionmodel.externalpatroldone != null) {
+      if (questionmodel.reachedonSiteModel != null) {
         currentpage = 3;
+      }
+
+      if (questionmodel.externalpatroldone != null) {
+        currentpage = 4;
       }
       if (questionmodel.isBuildingPresent!=null) {
         if(questionmodel.isBuildingPresent){
-          currentpage = 4;
+          currentpage = 5;
         }
         else{
-          currentpage = 9;
+          currentpage = 10;
         }
       }
       if (questionmodel.externalPictureOfBuildingModel != null) {
-        currentpage = 5;
+        currentpage = 6;
       }
       if (questionmodel.havekeys != null) {
+
         if(questionmodel.havekeys){
-          currentpage = 6;
-        }
-        else{
           currentpage = 7;
         }
+        else{
+          currentpage = 8;
+        }
+
       }
       if (questionmodel.takePictureOfKeys != null) {
-        currentpage = 7;
+        currentpage = 8;
       }
       if (questionmodel.dokeygiveAccess != null) {
 
         if(questionmodel.dokeygiveAccess){
-          currentpage = 8;
+          currentpage = 9;
         }
         else{
-          currentpage = 14;
+          currentpage = 15;
         }
       }
       if (questionmodel.alarmUnset != null) {
 
         if(questionmodel.alarmUnset){
-          currentpage = 9;
+          currentpage = 10;
         }
         else{
-          currentpage = 14;
+          currentpage = 15;
         }
 
       }
       if (questionmodel.internalPictureOfBuildingModel != null) {
-        currentpage = 10;
-      }
-      if (questionmodel.internalFirstPictureOfBuildingModel != null) {
         currentpage = 11;
       }
-      if (questionmodel.internalSecondPictureOfBuildingModel != null) {
+      if (questionmodel.internalFirstPictureOfBuildingModel != null) {
         currentpage = 12;
       }
-      if (questionmodel.internalThirdPictureOfBuildingModel != null) {
+      if (questionmodel.internalSecondPictureOfBuildingModel != null) {
         currentpage = 13;
       }
-      if (questionmodel.internalFourthPictureOfBuildingModel != null) {
+      if (questionmodel.internalThirdPictureOfBuildingModel != null) {
         currentpage = 14;
+      }
+      if (questionmodel.internalFourthPictureOfBuildingModel != null) {
+        currentpage = 15;
       }
       if (questionmodel.specialInstruction != null) {
 
         if(questionmodel.isBuildingPresent){
-          currentpage = 15;
+          currentpage = 16;
         }
         else{
-          currentpage = 16;
+          currentpage = 17;
         }
 
       }
       if (questionmodel.lockAndAlarmed != null) {
-        currentpage = 16;
+        currentpage = 18;
       }
-      // if (questionmodel.leaveBuildingModel != null) {
-      //   currentpage = 17;
-      // }
+
     }
     super.initState();
   }

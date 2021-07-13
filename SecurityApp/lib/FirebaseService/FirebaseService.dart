@@ -10,6 +10,7 @@ import 'package:Metropolitane/model/AddAlarmModel.dart';
 import 'package:Metropolitane/model/AddLockModel.dart';
 import 'package:Metropolitane/model/AddPatrolModel.dart';
 import 'package:Metropolitane/model/AddPropertyInspectionModel.dart';
+import 'package:Metropolitane/model/AddQRModel.dart';
 import 'package:Metropolitane/model/AddUnlockModel.dart';
 import 'package:Metropolitane/model/AddressAlarmModel.dart';
 import 'package:Metropolitane/model/LockQuestionareModel.dart';
@@ -276,6 +277,16 @@ class FirebaseService {
         .collection("PatrolAlert")
         .doc(keypath)
         .set(questionareModel.AddReachedonSiteModel(), SetOptions(merge: true));
+
+    return resp;
+  }
+
+  Future<void> updateScannedPatrol(
+      String keypath, PatrolQuestionareModel questionareModel) async {
+    var resp = await _fireStoreDataBase
+        .collection("PatrolAlert")
+        .doc(keypath)
+        .set(questionareModel.AddQrScan(), SetOptions(merge: true));
 
     return resp;
   }
@@ -1111,10 +1122,37 @@ class FirebaseService {
     return list;
   }
 
+
+  Future<List<AddQRModel>> gettingAllQrList() async {
+
+    var list = new List<AddQRModel>.empty(growable: true);
+
+    var documents = await _fireStoreDataBase
+        .collection("QrCodes")
+        .orderBy('Timestamp')
+        .get();
+
+    documents.docs.forEach((element) {
+      list.add(AddQRModel.fromJson(element.data()));
+    });
+
+    return list;
+
+  }
+
   Future<void> deleteAddress(AddressAlarmModel addressAlarmModel) async {
     var del = await _fireStoreDataBase
         .collection("Addresses")
         .doc(addressAlarmModel.adressId)
+        .delete();
+
+    return del;
+  }
+
+  Future<void> deleteQr(AddQRModel addQRModel) async {
+    var del = await _fireStoreDataBase
+        .collection("QrCodes")
+        .doc(addQRModel.qrId)
         .delete();
 
     return del;
@@ -1140,6 +1178,30 @@ class FirebaseService {
         .set(data, SetOptions(merge: true));
     return result;
   }
+
+
+  Future<void> AddingQRData(AddQRModel addressAlarmModel) async {
+    Map<String, dynamic> data = new Map();
+    var idpost;
+    if (addressAlarmModel.qrId != null) {
+      idpost = addressAlarmModel.qrId;
+    } else {
+      idpost = _fireStoreDataBase.collection("QrCodes").doc().id;
+    }
+    data["locationName"] = addressAlarmModel.locationName;
+    data["latitude"] = addressAlarmModel.latitude;
+    data["longitude"] = addressAlarmModel.longitude;
+    data["qrId"] = idpost;
+    data["Timestamp"] = FieldValue.serverTimestamp();
+    data["isvisible"] = true;
+    var result = await _fireStoreDataBase
+        .collection("QrCodes")
+        .doc(idpost)
+        .set(data, SetOptions(merge: true));
+    return result;
+  }
+
+
 
   Future<firebase_storage.UploadTask> uploadFileToFirestore(File file) async {
     firebase_storage.UploadTask uploadTask;

@@ -1,4 +1,5 @@
 import 'package:Metropolitane/WebArea/Createaddress/createAddresswebbloc/web_create_address_boc_bloc.dart';
+import 'package:Metropolitane/WebArea/CreateQr/createAddresswebbloc/web_create_QR_boc_bloc.dart';
 import 'package:Metropolitane/WebArea/MainWeb/AddLock/Bloc/add_lock_bloc.dart';
 import 'package:Metropolitane/WebArea/MainWeb/AddPatrol/Bloc/add_patrol_bloc.dart';
 import 'package:Metropolitane/WebArea/MainWeb/AddPropertyInspection/Bloc/add_inspection_bloc.dart';
@@ -33,7 +34,7 @@ void main() async {
   await Firebase.initializeApp();
   await DeviceDatabase.init();
   await PreferenceUtils.init();
-  setupLocator();9
+  setupLocator();
   runApp(MyApp());
 }
 
@@ -60,6 +61,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => WebCreateAddressBocBloc(),
+        ),
+        BlocProvider(
+          create: (_) => WebCreateQRBocBloc(),
         ),
         BlocProvider(
           create: (_) => WebMainBloc(),

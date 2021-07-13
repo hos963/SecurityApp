@@ -18,9 +18,13 @@ import '../PropertyInspectionQuestions.dart';
 class GasMeterPresent extends StatefulWidget {
 
   final MyCallbackToback myCallbackToback;
+
+  final MyCustomCallbackToback callbackforcustommove;
+
+
   AddPropertyInspectionModel addPropertyInspectionModel;
 
-  GasMeterPresent(this.addPropertyInspectionModel,this.myCallbackToback);
+  GasMeterPresent(this.addPropertyInspectionModel,this.myCallbackToback,this.callbackforcustommove);
 
 
   @override
@@ -145,9 +149,15 @@ class _GasMeterPresentState extends State<GasMeterPresent> {
         widget.addPropertyInspectionModel.inspectionId, widget.addPropertyInspectionModel.questionareModel);
 
     if (_singleValue == "Yes") {
+
       widget.myCallbackToback(1);
-    } else {
-      widget.myCallbackToback(2);
+
+    }
+
+    else {
+
+      widget.callbackforcustommove(11);
+
     }
 
   }

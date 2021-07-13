@@ -19,9 +19,10 @@ class AnyDamageToProperty extends StatefulWidget {
 
 
   final MyCallbackToback myCallbackToback;
+  final MyCustomCallbackToback callbackforcustommove;
   AddPropertyInspectionModel addPropertyInspectionModel;
 
-  AnyDamageToProperty(this.addPropertyInspectionModel,this.myCallbackToback);
+  AnyDamageToProperty(this.addPropertyInspectionModel,this.myCallbackToback,this.callbackforcustommove);
 
 
 
@@ -150,10 +151,17 @@ class _AnyDamageToPropertyState extends State<AnyDamageToProperty> {
     // widget.myCallbackToback(1);
 
     if (_singleValue == "Yes") {
-     widget.myCallbackToback(1);
-    } else {
-      widget.myCallbackToback(2);
+
+      widget.myCallbackToback(1);
+
     }
+
+    else {
+
+      widget.callbackforcustommove(13);
+
+    }
+
 
   }
 

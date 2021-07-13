@@ -338,7 +338,7 @@ class AlarmCard extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                    model.alrmLocation,
+                    model.latlong.toString(),
                     maxLines: 3,
                     style: TextStyle(
                         fontSize: 16,

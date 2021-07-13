@@ -7,6 +7,7 @@ class PatrolQuestionareModel {
 
   OnwayModel onwayModel;
   ReachedonSiteModel reachedonSiteModel;
+  QrScan qrScan;
   bool externalpatroldone;
   bool isBuildingPresent;
   TakePictureOfBuildingModel externalPictureOfBuildingModel;
@@ -22,6 +23,7 @@ class PatrolQuestionareModel {
 
   bool dokeygiveAccess;
   bool alarmUnset;
+
   InternalPictureOfBuildingModel internalPictureOfBuildingModel;
   InternalFirstPictureOfBuildingModel internalFirstPictureOfBuildingModel;
   InternalSecondPictureOfBuildingModel internalSecondPictureOfBuildingModel;
@@ -36,6 +38,7 @@ class PatrolQuestionareModel {
   PatrolQuestionareModel(
   {this.onwayModel,
     this.reachedonSiteModel,
+    this.qrScan,
     this.externalpatroldone,
     this.isBuildingPresent,
     this.externalPictureOfBuildingModel,
@@ -64,6 +67,7 @@ class PatrolQuestionareModel {
 
       onwayModel:  parsedJson.containsKey('onwayModel')? OnwayModel.fromJson(parsedJson['onwayModel']) : null,
       reachedonSiteModel:  parsedJson.containsKey('reachedonSiteModel')? ReachedonSiteModel.fromJson(parsedJson['reachedonSiteModel']) : null,
+      qrScan:  parsedJson.containsKey('qrScan')? QrScan.fromJson(parsedJson['qrScan']) : null,
       externalpatroldone: parsedJson['externalpatroldone'],
       isBuildingPresent: parsedJson['isBuildingPresent'],
       externalPictureOfBuildingModel:  parsedJson.containsKey('externalbuildingpic')? TakePictureOfBuildingModel.fromJson(parsedJson['externalbuildingpic']) : null,
@@ -110,6 +114,15 @@ class PatrolQuestionareModel {
     Map<String,dynamic> map = new Map();
     Map<String,dynamic> onallmapp = new Map();
     onallmapp["reachedonSiteModel"] =  reachedonSiteModel.AdreachedyModelToMap();
+    map['QuestionareModel'] =onallmapp;
+
+    return map;
+  }
+
+  Map<String ,dynamic>  AddQrScan(){
+    Map<String,dynamic> map = new Map();
+    Map<String,dynamic> onallmapp = new Map();
+    onallmapp["qrScan"] =  qrScan.AdreachedyModelToMap();
     map['QuestionareModel'] =onallmapp;
 
     return map;
@@ -347,6 +360,28 @@ class ReachedonSiteModel {
   factory ReachedonSiteModel.fromJson(Map<String, dynamic> parsedJson) {
     return ReachedonSiteModel(
       reachedonsite: parsedJson['reachedonsite'],
+      reachedtimestamp: parsedJson['reachedtimestamp'],
+    );
+  }
+}
+
+class QrScan {
+  bool scanned;
+  Timestamp reachedtimestamp;
+
+  QrScan({this.scanned, this.reachedtimestamp});
+
+  Map<String, dynamic> AdreachedyModelToMap() {
+    Map<String, dynamic> map = new Map();
+    map['scanned'] = scanned;
+
+    map['reachedtimestamp'] = FieldValue.serverTimestamp();
+    return map;
+  }
+
+  factory QrScan.fromJson(Map<String, dynamic> parsedJson) {
+    return QrScan(
+      scanned: parsedJson['scanned'],
       reachedtimestamp: parsedJson['reachedtimestamp'],
     );
   }
@@ -741,7 +776,6 @@ class Take2ndPitcure {
   Map<String, dynamic> AdonwayModelToMap() {
     Map<String, dynamic> map = new Map();
     map['taker2ndPicture'] = taker2ndPicture;
-
     map['timestampextpic'] = FieldValue.serverTimestamp();
     return map;
   }

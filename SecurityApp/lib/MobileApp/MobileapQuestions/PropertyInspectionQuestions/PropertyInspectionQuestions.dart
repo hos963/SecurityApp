@@ -43,46 +43,39 @@ class PropertyInspectionQuestions extends StatefulWidget {
 
 class _PropertyInspectionQuestionsState
     extends State<PropertyInspectionQuestions> {
-  int currentpage = 0;
 
+  int currentpage = 0;
   List<Widget> list = [];
+
   @override
   void initState() {
+
     list.add(OnWayScreen(widget.addPropertyInspectionModel, MoveNext));
     list.add(OnSiteScreen(widget.addPropertyInspectionModel, MoveNext));
     list.add(ExternalImageScreen(widget.addPropertyInspectionModel, MoveNext));
     list.add(HaveKeysOrCodeScreen(widget.addPropertyInspectionModel, MoveNext));
     list.add(IsBuildingSecure(widget.addPropertyInspectionModel, MoveNext));
-    list.add(IsBuildingHasAlarm(widget.addPropertyInspectionModel, MoveNext));
+    list.add(IsBuildingHasAlarm(widget.addPropertyInspectionModel, MoveNext,MoveCustomIndex));
     list.add(AnyWaterLeaking(widget.addPropertyInspectionModel, MoveNext));
-    list.add(ElectricMeterPresent(widget.addPropertyInspectionModel, MoveNext));
+    list.add(ElectricMeterPresent(widget.addPropertyInspectionModel, MoveNext,MoveCustomIndex));
     list.add(ElectricMeterPicture(widget.addPropertyInspectionModel, MoveNext));
-    list.add(GasMeterPresent(widget.addPropertyInspectionModel, MoveNext));
+    list.add(GasMeterPresent(widget.addPropertyInspectionModel, MoveNext,MoveCustomIndex));
     list.add(GasMeterPicture(widget.addPropertyInspectionModel, MoveNext));
-    list.add(WaterMeterPresent(widget.addPropertyInspectionModel, MoveNext));
+    list.add(WaterMeterPresent(widget.addPropertyInspectionModel, MoveNext,MoveCustomIndex));
     list.add(WaterMeterPicture(widget.addPropertyInspectionModel, MoveNext));
-    list.add(AnyDamageToProperty(widget.addPropertyInspectionModel, MoveNext));
-    list.add(
-        AnyDamageToPropertyPic(widget.addPropertyInspectionModel, MoveNext));
+    list.add(AnyDamageToProperty(widget.addPropertyInspectionModel, MoveNext,MoveCustomIndex));
+    list.add(AnyDamageToPropertyPic(widget.addPropertyInspectionModel, MoveNext));
     list.add(AnyIntrudersOutside(widget.addPropertyInspectionModel, MoveNext));
     list.add(AnyWorkerOutside(widget.addPropertyInspectionModel, MoveNext));
-    list.add(
-        AnyGraffitiNeedRemoval(widget.addPropertyInspectionModel, MoveNext));
+    list.add(AnyGraffitiNeedRemoval(widget.addPropertyInspectionModel, MoveNext));
     list.add(AnyDrugUseOutside(widget.addPropertyInspectionModel, MoveNext));
-    list.add(
-        AnyHealthAndSafetyIssues(widget.addPropertyInspectionModel, MoveNext));
+    list.add(AnyHealthAndSafetyIssues(widget.addPropertyInspectionModel, MoveNext));
     list.add(TakeInternalPictures(widget.addPropertyInspectionModel, MoveNext));
-    list.add(
-        Take2ndInternalPicture(widget.addPropertyInspectionModel, MoveNext));
-    list.add(
-        Take3rdInternalPicture(widget.addPropertyInspectionModel, MoveNext));
-    list.add(
-        Take4thInternalPicture(widget.addPropertyInspectionModel, MoveNext));
-    list.add(
-        Take5thInternalPicture(widget.addPropertyInspectionModel, MoveNext));
-    list.add(
-        SpecialInstructionScreen(widget.addPropertyInspectionModel, MoveNext));
-
+    list.add(Take2ndInternalPicture(widget.addPropertyInspectionModel, MoveNext));
+    list.add(Take3rdInternalPicture(widget.addPropertyInspectionModel, MoveNext));
+    list.add(Take4thInternalPicture(widget.addPropertyInspectionModel, MoveNext));
+    list.add(Take5thInternalPicture(widget.addPropertyInspectionModel, MoveNext));
+    list.add(SpecialInstructionScreen(widget.addPropertyInspectionModel, MoveNext));
     list.add(JobCompleted(widget.addPropertyInspectionModel,MoveNext));
 
     if (widget.addPropertyInspectionModel.questionareModel == null) {
@@ -121,25 +114,50 @@ class _PropertyInspectionQuestionsState
         currentpage = 7;
       }
       if (questionmodel.electricMeterPresent != null) {
-        currentpage = 9;
+        if(questionmodel.electricMeterPresent==true){
+          currentpage = 8;
+        }
+        else{
+          currentpage = 9;
+        }
       }
       if (questionmodel.electricMeterPictureModel != null) {
         currentpage = 9;
       }
       if (questionmodel.gasMeterPresent != null) {
-        currentpage = 11;
+
+        if(questionmodel.gasMeterPresent==true){
+          currentpage = 10;
+        }
+        else{
+          currentpage = 11;
+        }
+
       }
       if (questionmodel.gasMeterPictureModel != null) {
         currentpage = 11;
       }
       if (questionmodel.waterMeterPresent != null) {
-        currentpage = 13;
+        if(questionmodel.waterMeterPresent==true){
+          currentpage = 12;
+        }
+        else{
+          currentpage = 13;
+        }
       }
       if (questionmodel.waterMeterPictureModel != null) {
         currentpage = 13;
       }
       if (questionmodel.anyDamageToProperty != null) {
-        currentpage = 15;
+
+
+        if(questionmodel.anyDamageToProperty==true){
+          currentpage = 14;
+        }
+        else{
+          currentpage = 15;
+        }
+
       }
       if (questionmodel.anyDamageToPropertyPicModel != null) {
         currentpage = 15;
@@ -195,6 +213,13 @@ class _PropertyInspectionQuestionsState
         Navigator.pop(context);
       }
     }
+  }
+
+  void MoveCustomIndex(int i){
+    setState(() {
+      currentpage  = i;
+    });
+
   }
 
   @override

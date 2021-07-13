@@ -16,9 +16,11 @@ import '../PropertyInspectionQuestions.dart';
 class ElectricMeterPresent extends StatefulWidget {
 
   final MyCallbackToback myCallbackToback;
+
+  final MyCustomCallbackToback callbackforcustommove;
   AddPropertyInspectionModel addPropertyInspectionModel;
 
-  ElectricMeterPresent(this.addPropertyInspectionModel,this.myCallbackToback);
+  ElectricMeterPresent(this.addPropertyInspectionModel,this.myCallbackToback,this.callbackforcustommove);
 
   @override
   _ElectricMeterPresentState createState() => _ElectricMeterPresentState();
@@ -139,10 +141,17 @@ class _ElectricMeterPresentState extends State<ElectricMeterPresent> {
         widget.addPropertyInspectionModel.inspectionId, widget.addPropertyInspectionModel.questionareModel);
 
     if (_singleValue == "Yes") {
+
       widget.myCallbackToback(1);
-    } else {
-      widget.myCallbackToback(2);
+
     }
+
+    else {
+
+      widget.callbackforcustommove(9);
+
+    }
+
 
   }
 

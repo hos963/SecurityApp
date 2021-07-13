@@ -148,7 +148,7 @@ class _HaveKeysScreenState extends State<HaveKeysScreen> {
     if (_singleValue == "Yes") {
       widget.callback(1);
     } else {
-      widget.callback(2);
+      widget.callbackforcustommove(9);
     }
 
 

@@ -184,7 +184,7 @@ class _ReportAlarmPagePageState extends State<ReportAlarmPage> {
                       title: item.alrmTitle,
                       subtitle: item.alrmDesc,
                       isselected: isselected,
-                      locationnname: item.alrmLocation,
+                      locationnname: item.latlong,
                       alramId: item.alarmId,
                       questionareModel: item.questionareModel,
                       state: item.state,

@@ -18,10 +18,13 @@ import '../PropertyInspectionQuestions.dart';
 class WaterMeterPresent extends StatefulWidget {
 
   final MyCallbackToback myCallbackToback;
+
+  final MyCustomCallbackToback callbackforcustommove;
+
+
   AddPropertyInspectionModel addPropertyInspectionModel;
 
-  WaterMeterPresent(this.addPropertyInspectionModel,this.myCallbackToback);
-
+  WaterMeterPresent(this.addPropertyInspectionModel,this.myCallbackToback,this.callbackforcustommove);
 
 
   @override
@@ -147,11 +150,16 @@ class _WaterMeterPresentState extends State<WaterMeterPresent> {
         widget.addPropertyInspectionModel.inspectionId, widget.addPropertyInspectionModel.questionareModel);
 
     if (_singleValue == "Yes") {
+
       widget.myCallbackToback(1);
-    } else {
-      widget.myCallbackToback(2);
+
     }
 
+    else {
+
+      widget.callbackforcustommove(13);
+
+    }
   }
 
 

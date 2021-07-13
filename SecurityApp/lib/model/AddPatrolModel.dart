@@ -14,7 +14,10 @@ class AddPatrolModel {
   int state = 1;
   PatrolQuestionareModel questionareModel;
   var futuretask;
+  String Lat;
+  String Long;
   FirebaseUserData firebaseUserData;
+
 
   AddPatrolModel(
       {this.patrolId,
@@ -26,7 +29,9 @@ class AddPatrolModel {
       this.questionareModel,
       this.firebaseUserData,
       this.state,
-      this.futuretask});
+      this.futuretask,
+      this.Lat,
+      this.Long,});
 
   factory AddPatrolModel.fromJson(Map<String, dynamic> parsedJson) {
     return AddPatrolModel(
@@ -40,6 +45,8 @@ class AddPatrolModel {
           : null,
       isactive: parsedJson['isactive'],
       futuretask: parsedJson['futuretask'],
+      Lat: parsedJson['Lat'],
+      Long: parsedJson['Long'],
     );
   }
 
@@ -59,6 +66,8 @@ class AddPatrolModel {
           : null,
       isactive: doc.data()['isactive'],
       futuretask: doc.data()['futuretask'],
+      Lat: doc.data()['Lat'],
+      Long: doc.data()['Long'],
     );
   }
 
@@ -75,6 +84,8 @@ class AddPatrolModel {
         this.firebaseUserData.FirebaseUSertoMap(this.firebaseUserData);
     map['state'] = this.state;
     map['futuretask'] = this.futuretask;
+    map['Lat'] = this.Lat;
+    map['Long'] = this.Long;
     if (isupdate == false) {
       map['timestamp'] = FieldValue.serverTimestamp();
     }

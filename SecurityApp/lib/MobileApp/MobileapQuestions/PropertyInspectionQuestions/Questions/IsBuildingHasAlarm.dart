@@ -16,9 +16,12 @@ import '../PropertyInspectionQuestions.dart';
 class IsBuildingHasAlarm extends StatefulWidget {
 
   final MyCallbackToback myCallbackToback;
+
+  final MyCustomCallbackToback callbackforcustommove;
+
   AddPropertyInspectionModel addPropertyInspectionModel;
 
-  IsBuildingHasAlarm(this.addPropertyInspectionModel,this.myCallbackToback);
+  IsBuildingHasAlarm(this.addPropertyInspectionModel,this.myCallbackToback,this.callbackforcustommove);
 
   @override
   _IsBuildingHasAlarmState createState() => _IsBuildingHasAlarmState();
@@ -140,9 +143,19 @@ class _IsBuildingHasAlarmState extends State<IsBuildingHasAlarm> {
     await firebaseService.isBuildingHasAlarmProperty(
         widget.addPropertyInspectionModel.inspectionId, widget.addPropertyInspectionModel.questionareModel);
 
-    widget.myCallbackToback(1);
+
+    if (_singleValue == "Yes") {
+
+      widget.myCallbackToback(1);
+
+    }
+
+    else {
+
+      widget.callbackforcustommove(20);
+
+    }
 
   }
-
 
 }

@@ -19,6 +19,8 @@ class AddPatrolPage extends StatefulWidget {
 
 class _AddPatrolPageState extends State<AddPatrolPage> {
   String addressselected;
+  String addressLatitude;
+  String addressLongitute;
   AddPatrolBloc addPatrolBloc;
 
   final TextEditingController _TittleController = TextEditingController();
@@ -232,7 +234,7 @@ class _AddPatrolPageState extends State<AddPatrolPage> {
                               height: 200,
                               width: MediaQuery.of(context).size.width / 3.7,
                               color: Colors.blue[50],
-                              child: ListOfAddresses(this.SelectedAdressfunc),
+                              child: ListOfAddresses(this.SelectedAdressfunc,this.SelectedAdressLat,this.SelectedAdressLong),
                             ),
                           ]),
 
@@ -327,6 +329,8 @@ class _AddPatrolPageState extends State<AddPatrolPage> {
           futuretask: selectdate,
           patrolLocation: addressselected,
           type: "Patrol",
+          Lat: addressLatitude,
+          Long: addressLongitute,
           firebaseUserData: firebaseUserData,
           isactive: true);
 
@@ -372,13 +376,29 @@ class _AddPatrolPageState extends State<AddPatrolPage> {
       addressselected = address;
     });
   }
+
+  Function SelectedAdressLat(String Lat) {
+    print(Lat);
+    setState(() {
+      addressLatitude = Lat;
+    });
+  }
+
+  Function SelectedAdressLong(String Long) {
+    print(Long);
+    setState(() {
+      addressLongitute = Long;
+    });
+  }
 }
 
 class ListOfAddresses extends StatelessWidget {
   FirebaseFirestore fireStoreDataBase = FirebaseFirestore.instance;
   Function SelectedAdress;
+  Function SelectedLat;
+  Function SelectedLong;
 
-  ListOfAddresses(this.SelectedAdress);
+  ListOfAddresses(this.SelectedAdress,this.SelectedLat,this.SelectedLong);
 
   @override
   Widget build(BuildContext context) {
@@ -402,6 +422,8 @@ class ListOfAddresses extends StatelessWidget {
                 title: new Text(document['locationName']),
                 onTap: () {
                   SelectedAdress(document['locationName']);
+                  SelectedLat(document['latitude']);
+                  SelectedLong(document['longitude']);
                 },
               ),
             );

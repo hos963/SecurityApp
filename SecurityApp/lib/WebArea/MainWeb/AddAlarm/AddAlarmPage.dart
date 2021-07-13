@@ -1,6 +1,7 @@
 import 'package:Metropolitane/CustomColors/CustomColors.dart';
 import 'package:Metropolitane/CustomWidget/CustomDialog.dart';
 import 'package:Metropolitane/FirebaseService/FirebaseService.dart';
+import 'package:Metropolitane/MobileApp/MobileapQuestions/Screens/GoogleMap.dart';
 import 'package:Metropolitane/WebArea/MainWeb/AddAlarm/Blocs/add_alarm_bloc.dart';
 import 'package:Metropolitane/WebArea/MainWeb/commons/theme.dart';
 import 'package:Metropolitane/model/AddAlarmModel.dart';
@@ -18,13 +19,17 @@ import 'Widgets/Membership.dart';
 
 import 'package:Metropolitane/Router/router.dart' as Router;
 
+
 class AddAlarmPage extends StatefulWidget {
   @override
   _AddAlarmPageState createState() => _AddAlarmPageState();
 }
 
 class _AddAlarmPageState extends State<AddAlarmPage> {
-  String addressselected;
+ // String addressselected;
+
+  String latlong;
+
   AddAlarmBloc addAlarmBloc;
 
   final TextEditingController _TittleController = TextEditingController();
@@ -233,12 +238,40 @@ class _AddAlarmPageState extends State<AddAlarmPage> {
                             SizedBox(
                               width: 40.0,
                             ),
-                            Container(
+                            /*Container(
                               height: 200,
                               width: MediaQuery.of(context).size.width / 3.7,
                               color: Colors.blue[50],
                               child: ListOfAddresses(this.SelectedAdressfunc),
+                            ),*/
+
+                            OutlineButton(
+                              padding:
+                              EdgeInsets.fromLTRB(100, 15, 100, 15),
+                              borderSide: BorderSide(
+                                color: CustomColors.orangecolor,
+                              ),
+                              onPressed: () {
+
+                                Navigator.pushNamed(context,
+                                    Router.maplocationPageroute)
+                                    .then((value) {
+                                  setState(() {
+                                    latlong = value;
+                                    print("YYYEEESSSS");
+                                    print(latlong);
+                                  });
+                                });
+
+                              },
+                              child: Text(
+                                'Select location',
+                                style: TextStyle(
+                                    color: CustomColors.orangecolor,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
+
                           ]),
 
                           Padding(
@@ -250,9 +283,9 @@ class _AddAlarmPageState extends State<AddAlarmPage> {
                                   textAlign: TextAlign.left,
                                 ),
                                 Text(
-                                  addressselected == null
+                                  latlong == null
                                       ? " ----"
-                                      : "  " + addressselected,
+                                      : "  " + latlong,
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                       color: CustomColors.orangecolor,
@@ -280,7 +313,11 @@ class _AddAlarmPageState extends State<AddAlarmPage> {
                                     color: CustomColors.orangecolor,
                                   ),
                                   onPressed: () {
-                                    SubmittedAddAlarm(context);
+                                 SubmittedAddAlarm(context);
+
+                                    // Navigator.pushNamed(
+                                    //     context, Router.maplocationPageroute);
+
                                   },
                                   child: Text(
                                     'Add Alarm',
@@ -314,6 +351,8 @@ class _AddAlarmPageState extends State<AddAlarmPage> {
   //   );
   // }
 
+
+
   Future<DateTime> _showStartDatePicker(BuildContext context) {
     return showDatePicker(
       context: context,
@@ -329,8 +368,8 @@ class _AddAlarmPageState extends State<AddAlarmPage> {
     String detail = _detailController.text;
 
     if (firebaseUserData != null &&
-        addressselected != null &&
-        addressselected.isNotEmpty &&
+        latlong != null &&
+        latlong.isNotEmpty &&
         title != null &&
         title.isNotEmpty &&
         detail != null &&
@@ -338,7 +377,7 @@ class _AddAlarmPageState extends State<AddAlarmPage> {
       AddAlarmModel addAlarmModel = new AddAlarmModel(
           alrmTitle: title,
           alrmDesc: detail,
-          alrmLocation: addressselected,
+          latlong: latlong,
           type: "Alarm",
           futuretask: selectdate,
           firebaseUserData: firebaseUserData,
@@ -380,15 +419,15 @@ class _AddAlarmPageState extends State<AddAlarmPage> {
     );
   }
 
-  Function SelectedAdressfunc(String address) {
+ /* Function SelectedAdressfunc(String address) {
     print(address);
     setState(() {
       addressselected = address;
     });
   }
-}
+}*/
 
-class ListOfAddresses extends StatelessWidget {
+/*class ListOfAddresses extends StatelessWidget {
   FirebaseFirestore fireStoreDataBase = FirebaseFirestore.instance;
   Function SelectedAdress;
 
@@ -423,5 +462,5 @@ class ListOfAddresses extends StatelessWidget {
         );
       },
     );
-  }
+  }*/
 }

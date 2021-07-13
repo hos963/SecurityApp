@@ -6,7 +6,7 @@ class AddAlarmModel {
   String alarmId;
   String alrmTitle;
   String alrmDesc;
-  String alrmLocation;
+  String latlong;
   String type;
   bool isactive;
   int state = 1;
@@ -19,7 +19,7 @@ class AddAlarmModel {
       {this.alarmId,
       this.alrmTitle,
       this.alrmDesc,
-      this.alrmLocation,
+      this.latlong,
       this.type,
       this.isactive,
       this.questionareModel,
@@ -32,7 +32,7 @@ class AddAlarmModel {
       alarmId: parsedJson['alarmId'],
       alrmTitle: parsedJson['alrmTitle'],
       alrmDesc: parsedJson['alrmDesc'],
-      alrmLocation: parsedJson['alrmLocation'],
+      latlong: parsedJson['latlong'],
       type: parsedJson['type'],
       questionareModel: parsedJson.containsKey("QuestionareModel")
           ? QuestionareModel.fromJson(parsedJson['QuestionareModel'])
@@ -47,7 +47,7 @@ class AddAlarmModel {
       alarmId: doc.data()['alarmId'],
       alrmTitle: doc.data()['alrmTitle'],
       alrmDesc: doc.data()['alrmDesc'],
-      alrmLocation: doc.data()['alrmLocation'],
+      latlong: doc.data()['latlong'],
       type: doc.data()['type'],
       state: doc.data()['state'],
       futuretask: doc.data()['futuretask'],
@@ -67,7 +67,7 @@ class AddAlarmModel {
     map['alarmId'] = this.alarmId;
     map['alrmTitle'] = this.alrmTitle;
     map['alrmDesc'] = this.alrmDesc;
-    map['alrmLocation'] = this.alrmLocation;
+    map['latlong'] = this.latlong;
     map['type'] = this.type;
     map['isactive'] = true;
     map['firebaseUserData'] =

@@ -6,42 +6,34 @@ class DashBoardButtonsContent extends StatelessWidget {
   final List<DashBoardModel> elements = [
     DashBoardModel(
         namebutton: "Register User", icon: "UserRegistration.png", iconhex: ""),
-
-    DashBoardModel(namebutton: "View User", icon: "contacts.png", iconhex: ""),
-
+    DashBoardModel(namebutton: "Generate Qr", icon: "qr.png", iconhex: ""),
     DashBoardModel(
         namebutton: "Create Address", icon: "AddressPicker.png", iconhex: ""),
-
     DashBoardModel(namebutton: "Add Alarm", icon: "AddAlarm.png", iconhex: ""),
-
-
     DashBoardModel(
         namebutton: "Add Petroleum", icon: "shield.png", iconhex: ""),
-
+    DashBoardModel(namebutton: "Add Lock", icon: "lock.png", iconhex: ""),
+    DashBoardModel(namebutton: "Add UnLock", icon: "unlock.png", iconhex: ""),
     DashBoardModel(
-        namebutton: "Add Lock", icon: "lock.png", iconhex: ""),
-
-    DashBoardModel(
-        namebutton: "Add UnLock", icon: "unlock.png", iconhex: ""),
-
-    DashBoardModel(
-        namebutton: "Add Property inspection", icon: "building.png", iconhex: ""),
-
+        namebutton: "Add Property inspection",
+        icon: "building.png",
+        iconhex: ""),
     DashBoardModel(
         namebutton: "Alarm Reports", icon: "ReportsHistory.png", iconhex: ""),
-
-
     DashBoardModel(
         namebutton: "Lock Reports", icon: "lockreport.png", iconhex: ""),
-
     DashBoardModel(
         namebutton: "UnLock Reports", icon: "unlockreport.png", iconhex: ""),
-
     DashBoardModel(
         namebutton: "Patrol Reports", icon: "patrolreport.png", iconhex: ""),
-
     DashBoardModel(
-        namebutton: "Inspection Reports", icon: "inspectionreport.png", iconhex: ""),
+        namebutton: "Inspection Reports",
+        icon: "inspectionreport.png",
+        iconhex: ""),
+    DashBoardModel(
+        namebutton: "Generate QR for Patroleum",
+        icon: "qr.png",
+        iconhex: ""),
   ];
 
   @override
@@ -70,7 +62,8 @@ class DashBoardButtonsContent extends StatelessWidget {
                                   context, Router.WEBHomeScreenRoute);
                               break;
                             case 1:
-                              // do something else
+                              Navigator.pushNamed(
+                                  context, Router.CreateQr);
                               break;
                             case 2:
                               Navigator.pushNamed(
@@ -89,15 +82,15 @@ class DashBoardButtonsContent extends StatelessWidget {
                                   context, Router.AddLockPageRoute);
                               break;
 
-                              case 6:
+                            case 6:
                               Navigator.pushNamed(
                                   context, Router.AddUnLockPageRoute);
 
                               // do something else
                               break;
                             case 7:
-                              Navigator.pushNamed(
-                                  context, Router.AddPropertyInspectionPageRoute);
+                              Navigator.pushNamed(context,
+                                  Router.AddPropertyInspectionPageRoute);
 
                               // do something else
                               break;
@@ -109,14 +102,14 @@ class DashBoardButtonsContent extends StatelessWidget {
                               // do something else
                               break;
 
-                              case 9:
+                            case 9:
                               Navigator.pushNamed(
                                   context, Router.ReportLockPageRoute);
 
                               // do something else
                               break;
 
-                              case 10:
+                            case 10:
                               Navigator.pushNamed(
                                   context, Router.ReportUnLockPageRoute);
 
@@ -129,13 +122,19 @@ class DashBoardButtonsContent extends StatelessWidget {
 
                               break;
 
-                              case 12:
+                            case 12:
                               Navigator.pushNamed(
                                   context, Router.ReportsPropertyPage);
 
-                              // do something else
+
                               break;
 
+                              case 13:
+                              Navigator.pushNamed(
+                                  context, Router.QrReportsForPatroleum);
+
+                              // do something else
+                              break;
                           }
                         },
                         child: Card(

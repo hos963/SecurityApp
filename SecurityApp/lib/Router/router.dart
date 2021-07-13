@@ -2,11 +2,13 @@ import 'package:Metropolitane/MobileApp/MobileapQuestions/FillSurvayQuestions/Fi
 import 'package:Metropolitane/MobileApp/MobileapQuestions/LockSurveyQuestion/LockQuestionsSurvey.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/PatrolSurveyQuestion/PatrolQuestionSurvey.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/PropertyInspectionQuestions/PropertyInspectionQuestions.dart';
+import 'package:Metropolitane/MobileApp/MobileapQuestions/Screens/GoogleMap.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/Screens/QuizDashboard.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/Screens/QuizHomeDashboard.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/Screens/QuizNewList.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/Screens/QuizSearch.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/UnLockSurveyQuestion/UnLockQuestionsSurvey.dart';
+import 'package:Metropolitane/WebArea/CreateQr/CreateQR.dart';
 import 'package:Metropolitane/WebArea/Createaddress/CreateAddress.dart';
 import 'package:Metropolitane/WebArea/MainDashBoardWeb/MainDashBoardWeb.dart';
 import 'package:Metropolitane/WebArea/MainWeb/AddAlarm/AddAlarmPage.dart';
@@ -15,6 +17,7 @@ import 'package:Metropolitane/WebArea/MainWeb/AddLock/AddLockPage.dart';
 import 'package:Metropolitane/WebArea/MainWeb/AddPatrol/AddPatrolPage.dart';
 import 'package:Metropolitane/WebArea/MainWeb/AddPropertyInspection/AddPropertyInspectionPage.dart';
 import 'package:Metropolitane/WebArea/MainWeb/AddUnLock/AddUnLockPage.dart';
+import 'package:Metropolitane/WebArea/MainWeb/GenerateQRPatrolReport/GeneratePatrolReport/ReportPage.dart';
 import 'package:Metropolitane/WebArea/MainWeb/LockReport/ReportPage.dart';
 import 'package:Metropolitane/WebArea/MainWeb/PropertyReport/PropertyReportDetailPage.dart';
 import 'package:Metropolitane/WebArea/MainWeb/PropertyReport/ReportPage.dart';
@@ -47,6 +50,7 @@ import 'package:Metropolitane/WebArea/MainWeb/pages/main_page.dart';
 import 'package:Metropolitane/model/FirebaseUserData.dart';
 
 const String HomeScreenRoute = 'homescreen';
+
 const String LoginPageRoute = 'LoginPageroute';
 
 const String signupPageRoute = 'SignupScreen';
@@ -64,6 +68,8 @@ const String MainDashBoardWebRoute = 'MainDashBoardWeb';
 const String AddingDevideIdtoUserRoute = 'AddingDevideIdtoUser';
 
 const String CreateAddressRoute = 'CreateAddressroute';
+
+const String CreateQr = 'CreateQr';
 
 const String AddAlarmPageRoute = 'AddAlarmPageroute';
 
@@ -86,6 +92,7 @@ const String ReportsPatreolPage = 'addReportPatreolPage';
 const String PatrolReportsdetailPage = 'addPatrolReportdetailPage';
 
 const String ReportsPropertyPage = 'ReportsPropertyPage';
+const String QrReportsForPatroleum = 'QrReportsForPatroleum';
 const String PropertyReportsdetailPage = 'PropertyReportsdetailPage';
 
 const String ReportAlarmPageRoute = 'addReportRoutePage';
@@ -140,6 +147,13 @@ Route<dynamic> generateRoute(RouteSettings settings) {
 
     case CreateAddressRoute:
       return MaterialPageRoute(builder: (context) => CreateAddress());
+
+      case maplocationPageroute:
+      return MaterialPageRoute(builder: (context) => GoogleMaps());
+
+      case CreateQr:
+      return MaterialPageRoute(builder: (context) => Createqr());
+
     case AddAlarmPageRoute:
       return MaterialPageRoute(builder: (context) => AddAlarmPage());
 
@@ -184,6 +198,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
 
       case ReportsPropertyPage:
       return MaterialPageRoute(builder: (context) => ReportPropertyPage());
+
+
+      case QrReportsForPatroleum:
+      return MaterialPageRoute(builder: (context) => ReportPatreolPageQR());
 
       case PropertyReportsdetailPage:
         PropertyInspectionQuestionareModel questionareModel = settings.arguments;
