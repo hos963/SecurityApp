@@ -8,7 +8,7 @@ class AddPropertyInspectionModel {
   String inspectionId;
   String inspectionTitle;
   String inspectionDesc;
-  String inspectionLocation;
+  String latlong;
   String type;
   bool isactive;
   int state = 1;
@@ -20,7 +20,7 @@ class AddPropertyInspectionModel {
       {this.inspectionId,
       this.inspectionTitle,
       this.inspectionDesc,
-      this.inspectionLocation,
+      this.latlong,
       this.type,
       this.isactive,
       this.questionareModel,
@@ -33,7 +33,7 @@ class AddPropertyInspectionModel {
         inspectionId: parsedJson['inspectionId'],
         inspectionTitle: parsedJson['inspectionTitle'],
         inspectionDesc: parsedJson['inspectionDesc'],
-        inspectionLocation: parsedJson['inspectionLocation'],
+        latlong: parsedJson['latlong'],
         type: parsedJson['type'],
         questionareModel: parsedJson.containsKey("QuestionareModel")
             ? PropertyInspectionQuestionareModel.fromJson(
@@ -48,7 +48,7 @@ class AddPropertyInspectionModel {
       inspectionId: doc.data()['inspectionId'],
       inspectionTitle: doc.data()['inspectionTitle'],
       inspectionDesc: doc.data()['inspectionDesc'],
-      inspectionLocation: doc.data()['inspectionLocation'],
+      latlong: doc.data()['latlong'],
       type: doc.data()['type'],
       state: doc.data()['state'],
       questionareModel: doc.data().containsKey("QuestionareModel")
@@ -70,7 +70,7 @@ class AddPropertyInspectionModel {
     map['inspectionId'] = this.inspectionId;
     map['inspectionTitle'] = this.inspectionTitle;
     map['inspectionDesc'] = this.inspectionDesc;
-    map['inspectionLocation'] = this.inspectionLocation;
+    map['latlong'] = this.latlong;
     map['type'] = this.type;
     map['isactive'] = true;
     map['firebaseUserData'] =

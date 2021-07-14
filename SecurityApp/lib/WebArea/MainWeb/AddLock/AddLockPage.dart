@@ -20,7 +20,7 @@ class AddLockPage extends StatefulWidget {
 }
 
 class _AddLockPageState extends State<AddLockPage> {
-  String addressselected;
+  String latlong;
   AddLockBloc addLockBloc;
 
   final TextEditingController _TittleController = TextEditingController();
@@ -228,11 +228,37 @@ class _AddLockPageState extends State<AddLockPage> {
                             SizedBox(
                               width: 40.0,
                             ),
-                            Container(
+                            /*Container(
                               height: 200,
                               width: MediaQuery.of(context).size.width / 3.7,
                               color: Colors.blue[50],
                               child: ListOfAddresses(this.SelectedAdressfunc),
+                            ),*/
+                            OutlineButton(
+                              padding:
+                              EdgeInsets.fromLTRB(100, 15, 100, 15),
+                              borderSide: BorderSide(
+                                color: CustomColors.orangecolor,
+                              ),
+                              onPressed: () {
+
+                                Navigator.pushNamed(context,
+                                    Router.maplocationPageroute)
+                                    .then((value) {
+                                  setState(() {
+                                    latlong = value;
+                                    print("YYYEEESSSS");
+                                    print(latlong);
+                                  });
+                                });
+
+                              },
+                              child: Text(
+                                'Select location',
+                                style: TextStyle(
+                                    color: CustomColors.orangecolor,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ]),
 
@@ -245,9 +271,9 @@ class _AddLockPageState extends State<AddLockPage> {
                                   textAlign: TextAlign.left,
                                 ),
                                 Text(
-                                  addressselected == null
+                                  latlong == null
                                       ? " ----"
-                                      : "  " + addressselected,
+                                      : "  " + latlong,
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                       color: CustomColors.orangecolor,
@@ -315,8 +341,8 @@ class _AddLockPageState extends State<AddLockPage> {
     String detail = _detailController.text;
 
     if (firebaseUserData != null &&
-        addressselected != null &&
-        addressselected.isNotEmpty &&
+        latlong != null &&
+        latlong.isNotEmpty &&
         title != null &&
         title.isNotEmpty &&
         detail != null &&
@@ -324,7 +350,7 @@ class _AddLockPageState extends State<AddLockPage> {
       AddLockModel addLockModel = new AddLockModel(
           lockTitle: title,
           lockDesc: detail,
-          lockLocation: addressselected,
+          latlong: latlong,
           type: "Lock",
           firebaseUserData: firebaseUserData,
           isactive: true,
@@ -366,15 +392,15 @@ class _AddLockPageState extends State<AddLockPage> {
     );
   }
 
-  Function SelectedAdressfunc(String address) {
+ /* Function SelectedAdressfunc(String address) {
     print(address);
     setState(() {
       addressselected = address;
     });
   }
-}
+}*/
 
-class ListOfAddresses extends StatelessWidget {
+/*class ListOfAddresses extends StatelessWidget {
   FirebaseFirestore fireStoreDataBase = FirebaseFirestore.instance;
   Function SelectedAdress;
 
@@ -409,5 +435,5 @@ class ListOfAddresses extends StatelessWidget {
         );
       },
     );
-  }
+  }*/
 }

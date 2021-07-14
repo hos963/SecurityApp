@@ -5,7 +5,7 @@ import 'dart:async' show Future;
 enum PrefKey { UserToken, UsernamePassword ,UserPic,UserCompleteData,Useremailbio,Userpassbio }
 
 class PreferenceUtils {
-  static SharedPreferences _prefsInstance ;
+  static SharedPreferences _prefsInstance  ;
 
   static Future<SharedPreferences> get _instance async =>
       _prefsInstance ??= await SharedPreferences.getInstance();

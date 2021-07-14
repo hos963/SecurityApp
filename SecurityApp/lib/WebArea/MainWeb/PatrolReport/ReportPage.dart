@@ -188,7 +188,7 @@ class _ReportPatreolPageState extends State<ReportPatreolPage> {
                       title: item.patrolTitle,
                       subtitle: item.patrolDesc,
                       isselected: isselected,
-                      locationnname: item.patrolLocation,
+                      locationnname: item.latlong,
                       patrolId: item.patrolId,
                       questionareModel: item.questionareModel,
                       state: item.state,
@@ -361,7 +361,7 @@ class _MyCardViewWidgetState extends State<MyCardViewWidget> {
                               : CustomColors.orangecolor),
                     ),
                     Text(
-                      widget.locationnname,
+                        widget.locationnname!=null?widget.locationnname:"",
                       style: TextStyle(
                           fontSize: 20,
                           color: widget.state == 3

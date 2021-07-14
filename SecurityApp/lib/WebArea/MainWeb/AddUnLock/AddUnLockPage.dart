@@ -18,7 +18,7 @@ class AddUnLockPage extends StatefulWidget {
 }
 
 class _AddUnLockPageState extends State<AddUnLockPage> {
-  String addressselected;
+  String latlong;
   AddUnLockBloc addUnLockBloc;
 
   final TextEditingController _TittleController = TextEditingController();
@@ -226,12 +226,39 @@ class _AddUnLockPageState extends State<AddUnLockPage> {
                             SizedBox(
                               width: 40.0,
                             ),
-                            Container(
+                           /* Container(
                               height: 200,
                               width: MediaQuery.of(context).size.width / 3.7,
                               color: Colors.blue[50],
                               child: ListOfAddresses(this.SelectedAdressfunc),
+                            ),*/
+                            OutlineButton(
+                              padding:
+                              EdgeInsets.fromLTRB(100, 15, 100, 15),
+                              borderSide: BorderSide(
+                                color: CustomColors.orangecolor,
+                              ),
+                              onPressed: () {
+
+                                Navigator.pushNamed(context,
+                                    Router.maplocationPageroute)
+                                    .then((value) {
+                                  setState(() {
+                                    latlong = value;
+                                    print("YYYEEESSSS");
+                                    print(latlong);
+                                  });
+                                });
+
+                              },
+                              child: Text(
+                                'Select location',
+                                style: TextStyle(
+                                    color: CustomColors.orangecolor,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
+
                           ]),
 
                           Padding(
@@ -243,9 +270,9 @@ class _AddUnLockPageState extends State<AddUnLockPage> {
                                   textAlign: TextAlign.left,
                                 ),
                                 Text(
-                                  addressselected == null
+                                  latlong == null
                                       ? " ----"
-                                      : "  " + addressselected,
+                                      : "  " + latlong,
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                       color: CustomColors.orangecolor,
@@ -313,8 +340,8 @@ class _AddUnLockPageState extends State<AddUnLockPage> {
     String detail = _detailController.text;
 
     if (firebaseUserData != null &&
-        addressselected != null &&
-        addressselected.isNotEmpty &&
+        latlong != null &&
+        latlong.isNotEmpty &&
         title != null &&
         title.isNotEmpty &&
         detail != null &&
@@ -323,7 +350,7 @@ class _AddUnLockPageState extends State<AddUnLockPage> {
           unlockTitle: title,
           unlockDesc: detail,
           futuretask: selectdate,
-          unlockLocation: addressselected,
+          latlong: latlong,
           type: "UnLock",
           firebaseUserData: firebaseUserData,
           isactive: true);
@@ -364,7 +391,7 @@ class _AddUnLockPageState extends State<AddUnLockPage> {
     );
   }
 
-  Function SelectedAdressfunc(String address) {
+/*  Function SelectedAdressfunc(String address) {
     print(address);
     setState(() {
       addressselected = address;
@@ -407,5 +434,5 @@ class ListOfAddresses extends StatelessWidget {
         );
       },
     );
-  }
+  }*/
 }

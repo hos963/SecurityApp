@@ -191,7 +191,7 @@ class _ReportUnLockPageState extends State<ReportUnLockPage> {
                       title: item.unlockTitle,
                       subtitle: item.unlockDesc,
                       isselected: isselected,
-                      locationnname: item.unlockLocation,
+                      locationnname: item.latlong,
                       unlockId: item.unlockId,
                       questionareModel: item.questionareModel,
                       state: item.state,
@@ -364,7 +364,7 @@ class _MyCardViewWidgetState extends State<MyCardViewWidget> {
                               : CustomColors.orangecolor),
                     ),
                     Text(
-                      widget.locationnname,
+                      widget.locationnname!=null?widget.locationnname:"",
                       style: TextStyle(
                           fontSize: 20,
                           color: widget.state == 3

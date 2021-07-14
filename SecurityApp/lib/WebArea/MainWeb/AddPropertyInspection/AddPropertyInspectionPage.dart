@@ -20,7 +20,7 @@ class AddPropertyInspectionPage extends StatefulWidget {
 }
 
 class _AddPropertyInspectionPageState extends State<AddPropertyInspectionPage> {
-  String addressselected;
+  String latlong;
   AddPropertyInspectionBloc addPropertyInspectionBloc;
 
   final TextEditingController _TittleController = TextEditingController();
@@ -232,11 +232,37 @@ class _AddPropertyInspectionPageState extends State<AddPropertyInspectionPage> {
                             SizedBox(
                               width: 40.0,
                             ),
-                            Container(
+                           /* Container(
                               height: 200,
                               width: MediaQuery.of(context).size.width / 3.7,
                               color: Colors.blue[50],
                               child: ListOfAddresses(this.SelectedAdressfunc),
+                            ),*/
+                            OutlineButton(
+                              padding:
+                              EdgeInsets.fromLTRB(100, 15, 100, 15),
+                              borderSide: BorderSide(
+                                color: CustomColors.orangecolor,
+                              ),
+                              onPressed: () {
+
+                                Navigator.pushNamed(context,
+                                    Router.maplocationPageroute)
+                                    .then((value) {
+                                  setState(() {
+                                    latlong = value;
+                                    print("YYYEEESSSS");
+                                    print(latlong);
+                                  });
+                                });
+
+                              },
+                              child: Text(
+                                'Select location',
+                                style: TextStyle(
+                                    color: CustomColors.orangecolor,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ]),
 
@@ -249,9 +275,9 @@ class _AddPropertyInspectionPageState extends State<AddPropertyInspectionPage> {
                                   textAlign: TextAlign.left,
                                 ),
                                 Text(
-                                  addressselected == null
+                                  latlong == null
                                       ? " ----"
-                                      : "  " + addressselected,
+                                      : "  " + latlong,
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                       color: CustomColors.orangecolor,
@@ -319,8 +345,8 @@ class _AddPropertyInspectionPageState extends State<AddPropertyInspectionPage> {
     String detail = _detailController.text;
 
     if (firebaseUserData != null &&
-        addressselected != null &&
-        addressselected.isNotEmpty &&
+        latlong != null &&
+        latlong.isNotEmpty &&
         title != null &&
         title.isNotEmpty &&
         detail != null &&
@@ -329,7 +355,7 @@ class _AddPropertyInspectionPageState extends State<AddPropertyInspectionPage> {
           new AddPropertyInspectionModel(
               inspectionTitle: title,
               inspectionDesc: detail,
-              inspectionLocation: addressselected,
+            latlong: latlong,
               type: "PropertyInspection",
               firebaseUserData: firebaseUserData,
               isactive: true,
@@ -374,7 +400,7 @@ class _AddPropertyInspectionPageState extends State<AddPropertyInspectionPage> {
     );
   }
 
-  Function SelectedAdressfunc(String address) {
+ /* Function SelectedAdressfunc(String address) {
     print(address);
     setState(() {
       addressselected = address;
@@ -417,5 +443,5 @@ class ListOfAddresses extends StatelessWidget {
         );
       },
     );
-  }
+  }*/
 }

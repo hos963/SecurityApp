@@ -8,7 +8,7 @@ class AddPatrolModel {
   String patrolId;
   String patrolTitle;
   String patrolDesc;
-  String patrolLocation;
+  String latlong;
   String type;
   bool isactive;
   int state = 1;
@@ -23,7 +23,7 @@ class AddPatrolModel {
       {this.patrolId,
       this.patrolTitle,
       this.patrolDesc,
-      this.patrolLocation,
+      this.latlong,
       this.type,
       this.isactive,
       this.questionareModel,
@@ -38,7 +38,7 @@ class AddPatrolModel {
       patrolId: parsedJson['patrolId'],
       patrolTitle: parsedJson['patrolTitle'],
       patrolDesc: parsedJson['patrolDesc'],
-      patrolLocation: parsedJson['patrolLocation'],
+      latlong: parsedJson['latlong'],
       type: parsedJson['type'],
       questionareModel: parsedJson.containsKey("QuestionareModel")
           ? PatrolQuestionareModel.fromJson(parsedJson['QuestionareModel'])
@@ -55,7 +55,7 @@ class AddPatrolModel {
       patrolId: doc.data()['patrolId'],
       patrolTitle: doc.data()['patrolTitle'],
       patrolDesc: doc.data()['patrolDesc'],
-      patrolLocation: doc.data()['patrolLocation'],
+      latlong: doc.data()['latlong'],
       type: doc.data()['type'],
       state: doc.data()['state'],
       questionareModel: doc.data().containsKey("QuestionareModel")
@@ -77,7 +77,7 @@ class AddPatrolModel {
     map['patrolId'] = this.patrolId;
     map['patrolTitle'] = this.patrolTitle;
     map['patrolDesc'] = this.patrolDesc;
-    map['patrolLocation'] = this.patrolLocation;
+    map['latlong'] = this.latlong;
     map['type'] = this.type;
     map['isactive'] = true;
     map['firebaseUserData'] =

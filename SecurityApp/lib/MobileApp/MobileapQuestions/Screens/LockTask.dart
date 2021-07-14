@@ -25,6 +25,7 @@ import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizStrings.dart
 import 'package:Metropolitane/MobileApp/MobileapQuestions/utils/QuizWidget.dart';
 import 'package:Metropolitane/Router/router.dart' as Router;
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LockTask extends StatefulWidget {
   static String tag = '/QuizHome';
@@ -170,7 +171,7 @@ class _QuizLockState extends State<LockTask> {
                           ),
                           SizedBox(
                             //height: MediaQuery.of(context).size.width * 0.8,
-                            height: 300,
+                            height: 350,
                             child: GettingListFinallyy(snapshot.data.udid),
                           ).paddingOnly(bottom: 16),
                         ],
@@ -343,7 +344,7 @@ class AlarmCard extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                    model.lockLocation,
+                    model.latlong,
                     maxLines: 3,
                     style: TextStyle(
                         fontSize: 16,
@@ -404,24 +405,62 @@ class AlarmCard extends StatelessWidget {
               alignment: FractionalOffset.bottomCenter,
               child: Padding(
                   padding: EdgeInsets.only(bottom: 10.0),
-                  child: TextButton(
-                    onPressed: () {
-                      AddingdataToStartquestionare(model, context);
-                     // Navigator.push(context,  MaterialPageRoute(builder: (context) => LockQuestionSurvey()));
-                     // Navigator.push(context,  MaterialPageRoute(builder: (context) => OnWayScreen()));
-                    },
-                    child: Text(
-                      'Select Task',
-                    ),
-                    style: TextButton.styleFrom(
-                        primary: Colors.white,
-                        backgroundColor: quiz_colorPrimary,
-                        padding: EdgeInsets.all(16),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            side: BorderSide(color: quiz_colorPrimary)),
-                        textStyle: TextStyle(
-                            fontSize: 20, fontStyle: FontStyle.normal)),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 20,
+                      ),
+                      TextButton(
+                        onPressed: () async {
+                          AddingdataToStartquestionare(model, context);
+
+                        },
+                        child: Text(
+                          'Select Task',
+                        ),
+                        style: TextButton.styleFrom(
+                            primary: Colors.white,
+                            backgroundColor: quiz_colorPrimary,
+                            padding: EdgeInsets.all(16),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                side: BorderSide(color: quiz_colorPrimary)),
+                            textStyle: TextStyle(
+                                fontSize: 20, fontStyle: FontStyle.normal)),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+
+                      TextButton(
+                        onPressed: () async {
+                          /*AddingdataToStartquestionare(model, context);*/
+
+                          String location = model.latlong.toString();
+
+                          String label = "Shanghai Tower",
+                              query = '$location($label)';
+                          final uri = Uri(scheme: 'geo', host: '0,0', queryParameters: {'q': query});
+
+                          await launch(uri.toString());
+                        },
+                        child: Text(
+                          'View track',
+                        ),
+                        style: TextButton.styleFrom(
+                            primary: Colors.white,
+                            backgroundColor: quiz_colorPrimary,
+                            padding: EdgeInsets.all(16),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                side: BorderSide(color: quiz_colorPrimary)),
+                            textStyle: TextStyle(
+                                fontSize: 20, fontStyle: FontStyle.normal)),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                    ],
                   )),
             ),
           ),

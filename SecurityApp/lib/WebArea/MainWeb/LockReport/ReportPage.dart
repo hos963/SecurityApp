@@ -191,7 +191,7 @@ class _ReportLockPageState extends State<ReportLockPage> {
                       title: item.lockTitle,
                       subtitle: item.lockDesc,
                       isselected: isselected,
-                      locationnname: item.lockDesc,
+                      locationnname: item.latlong,
                       questionareModel: item.questionareModel,
                       state: item.state,
                       lockId: item.lockId,
@@ -364,7 +364,7 @@ class _MyCardViewWidgetState extends State<MyCardViewWidget> {
                               : CustomColors.orangecolor),
                     ),
                     Text(
-                      widget.locationnname,
+                      widget.locationnname!=null?widget.locationnname:"",
                       style: TextStyle(
                           fontSize: 20,
                           color: widget.state == 3

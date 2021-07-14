@@ -3,6 +3,7 @@ import 'package:Metropolitane/MobileApp/MobileapQuestions/LockSurveyQuestion/Loc
 import 'package:Metropolitane/MobileApp/MobileapQuestions/PatrolSurveyQuestion/PatrolQuestionSurvey.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/PropertyInspectionQuestions/PropertyInspectionQuestions.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/Screens/GoogleMap.dart';
+import 'package:Metropolitane/MobileApp/MobileapQuestions/Screens/Maps.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/Screens/QuizDashboard.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/Screens/QuizHomeDashboard.dart';
 import 'package:Metropolitane/MobileApp/MobileapQuestions/Screens/QuizNewList.dart';
@@ -149,7 +150,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => CreateAddress());
 
       case maplocationPageroute:
-      return MaterialPageRoute(builder: (context) => GoogleMaps());
+      return MaterialPageRoute(builder: (context) => Maps());
 
       case CreateQr:
       return MaterialPageRoute(builder: (context) => Createqr());

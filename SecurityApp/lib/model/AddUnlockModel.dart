@@ -7,7 +7,7 @@ class AddUnlockModel {
   String unlockId;
   String unlockTitle;
   String unlockDesc;
-  String unlockLocation;
+  String latlong;
   String type;
   bool isactive;
   int state = 1;
@@ -19,7 +19,7 @@ class AddUnlockModel {
       {this.unlockId,
       this.unlockTitle,
       this.unlockDesc,
-      this.unlockLocation,
+      this.latlong,
       this.type,
       this.isactive,
       this.questionareModel,
@@ -32,7 +32,7 @@ class AddUnlockModel {
       unlockId: parsedJson['unlockId'],
       unlockTitle: parsedJson['unlockTitle'],
       unlockDesc: parsedJson['unlockDesc'],
-      unlockLocation: parsedJson['unlockLocation'],
+      latlong: parsedJson['latlong'],
       type: parsedJson['type'],
       questionareModel: parsedJson.containsKey("QuestionareModel")
           ? UnLockQuestionareModel.fromJson(parsedJson['QuestionareModel'])
@@ -47,7 +47,7 @@ class AddUnlockModel {
       unlockId: doc.data()['unlockId'],
       unlockTitle: doc.data()['unlockTitle'],
       unlockDesc: doc.data()['unlockDesc'],
-      unlockLocation: doc.data()['unlockLocation'],
+      latlong: doc.data()['latlong'],
       type: doc.data()['type'],
       state: doc.data()['state'],
       questionareModel: doc.data().containsKey("QuestionareModel")
@@ -67,7 +67,7 @@ class AddUnlockModel {
     map['unlockId'] = this.unlockId;
     map['unlockTitle'] = this.unlockTitle;
     map['unlockDesc'] = this.unlockDesc;
-    map['unlockLocation'] = this.unlockLocation;
+    map['latlong'] = this.latlong;
     map['type'] = this.type;
     map['isactive'] = true;
     map['firebaseUserData'] =

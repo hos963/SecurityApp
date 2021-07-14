@@ -168,7 +168,7 @@ class _ReportPatreolPageState extends State<ReportPatreolPageQR> {
                       long: item.Long,
                       subtitle: item.patrolDesc,
                       isselected: isselected,
-                      locationnname: item.patrolLocation,
+                      locationnname: item.latlong,
                       patrolId: item.patrolId,
                       questionareModel: item.questionareModel,
                       state: item.state,

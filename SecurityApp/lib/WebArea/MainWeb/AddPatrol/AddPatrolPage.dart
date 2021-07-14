@@ -18,9 +18,7 @@ class AddPatrolPage extends StatefulWidget {
 }
 
 class _AddPatrolPageState extends State<AddPatrolPage> {
-  String addressselected;
-  String addressLatitude;
-  String addressLongitute;
+  String latlong;
   AddPatrolBloc addPatrolBloc;
 
   final TextEditingController _TittleController = TextEditingController();
@@ -230,11 +228,37 @@ class _AddPatrolPageState extends State<AddPatrolPage> {
                             SizedBox(
                               width: 40.0,
                             ),
-                            Container(
+                           /* Container(
                               height: 200,
                               width: MediaQuery.of(context).size.width / 3.7,
                               color: Colors.blue[50],
                               child: ListOfAddresses(this.SelectedAdressfunc,this.SelectedAdressLat,this.SelectedAdressLong),
+                            ),*/
+                            OutlineButton(
+                              padding:
+                              EdgeInsets.fromLTRB(100, 15, 100, 15),
+                              borderSide: BorderSide(
+                                color: CustomColors.orangecolor,
+                              ),
+                              onPressed: () {
+
+                                Navigator.pushNamed(context,
+                                    Router.maplocationPageroute)
+                                    .then((value) {
+                                  setState(() {
+                                    latlong = value;
+                                    print("YYYEEESSSS");
+                                    print(latlong);
+                                  });
+                                });
+
+                              },
+                              child: Text(
+                                'Select location',
+                                style: TextStyle(
+                                    color: CustomColors.orangecolor,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ]),
 
@@ -247,9 +271,9 @@ class _AddPatrolPageState extends State<AddPatrolPage> {
                                   textAlign: TextAlign.left,
                                 ),
                                 Text(
-                                  addressselected == null
+                                  latlong == null
                                       ? " ----"
-                                      : "  " + addressselected,
+                                      : "  " + latlong,
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                       color: CustomColors.orangecolor,
@@ -317,8 +341,8 @@ class _AddPatrolPageState extends State<AddPatrolPage> {
     String detail = _detailController.text;
 
     if (firebaseUserData != null &&
-        addressselected != null &&
-        addressselected.isNotEmpty &&
+        latlong != null &&
+        latlong.isNotEmpty &&
         title != null &&
         title.isNotEmpty &&
         detail != null &&
@@ -327,10 +351,8 @@ class _AddPatrolPageState extends State<AddPatrolPage> {
           patrolTitle: title,
           patrolDesc: detail,
           futuretask: selectdate,
-          patrolLocation: addressselected,
+          latlong: latlong,
           type: "Patrol",
-          Lat: addressLatitude,
-          Long: addressLongitute,
           firebaseUserData: firebaseUserData,
           isactive: true);
 
@@ -370,14 +392,14 @@ class _AddPatrolPageState extends State<AddPatrolPage> {
     );
   }
 
-  Function SelectedAdressfunc(String address) {
+/* Function SelectedAdressfunc(String address) {
     print(address);
     setState(() {
       addressselected = address;
     });
-  }
+  }*/
 
-  Function SelectedAdressLat(String Lat) {
+/*Function SelectedAdressLat(String Lat) {
     print(Lat);
     setState(() {
       addressLatitude = Lat;
@@ -390,8 +412,9 @@ class _AddPatrolPageState extends State<AddPatrolPage> {
       addressLongitute = Long;
     });
   }
-}
+}*/
 
+/*
 class ListOfAddresses extends StatelessWidget {
   FirebaseFirestore fireStoreDataBase = FirebaseFirestore.instance;
   Function SelectedAdress;
@@ -432,4 +455,7 @@ class ListOfAddresses extends StatelessWidget {
       },
     );
   }
+
+*/
+
 }

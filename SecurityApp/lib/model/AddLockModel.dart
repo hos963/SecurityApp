@@ -7,7 +7,7 @@ class AddLockModel {
   String lockId;
   String lockTitle;
   String lockDesc;
-  String lockLocation;
+  String latlong;
   String type;
   bool isactive;
   int state = 1;
@@ -19,7 +19,7 @@ class AddLockModel {
       {this.lockId,
       this.lockTitle,
       this.lockDesc,
-      this.lockLocation,
+      this.latlong,
       this.type,
       this.isactive,
       this.questionareModel,
@@ -32,7 +32,7 @@ class AddLockModel {
       lockId: parsedJson['lockId'],
       lockTitle: parsedJson['lockTitle'],
       lockDesc: parsedJson['lockDesc'],
-      lockLocation: parsedJson['lockLocation'],
+      latlong: parsedJson['latlong'],
       type: parsedJson['type'],
       questionareModel: parsedJson.containsKey("QuestionareModel")
           ? LockQuestionareModel.fromJson(parsedJson['QuestionareModel'])
@@ -47,7 +47,7 @@ class AddLockModel {
       lockId: doc.data()['lockId'],
       lockTitle: doc.data()['lockTitle'],
       lockDesc: doc.data()['lockDesc'],
-      lockLocation: doc.data()['lockLocation'],
+      latlong: doc.data()['latlong'],
       type: doc.data()['type'],
       state: doc.data()['state'],
       questionareModel: doc.data().containsKey("QuestionareModel")
@@ -67,7 +67,7 @@ class AddLockModel {
     map['lockId'] = this.lockId;
     map['lockTitle'] = this.lockTitle;
     map['lockDesc'] = this.lockDesc;
-    map['lockLocation'] = this.lockLocation;
+    map['latlong'] = this.latlong;
     map['type'] = this.type;
     map['isactive'] = true;
     map['firebaseUserData'] =

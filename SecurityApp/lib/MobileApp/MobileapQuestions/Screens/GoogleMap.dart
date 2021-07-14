@@ -59,8 +59,10 @@ class GoogleMap extends StatelessWidget {
     );
   }
 }
-*/
+*//*
 
+
+*/
 /*class MapSample extends StatefulWidget {
   @override
   State<MapSample> createState() => MapSampleState();
@@ -104,159 +106,114 @@ class MapSampleState extends State<MapSample> {
   }
 }*/
 
-import 'dart:html';
 
-import 'package:Metropolitane/WebArea/MainWeb/commons/theme.dart';
-import 'package:flutter/material.dart';
-import 'package:geocode/geocode.dart';
-import 'package:google_maps/google_maps.dart' hide Icon;
-import 'dart:ui' as ui;
-
-class GoogleMaps extends StatefulWidget {
-  var myLatlng = new LatLng(30.2669444, -97.7427778);
-
-  @override
-  _GoogleMapsState createState() => _GoogleMapsState();
-}
-
-class _GoogleMapsState extends State<GoogleMaps> {
-  @override
-  Widget build(BuildContext context) {
-    String htmlId = "7";
-
-    // ignore: undefined_prefixed_name
-    ui.platformViewRegistry.registerViewFactory(htmlId, (int viewId) {
-      final mapOptions = new MapOptions()
-        ..zoom = 8
-        ..center = new LatLng(30.2669444, -97.7427778);
-
-      final elem = DivElement()
-        ..id = htmlId
-        ..style.width = "100%"
-        ..style.height = "100%"
-        ..style.border = 'none';
-
-      final map = new GMap(elem, mapOptions);
-
-      final marker = Marker(MarkerOptions()
-        ..position = widget.myLatlng
-        ..map = map
-        ..draggable = true
-        ..title = 'Select Location');
-
-      String contentString = "Selected point";
-
-      var infoWindow =
-      InfoWindow(InfoWindowOptions()..content = contentString);
-
-     marker.onClick.listen((event) => infoWindow.open(map, marker));
-
-      marker.onDragend.listen((event) {
-        widget.myLatlng = event.latLng;
-        print(event.latLng.lat.toString());
-        print(event.latLng.lng.toString());
-        print(widget.myLatlng);
-
-
-
-      });
-
-      return elem;
-    });
-
-
-
-
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 4,
-        centerTitle: true,
-        title: Text(
-          'Select Location',
-          style: TextStyle(color: Colors.white),
-        ),
-        actions: [
-          GestureDetector(
-            onTap: () {
-              Navigator.of(context).pop(widget.myLatlng.toString());
-            },
-            child: Icon(
-              Icons.save,
-              color: Colors.white, // add custom icons also
-            ),
-          ),
-        ],
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: drawerBgColor,
-      ),
-      body: HtmlElementView(viewType: htmlId),
-    );
-  }
-
-
-/*  Future<Address> reverseGeocoding({double latitude, double longitude}){
-
-
-  }*/
-
-
-
-
-
-  /*
-  getMap() {
-    String htmlId = "7";
-
-    // ignore: undefined_prefixed_name
-    ui.platformViewRegistry.registerViewFactory(htmlId, (int viewId) {
-
-
-      final mapOptions = new MapOptions()
-        ..zoom = 8
-        ..center = new LatLng(30.2669444, -97.7427778);
-
-      final elem = DivElement()
-        ..id = htmlId
-        ..style.width = "100%"
-        ..style.height = "100%"
-        ..style.border = 'none';
-
-      final map = new GMap(elem, mapOptions);
-
-      final marker = Marker(MarkerOptions()
-        ..position = this.myLatlng
-        ..map = map
-        ..draggable = true
-        ..title = 'Hello World!');
-
-      String contentString = "Hello $myLatlng";
-
-      final infoWindow = InfoWindow(InfoWindowOptions()..content = contentString);
-
-      marker.onClick.listen((event) => infoWindow.open(map, marker));
-
-      marker.onDrag.listen((event) {
-
-        this.myLatlng = event.latLng;
-        print(event.latLng.lat.toString());
-        print(event.latLng.lng.toString());
-        print(this.myLatlng);
-
-
-      });
-
-      return elem;
-    });
-
-    return HtmlElementView(viewType: htmlId);
-  }*/
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-  }
-}
+//
+// import 'package:Metropolitane/checkplatform.dart'
+// if (dart.library.html) 'package:Metropolitane/checkplatform.dart'
+// as html;
+//
+//
+// import 'package:Metropolitane/WebArea/MainWeb/commons/theme.dart';
+//
+// import 'package:flutter/material.dart';
+//
+// import 'package:google_maps/google_maps.dart' hide Icon;
+//
+// import 'dart:ui' as ui;
+//
+// import '../../../checkplatform.dart';
+//
+// class GoogleMaps extends StatefulWidget {
+//
+//   var myLatlng = new LatLng(30.2669444, -97.7427778);
+//
+//   @override
+//   _GoogleMapsState createState() => _GoogleMapsState();
+// }
+//
+// class _GoogleMapsState extends State<GoogleMaps> {
+//   @override
+//   Widget build(BuildContext context) {
+//     String htmlId = "7";
+//
+//     // ignore: undefined_prefixed_name
+//     ui.platformViewRegistry.registerViewFactory(htmlId, (int viewId) {
+//       final mapOptions = new MapOptions()
+//         ..zoom = 8
+//         ..center = new LatLng(30.2669444, -97.7427778);
+//
+//
+//
+//       final elem = html.DivElement()
+//         ..id = htmlId
+//         ..style.width = "100%"
+//         ..style.height = "100%"
+//         ..style.border = 'none';
+//
+//       final map = new GMap(elem, mapOptions);
+//
+//       final marker = Marker(MarkerOptions()
+//         ..position = widget.myLatlng
+//         ..map = map
+//         ..draggable = true
+//         ..title = 'Select Location');
+//
+//       String contentString = "Selected point";
+//
+//       var infoWindow =
+//       InfoWindow(InfoWindowOptions()..content = contentString);
+//
+//      marker.onClick.listen((event) => infoWindow.open(map, marker));
+//
+//       marker.onDragend.listen((event) {
+//         widget.myLatlng = event.latLng;
+//         print(event.latLng.lat.toString());
+//         print(event.latLng.lng.toString());
+//         print(widget.myLatlng);
+//
+//       });
+//
+//       return elem;
+//
+//     });
+//
+//
+//     return Scaffold(
+//       appBar: AppBar(
+//         elevation: 4,
+//         centerTitle: true,
+//         title: Text(
+//           'Select Location',
+//           style: TextStyle(color: Colors.white),
+//         ),
+//         actions: [
+//           GestureDetector(
+//             onTap: () {
+//               Navigator.of(context).pop(widget.myLatlng.toString());
+//             },
+//             child: Icon(
+//               Icons.save,
+//               color: Colors.white, // add custom icons also
+//             ),
+//           ),
+//         ],
+//         leading: IconButton(
+//           icon: Icon(Icons.arrow_back, color: Colors.white),
+//           onPressed: () => Navigator.of(context).pop(),
+//         ),
+//         backgroundColor: drawerBgColor,
+//       ),
+//       body: HtmlElementView(viewType: htmlId),
+//     );
+//   }
+//
+//
+//
+//
+//   @override
+//   void dispose() {
+//     // TODO: implement dispose
+//     super.dispose();
+//   }
+//
+// }

@@ -357,7 +357,7 @@ class _MyCardViewWidgetState extends State<MyCardViewWidget> {
                               : CustomColors.orangecolor),
                     ),
                     Text(
-                      widget.locationnname,
+                      widget.locationnname!=null?widget.locationnname:"",
                       style: TextStyle(
                           fontSize: 20,
                           color: widget.state == 3

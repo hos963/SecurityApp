@@ -192,7 +192,7 @@ class _ReportPropertyPageState extends State<ReportPropertyPage> {
                       title: item.inspectionTitle,
                       subtitle: item.inspectionDesc,
                       isselected: isselected,
-                      locationnname: item.inspectionLocation,
+                      locationnname: item.latlong,
                       inspectionId: item.inspectionId,
                       questionareModel: item.questionareModel,
                       state: item.state,
@@ -365,7 +365,7 @@ class _MyCardViewWidgetState extends State<MyCardViewWidget> {
                               : CustomColors.orangecolor),
                     ),
                     Text(
-                      widget.locationnname,
+                        widget.locationnname!=null?widget.locationnname:"",
                       style: TextStyle(
                           fontSize: 20,
                           color: widget.state == 3
